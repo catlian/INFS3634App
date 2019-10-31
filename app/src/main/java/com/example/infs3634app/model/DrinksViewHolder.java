@@ -1,6 +1,7 @@
 package com.example.infs3634app.model;
 
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,7 +14,7 @@ public class DrinksViewHolder extends RecyclerView.ViewHolder {
     TextView drinkName;
     TextView category;
     TextView alcoholic;
-
+    ImageView drinkImage;
 
     public DrinksViewHolder(@NonNull View v) {
         super(v);
@@ -21,5 +22,6 @@ public class DrinksViewHolder extends RecyclerView.ViewHolder {
         drinkName = v.findViewById(R.id.drinkName);
         category = v.findViewById(R.id.category);
         alcoholic = v.findViewById(R.id.alcoholic);
+        drinkImage=v.findViewById(R.id.drinkImage);
     }
 }

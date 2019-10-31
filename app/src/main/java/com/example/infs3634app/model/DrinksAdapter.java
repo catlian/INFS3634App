@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.infs3634app.R;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class DrinksAdapter extends RecyclerView.Adapter<DrinksViewHolder> {
         holder.drinkName.setText("test name");
         holder.category.setText("test category");
         holder.alcoholic.setText("test alcoholic");
+        //Glide.with(view.getContext()).load("https://www.thecocktaildb.com//images//media//drink//yfhn371504374246.jpg").into(holder.drinkImage);
     }
 
     @Override
