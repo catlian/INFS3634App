@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,7 +65,32 @@ public class RecipeRecyclerFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+    @Override
+    public void onViewCreated(final View view, Bundle savedInstanceState){
+        RequestQueue requestQueue= Volley.newRequestQueue(getContext());
+        Response.Listener<String> responseListener = new Response.Listener<String>(){
+            @Override
+            public void onResponse(String response){
+                RecyclerView bookRecycle = view.findViewById(R.id.bookRecycle);
+                LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                bookRecycle.setLayoutManager(layoutManager);
+                BookImport bookImport=new Gson().fromJson(response,BookImport.class);
+                BookAdapter bookAdapter=new BookAdapter(bookImport.getResults().getBooks());
+                bookRecycle.setAdapter(bookAdapter);
+            }
+        };
+        Response.ErrorListener errorListener=new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error){
+                System.out.println("Request failed");
+            }
 
+        };
+        String url = "https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=FTV5hCe2C65R1opsHANdlcRI6lQuoO6w";
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,url,responseListener,errorListener);
+        requestQueue.add(stringRequest);
+
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
