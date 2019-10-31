@@ -1,5 +1,6 @@
 package com.example.infs3634app.model;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,6 @@ import com.example.infs3634app.R;
 import java.util.ArrayList;
 
 public class DrinksAdapter extends RecyclerView.Adapter<DrinksViewHolder> {
-
     public ArrayList<Drinks> drinksArrayList;
     public DrinksAdapter(ArrayList<Drinks> drinksArrayList) {
         this.drinksArrayList=drinksArrayList;
@@ -30,10 +30,10 @@ public class DrinksAdapter extends RecyclerView.Adapter<DrinksViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull DrinksViewHolder holder, int position) {
-        holder.drinkName.setText("test name");
-        holder.category.setText("test category");
-        holder.alcoholic.setText("test alcoholic");
-        //Glide.with(view.getContext()).load("https://www.thecocktaildb.com//images//media//drink//yfhn371504374246.jpg").into(holder.drinkImage);
+        holder.drinkName.setText(drinksArrayList.get(position).getStrDrink());
+        holder.category.setText(drinksArrayList.get(position).getStrCategory());
+        holder.alcoholic.setText(drinksArrayList.get(position).getStrAlcoholic());
+        Glide.with(holder.drinkImage.getContext()).load(drinksArrayList.get(position).getStrDrinkThumb()).into(holder.drinkImage);
     }
 
     @Override
