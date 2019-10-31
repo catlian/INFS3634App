@@ -1,21 +1,13 @@
 package com.example.infs3634app.model;
 
-public class DrinksImport {
-    private Drinks[] drinks;
+import java.util.ArrayList;
 
-    public Drinks[] getDrinks ()
+public class DrinksImport {
+    private ArrayList<Drinks> drinks;
+
+    public ArrayList<Drinks> getDrinks ()
     {
         return drinks;
     }
 
-    public void setDrinks (Drinks[] drinks)
-    {
-        this.drinks = drinks;
-    }
-
-    @Override
-    public String toString()
-    {
-        return "ClassPojo [drinks = "+drinks+"]";
-    }
 }

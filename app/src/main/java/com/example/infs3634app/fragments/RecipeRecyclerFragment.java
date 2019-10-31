@@ -12,7 +12,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.infs3634app.R;
+import com.example.infs3634app.model.DrinksAdapter;
+import com.example.infs3634app.model.DrinksImport;
+import com.google.gson.Gson;
 
 
 /**
@@ -71,12 +80,12 @@ public class RecipeRecyclerFragment extends Fragment {
         Response.Listener<String> responseListener = new Response.Listener<String>(){
             @Override
             public void onResponse(String response){
-                RecyclerView bookRecycle = view.findViewById(R.id.bookRecycle);
+                RecyclerView recipeRecycler = view.findViewById(R.id.recipeRecycler);
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-                bookRecycle.setLayoutManager(layoutManager);
-                BookImport bookImport=new Gson().fromJson(response,BookImport.class);
-                BookAdapter bookAdapter=new BookAdapter(bookImport.getResults().getBooks());
-                bookRecycle.setAdapter(bookAdapter);
+                recipeRecycler.setLayoutManager(layoutManager);
+                DrinksImport drinksImport=new Gson().fromJson(response,DrinksImport.class);
+                DrinksAdapter drinksAdapter=new DrinksAdapter(drinksImport.getDrinks());
+                recipeRecycler.setAdapter(drinksAdapter);
             }
         };
         Response.ErrorListener errorListener=new Response.ErrorListener(){
@@ -86,7 +95,7 @@ public class RecipeRecyclerFragment extends Fragment {
             }
 
         };
-        String url = "https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=FTV5hCe2C65R1opsHANdlcRI6lQuoO6w";
+        String url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail";
         StringRequest stringRequest = new StringRequest(Request.Method.GET,url,responseListener,errorListener);
         requestQueue.add(stringRequest);
 
