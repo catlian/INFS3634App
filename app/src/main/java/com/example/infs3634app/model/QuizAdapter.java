@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -35,85 +37,50 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull QuizViewHolder holder, int position) {
-        final Quiz bookAtPosition = booksToAdapt.get(position);
+        final Quiz quizAtPosition = quizzesToAdapt.get(position);
 
         // Contrast how I wrote this method with the method for ArticleAdapter. They both achieve
         // the same goal, but this way is cleaner. I defined my own method "bind" in the BookViewHolder
         // class, and all the assignment and setup is done in there instead.
-        holder.bind(bookAtPosition);
+        holder.bind(quizAtPosition);
     }
 
     @Override
     public int getItemCount() {
-        return booksToAdapt.size();
+        return quizzesToAdapt.size();
     }
 
     public static class QuizViewHolder extends RecyclerView.ViewHolder {
         public View view;
-        public TextView titleTextView;
-        public TextView authorTextView;
-        public TextView rankTextView;
-        public ImageView shareImageView;
-        public ImageView bookmarkImageView;
-        public ImageView coverImageView;
-        public boolean isBookmarked = false;
+        public TextView txtResult;
+        public TextView txtQuestion;
+        public RadioButton option1;
+        public RadioButton option2;
+        public RadioButton option3;
+        public RadioButton option4;
+        public Button btnNext;
+
 
         // This constructor is used in onCreateViewHolder
-        public BookViewHolder(View v) {
+        public QuizViewHolder(View v) {
             super(v);  // runs the constructor for the ViewHolder superclass
             view = v;
-            titleTextView = v.findViewById(R.id.tv_title);
-            authorTextView = v.findViewById(R.id.tv_author);
-            rankTextView = v.findViewById(R.id.tv_rank);
-            shareImageView = v.findViewById(R.id.iv_share);
-            bookmarkImageView = v.findViewById(R.id.iv_save);
-            coverImageView = v.findViewById(R.id.iv_cover);
-
-            bookmarkImageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(isBookmarked) {
-                        bookmarkImageView.setImageResource(R.drawable.ic_bookmark_border_black_24dp);
-                    } else {
-                        bookmarkImageView.setImageResource(R.drawable.ic_bookmark_black_24dp);
-                    }
-                    isBookmarked = !isBookmarked;
-                }
-            });
+            txtResult = v.findViewById(R.id.txtResult);
+            txtQuestion = v.findViewById(R.id.txtQuestion);
+            option1 = v.findViewById(R.id.btnOption1);
+            option2= v.findViewById(R.id.btnOption2);
+            option3 = v.findViewById(R.id.btnOption3);
+            option4 = v.findViewById(R.id.btnOption4);
 
         }
 
         // See comment in onBindViewHolder
-        public void bind(final Book book) {
-            titleTextView.setText(book.getTitle());
-            authorTextView.setText(book.getAuthor());
-            rankTextView.setText("#" + book.getRank());
-
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Context context = view.getContext();
-
-                    Intent intent = new Intent(context, BookDetailActivity.class);
-                    intent.putExtra("isbn", book.getIsbn());
-                    context.startActivity(intent);
-                }
-            });
-
-            shareImageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Context context = view.getContext();
-                    Intent intent = new Intent(Intent.ACTION_SEND);
-
-                    intent.putExtra(Intent.EXTRA_TEXT, book.getTitle());
-                    intent.setType("text/plain");
-                    context.startActivity(intent);
-                }
-            });
-
-            String imageUrl = book.getBookImage();
-            Glide.with(view.getContext()).load(imageUrl).into(coverImageView);
+        public void bind(final Quiz quiz) {
+            txtQuestion.setText("What?");
+            option1.setText("1");
+            option2.setText("2");
+            option3.setText("3");
+            option4.setText("4");
         }
     }
 }

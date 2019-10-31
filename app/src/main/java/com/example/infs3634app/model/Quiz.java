@@ -3,14 +3,18 @@ package com.example.infs3634app.model;
 public class Quiz {
     int id;
     String name;
+    String question;
+
     String answer;
     String option2;
     String option3;
     String option4;
 
-    public Quiz(int id, String name, String answer, String option2, String option3, String option4) {
+
+    public Quiz(int id, String name, String question, String answer, String option2, String option3, String option4) {
         this.id = id;
         this.name = name;
+        this.question = question;
         this.answer = answer;
         this.option2 = option2;
         this.option3 = option3;
@@ -19,6 +23,14 @@ public class Quiz {
 
     public int getId() {
         return id;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
     }
 
     public void setId(int id) {
