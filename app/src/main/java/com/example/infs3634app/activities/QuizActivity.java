@@ -1,4 +1,4 @@
-package com.example.infs3634app;
+package com.example.infs3634app.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import com.example.infs3634app.R;
 
 public class QuizActivity extends AppCompatActivity {
 
