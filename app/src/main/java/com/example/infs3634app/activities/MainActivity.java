@@ -13,9 +13,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.infs3634app.R;
+import com.example.infs3634app.fragments.RecipeDetailFragment;
 import com.example.infs3634app.fragments.RecipeRecyclerFragment;
 
-public class MainActivity extends AppCompatActivity implements RecipeRecyclerFragment.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements RecipeRecyclerFragment.OnFragmentInteractionListener, RecipeDetailFragment.OnFragmentInteractionListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
