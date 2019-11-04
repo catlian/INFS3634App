@@ -1,40 +1,36 @@
 package com.example.infs3634app.model;
 
-public class Quiz {
-    int id;
-    String name;
-    String question;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
-    String answer;
-    String option2;
-    String option3;
-    String option4;
+@Entity(tableName = "questions")
+public class Question {
+    @PrimaryKey
+    private int questionId;
+    private String name;
+    private String answer;
+    private String option2;
+    private String option3;
+    private String option4;
+
+    public Question(){};
 
 
-    public Quiz(int id, String name, String question, String answer, String option2, String option3, String option4) {
-        this.id = id;
+    public Question(int questionId, String name, String answer, String option2, String option3, String option4) {
+        this.questionId = questionId;
         this.name = name;
-        this.question = question;
         this.answer = answer;
         this.option2 = option2;
         this.option3 = option3;
         this.option4 = option4;
     }
 
-    public int getId() {
-        return id;
+    public int getQuestionId() {
+        return questionId;
     }
 
-    public String getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setQuestionId(int questionId) {
+        this.questionId = questionId;
     }
 
     public String getName() {
