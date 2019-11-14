@@ -1,6 +1,7 @@
 package com.example.infs3634app.model;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,7 +29,7 @@ public class DrinksViewHolder extends RecyclerView.ViewHolder {
     TextView ing2;
     TextView amt1;
     TextView amt2;
-    int drinkID;
+    String drinkID;
     public DrinksViewHolder(@NonNull View v) {
         super(v);
         this.view = v;
@@ -46,8 +47,11 @@ public class DrinksViewHolder extends RecyclerView.ViewHolder {
         previewLayout.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("DRINK_ID",drinkID);
                 AppCompatActivity activity = (AppCompatActivity)view.getContext();
                 RecipeDetailFragment recipeDetailFragment = new RecipeDetailFragment();
+                recipeDetailFragment.setArguments(bundle);
                 FragmentManager fragmentManager = activity.getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_slot, recipeDetailFragment);

@@ -4,6 +4,7 @@ public class Drinks {
     private String strDrink;
     private String strIngredient12;
     private String strIngredient11;
+    private String strIngredient10;
     private String strIngredient14;
     private String strCategory;
     private String strAlcoholic;
@@ -46,8 +47,9 @@ public class Drinks {
     private String strMeasure15;
 
 
-    public Drinks(String strDrink, String strIngredient12, String strIngredient11, String strIngredient14, String strCategory, String strAlcoholic, String strIngredient13, String strIngredient15, String strCreativeCommonsConfirmed, String strIBA, String strVideo, String strTags, String strInstructions, String strIngredient1, String strIngredient3, String strIngredient2, String strIngredient5, String strIngredient4, String strIngredient7, String strIngredient6, String strIngredient9, String strIngredient8, String idDrink, String strInstructionsES, String strGlass, String strMeasure12, String strMeasure13, String strMeasure10, String strMeasure11, String dateModified, String strDrinkAlternate, String strDrinkThumb, String strMeasure9, String strMeasure7, String strMeasure8, String strMeasure5, String strMeasure6, String strMeasure3, String strMeasure4, String strMeasure1, String strMeasure2, String strMeasure14, String strMeasure15) {
+    public Drinks(String strDrink, String strIngredient10, String strIngredient12, String strIngredient11, String strIngredient14, String strCategory, String strAlcoholic, String strIngredient13, String strIngredient15, String strCreativeCommonsConfirmed, String strIBA, String strVideo, String strTags, String strInstructions, String strIngredient1, String strIngredient3, String strIngredient2, String strIngredient5, String strIngredient4, String strIngredient7, String strIngredient6, String strIngredient9, String strIngredient8, String idDrink, String strInstructionsES, String strGlass, String strMeasure12, String strMeasure13, String strMeasure10, String strMeasure11, String dateModified, String strDrinkAlternate, String strDrinkThumb, String strMeasure9, String strMeasure7, String strMeasure8, String strMeasure5, String strMeasure6, String strMeasure3, String strMeasure4, String strMeasure1, String strMeasure2, String strMeasure14, String strMeasure15) {
         this.strDrink = strDrink;
+        this.strIngredient10 = strIngredient10;
         this.strIngredient12 = strIngredient12;
         this.strIngredient11 = strIngredient11;
         this.strIngredient14 = strIngredient14;
@@ -98,6 +100,14 @@ public class Drinks {
 
     public void setStrDrink(String strDrink) {
         this.strDrink = strDrink;
+    }
+
+    public String getStrIngredient10() {
+        return strIngredient10;
+    }
+
+    public void setStrIngredient10(String strIngredient10) {
+        this.strIngredient10 = strIngredient10;
     }
 
     public String getStrIngredient12() {

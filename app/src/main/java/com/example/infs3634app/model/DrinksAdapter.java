@@ -30,6 +30,7 @@ public class DrinksAdapter extends RecyclerView.Adapter<DrinksViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull DrinksViewHolder holder, int position) {
+        holder.drinkID=drinksArrayList.get(position).getIdDrink();
         holder.drinkName.setText(drinksArrayList.get(position).getStrDrink());
         holder.category.setText(drinksArrayList.get(position).getStrCategory());
         holder.alcoholic.setText(drinksArrayList.get(position).getStrAlcoholic());
