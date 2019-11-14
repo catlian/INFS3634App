@@ -2,6 +2,7 @@ package com.example.infs3634app.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -21,6 +22,8 @@ public class QuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+
+        //Intent intent = getIntent();
 
         txtResult = findViewById(R.id.txtResult);
         radioGroup = findViewById(R.id.radioGroup);

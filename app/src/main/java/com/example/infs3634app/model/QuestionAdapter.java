@@ -1,12 +1,10 @@
+
 package com.example.infs3634app.model;
 
-import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -17,40 +15,40 @@ import com.example.infs3634app.R;
 
 import java.util.ArrayList;
 
-public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder> {
-    private ArrayList<Quiz> quizzesToAdapt;
+public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.QuestionViewHolder> {
+    private ArrayList<Question> questionsToAdapt;
 
-    public void setData(ArrayList<Quiz> quizzesToAdapt) {
-        this.quizzesToAdapt = quizzesToAdapt;
+    public void setData(ArrayList<Question> questionsToAdapt) {
+        this.questionsToAdapt = questionsToAdapt;
     }
 
     @NonNull
     @Override
-    public QuizViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public QuestionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view =
                 LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.activity_quiz, parent, false);
 
-        QuizViewHolder quizViewHolder = new QuizViewHolder(view);
-        return quizViewHolder;
+        QuestionViewHolder questionViewHolder = new QuestionViewHolder(view);
+        return questionViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull QuizViewHolder holder, int position) {
-        final Quiz quizAtPosition = quizzesToAdapt.get(position);
+    public void onBindViewHolder(@NonNull QuestionViewHolder holder, int position) {
+        final Question questionAtPosition = questionsToAdapt.get(position);
 
         // Contrast how I wrote this method with the method for ArticleAdapter. They both achieve
         // the same goal, but this way is cleaner. I defined my own method "bind" in the BookViewHolder
         // class, and all the assignment and setup is done in there instead.
-        holder.bind(quizAtPosition);
+        holder.bind(questionAtPosition);
     }
 
     @Override
     public int getItemCount() {
-        return quizzesToAdapt.size();
+        return questionsToAdapt.size();
     }
 
-    public static class QuizViewHolder extends RecyclerView.ViewHolder {
+    public static class QuestionViewHolder extends RecyclerView.ViewHolder {
         public View view;
         public TextView txtResult;
         public TextView txtQuestion;
@@ -62,7 +60,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
 
 
         // This constructor is used in onCreateViewHolder
-        public QuizViewHolder(View v) {
+        public QuestionViewHolder(View v) {
             super(v);  // runs the constructor for the ViewHolder superclass
             view = v;
             txtResult = v.findViewById(R.id.txtResult);
@@ -75,7 +73,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
         }
 
         // See comment in onBindViewHolder
-        public void bind(final Quiz quiz) {
+        public void bind(final Question question) {
             txtQuestion.setText("What?");
             option1.setText("1");
             option2.setText("2");

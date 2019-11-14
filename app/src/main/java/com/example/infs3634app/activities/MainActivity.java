@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.infs3634app.R;
@@ -25,6 +26,17 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerFra
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_slot, recipeFragment);
         fragmentTransaction.commit();*/
+
+        /*Button button3 = findViewById(R.id.button3);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context = view.getContext();
+
+                Intent intent = new Intent(context, QuizActivity.class);
+                context.startActivity(intent);
+            }
+        });*/
     }
     public void onClickBrowseRecipe(View view){
         RecipeRecyclerFragment recipeFragment = new RecipeRecyclerFragment();
