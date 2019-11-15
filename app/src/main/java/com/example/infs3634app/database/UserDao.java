@@ -1,8 +1,9 @@
-package com.example.infs3634app.model;
+package com.example.infs3634app.database;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import com.example.infs3634app.model.*;
 
 import java.util.List;
 

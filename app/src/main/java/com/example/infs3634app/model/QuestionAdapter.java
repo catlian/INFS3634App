@@ -63,7 +63,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         public QuestionViewHolder(View v) {
             super(v);  // runs the constructor for the ViewHolder superclass
             view = v;
-            txtResult = v.findViewById(R.id.txtResult);
+            txtResult = v.findViewById(R.id.txtScore);
             txtQuestion = v.findViewById(R.id.txtQuestion);
             option1 = v.findViewById(R.id.btnOption1);
             option2= v.findViewById(R.id.btnOption2);

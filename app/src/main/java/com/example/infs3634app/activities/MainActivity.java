@@ -13,8 +13,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.infs3634app.R;
+import com.example.infs3634app.database.AppDatabase;
 import com.example.infs3634app.fragments.RecipeDetailFragment;
 import com.example.infs3634app.fragments.RecipeRecyclerFragment;
+import com.example.infs3634app.model.Question;
+import com.example.infs3634app.model.Quiz;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements RecipeRecyclerFragment.OnFragmentInteractionListener, RecipeDetailFragment.OnFragmentInteractionListener {
     @Override
@@ -27,16 +33,25 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerFra
         fragmentTransaction.replace(R.id.fragment_slot, recipeFragment);
         fragmentTransaction.commit();*/
 
-        /*Button button3 = findViewById(R.id.button3);
+        Button button3 = findViewById(R.id.button3);
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Context context = view.getContext();
+
+                AppDatabase database = AppDatabase.getInstance(context);
+
+                /*adding test questions
+                Question question = new Question(0,"what's the answer?", "yes", "no", "no?", "ya", 1);
+                Question que = new Question(0,"what's the answer?", "1", "no", "no?", "ya", 1);
+                database.questionDao().insertNew(question, que);*/
+
 
                 Intent intent = new Intent(context, QuizActivity.class);
                 context.startActivity(intent);
             }
-        });*/
+        });
     }
     public void onClickBrowseRecipe(View view){
         RecipeRecyclerFragment recipeFragment = new RecipeRecyclerFragment();
