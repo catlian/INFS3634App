@@ -9,29 +9,22 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.infs3634app.R;
-import com.example.infs3634app.model.Drinks;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link RecipeDetailFragment.OnFragmentInteractionListener} interface
+ * {@link BrowseRecipeCategoryFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link RecipeDetailFragment#newInstance} factory method to
+ * Use the {@link BrowseRecipeCategoryFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RecipeDetailFragment extends Fragment {
+public class BrowseRecipeCategoryFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    TextView drinkName = getView().findViewById(R.id.drinkName);
-    TextView ing1 = getView().findViewById(R.id.ing1);
-    TextView ing2=getView().findViewById(R.id.ing2);
-    TextView amt1=getView().findViewById(R.id.amt1);
-    TextView amt2=getView().findViewById(R.id.amt2);
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -39,7 +32,7 @@ public class RecipeDetailFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public RecipeDetailFragment() {
+    public BrowseRecipeCategoryFragment() {
         // Required empty public constructor
     }
 
@@ -49,11 +42,11 @@ public class RecipeDetailFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment RecipeDetailFragment.
+     * @return A new instance of fragment BrowseRecipeCategoryFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static RecipeDetailFragment newInstance(String param1, String param2) {
-        RecipeDetailFragment fragment = new RecipeDetailFragment();
+    public static BrowseRecipeCategoryFragment newInstance(String param1, String param2) {
+        BrowseRecipeCategoryFragment fragment = new BrowseRecipeCategoryFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -68,14 +61,13 @@ public class RecipeDetailFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_recipe_detail, container, false);
+        return inflater.inflate(R.layout.fragment_browse_recipe_category, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -84,7 +76,6 @@ public class RecipeDetailFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
 
     @Override
     public void onAttach(Context context) {

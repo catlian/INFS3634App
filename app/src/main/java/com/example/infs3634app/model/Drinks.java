@@ -1,6 +1,6 @@
 package com.example.infs3634app.model;
 
-class Drinks {
+public class Drinks {
     private String strDrink;
     private String strIngredient12;
     private String strIngredient11;

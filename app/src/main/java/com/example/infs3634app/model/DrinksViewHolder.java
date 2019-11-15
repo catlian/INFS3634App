@@ -55,4 +55,12 @@ public class DrinksViewHolder extends RecyclerView.ViewHolder {
             }
         }));
     }
+
+    /*
+    Bundle bundle = new Bundle();
+    bundle.putString("param1", "First Argument");
+    bundle.putString("param2", "Second Argument");
+    fragment.setArguments(bundle)
+    swapFragment(fragment);
+     */
 }
