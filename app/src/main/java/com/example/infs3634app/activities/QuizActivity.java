@@ -73,7 +73,7 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(!responded){
-                    if(rbOne.isChecked() || rbTwo.isChecked() || rbThree.isChecked()){
+                    if(rbOne.isChecked() || rbTwo.isChecked() || rbThree.isChecked() || rbFour.isChecked()){
                         checkAnswer();
                     }else{
                         Toast.makeText(QuizActivity.this, "Please select an answer", Toast.LENGTH_SHORT).show();
@@ -84,32 +84,16 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
-        /*radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
-
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                rbSelection = findViewById(checkedId);
-                Log.d("chk", "id" + checkedId);
-
-                if (rbSelection.getText().equals("String of correct answer from db retrieval")){
-                    txtResult.setText("hell yeah");
-                }
-                else{
-                    txtResult.setText("wuh oh");
-                }
-            }
-        });*/
-
-
     }
-    private void showNextQuestion(){
-        rbOne.setTextColor(Color.BLACK);
-        rbTwo.setTextColor(Color.BLACK);
-        rbThree.setTextColor(Color.BLACK);
-        rbFour.setTextColor(Color.BLACK);
-        radioGroup.clearCheck();
 
+    private void showNextQuestion(){
         if(questionCount < questionListSize){
+            rbOne.setTextColor(Color.BLACK);
+            rbTwo.setTextColor(Color.BLACK);
+            rbThree.setTextColor(Color.BLACK);
+            rbFour.setTextColor(Color.BLACK);
+            radioGroup.clearCheck();
+
             currentQuestion = questionList.get(questionCount);
             answer = currentQuestion.getAnswer();
             txtQuestion.setText(currentQuestion.getQuestion());
@@ -129,6 +113,7 @@ public class QuizActivity extends AppCompatActivity {
             //store points in user db
             Toast.makeText(this, "Score: "
                     + scoreCount, Toast.LENGTH_SHORT).show();
+            saveResults();
         }
     }
     private List<String> getOptionsList(){
@@ -155,20 +140,32 @@ public class QuizActivity extends AppCompatActivity {
             txtScore.setText("Score: " + scoreCount);
         }
 
+        rbOne.setTextColor(Color.RED);
+        rbTwo.setTextColor(Color.RED);
+        rbThree.setTextColor(Color.RED);
+        rbFour.setTextColor(Color.RED);
+
         if(answer.equals(rbOne.getText())){
             rbOne.setTextColor(Color.GREEN);
         }else if(answer.equals(rbTwo.getText())){
             rbTwo.setTextColor(Color.GREEN);
         }else if(answer.equals(rbThree.getText())){
             rbThree.setTextColor(Color.GREEN);
+        }else if(answer.equals(rbFour.getText())){
+            rbFour.setTextColor(Color.GREEN);
         }
 
         if(questionCount < questionListSize){
             btnConfirm.setText("Next");
         }else{
-            btnConfirm.setText("Finish");
+            btnConfirm.setText("Save Results");
         }
 
     }
+    private void saveResults(){
+        //save in user table
+
+    }
+    //insert results delegate response here - toast confirm save, finish?
 
 }
