@@ -7,12 +7,14 @@ import androidx.room.PrimaryKey;
 public class Quiz {
     @PrimaryKey(autoGenerate = true)
     private int quizId;
+    private String name;
     private String description;
 
 
 
-    public Quiz(int quizId, String description) {
+    public Quiz(int quizId, String name, String description) {
         this.quizId = quizId;
+        this.name = name;
         this.description = description;
     }
 
@@ -30,5 +32,13 @@ public class Quiz {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

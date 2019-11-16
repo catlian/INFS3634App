@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.infs3634app.R;
 import com.example.infs3634app.database.AppDatabase;
+import com.example.infs3634app.fragments.QuizRecyclerFragment;
 import com.example.infs3634app.fragments.RecipeDetailFragment;
 import com.example.infs3634app.fragments.RecipeRecyclerFragment;
 import com.example.infs3634app.model.Question;
@@ -42,14 +43,20 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerFra
 
                 AppDatabase database = AppDatabase.getInstance(context);
 
-                /*adding test questions
-                Question question = new Question(0,"what's the answer?", "yes", "no", "no?", "ya", 1);
-                Question que = new Question(0,"what's the answer?", "1", "no", "no?", "ya", 1);
+                /*Quiz quiz = new Quiz(1, "test", "great quiz");
+                Quiz quiz2 = new Quiz(2, "test2", "great quiz2");
+                database.quizDAO().insertNew(quiz, quiz2);*/
+
+                /*//adding test questions
+                Question question = new Question(0,"what's the answer?", "yes", "no", "no?", "ya", 2);
+                Question que = new Question(0,"what's the answer?2", "1", "no", "no?", "ya", 2);
                 database.questionDao().insertNew(question, que);*/
 
-
-                Intent intent = new Intent(context, QuizActivity.class);
-                context.startActivity(intent);
+                QuizRecyclerFragment quizFragment = new QuizRecyclerFragment();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_slot, quizFragment);
+                fragmentTransaction.commit();
             }
         });
     }

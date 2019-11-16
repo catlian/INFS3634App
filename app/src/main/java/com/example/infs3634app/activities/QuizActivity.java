@@ -3,6 +3,7 @@ package com.example.infs3634app.activities;
 //used https://codinginflow.com/tutorials/android/quiz-app-with-sqlite/part-5-quiz-activity as ref for some parts
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -47,7 +48,9 @@ public class QuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
-        //Intent intent = getIntent();
+        Intent intent = getIntent();
+
+        int quizId = intent.getIntExtra("quizId", 0);
 
         txtScore = findViewById(R.id.txtScore);
         radioGroup = findViewById(R.id.radioGroup);
@@ -60,7 +63,7 @@ public class QuizActivity extends AppCompatActivity {
 
         AppDatabase database = AppDatabase.getInstance(getApplicationContext());
 
-        questionList = database.questionDao().findByQuizId(1); //will be passing quiz id via intent and using that
+        questionList = database.questionDao().findByQuizId(quizId); //will be passing quiz id via intent and using that
         Collections.shuffle(questionList);
         questionListSize = questionList.size();
 
