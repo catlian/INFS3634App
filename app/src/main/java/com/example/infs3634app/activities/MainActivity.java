@@ -22,24 +22,17 @@ import com.example.infs3634app.R;
 import com.example.infs3634app.fragments.BrowseRecipeCategoryFragment;
 import com.example.infs3634app.fragments.RecipeDetailFragment;
 import com.example.infs3634app.fragments.RecipeRecyclerFragment;
+import com.example.infs3634app.model.Question;
+import com.example.infs3634app.model.Quiz;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements RecipeRecyclerFragment.OnFragmentInteractionListener, RecipeDetailFragment.OnFragmentInteractionListener, BrowseRecipeCategoryFragment.OnFragmentInteractionListener {
-    //AppDatabase database = AppDatabase.getInstance(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        System.out.println("oncreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        /*Quiz quiz = new Quiz(1, "test", "great quiz");
-                Quiz quiz2 = new Quiz(2, "test2", "great quiz2");
-                database.quizDAO().insertNew(quiz, quiz2);*/
-
-                /*//adding test questions
-                Question question = new Question(0,"what's the answer?", "yes", "no", "no?", "ya", 2);
-                Question que = new Question(0,"what's the answer?2", "1", "no", "no?", "ya", 2);
-                database.questionDao().insertNew(question, que);*/
-
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavBar);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -56,6 +49,16 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerFra
                         break;
                     case R.id.quizButton:
                         Toast.makeText(MainActivity.this, "Quiz", Toast.LENGTH_SHORT).show();
+                        AppDatabase database = AppDatabase.getInstance(getApplicationContext());
+                        Quiz quiz = new Quiz(1, "test", "great quiz");
+                        Quiz quiz2 = new Quiz(2, "test2", "great quiz2");
+                        database.quizDAO().insertNew(quiz, quiz2);
+
+                        //adding test questions
+                        Question question = new Question(0,"what's the answer?", "yes", "no", "no?", "ya", 2);
+                        Question que = new Question(0,"what's the answer?2", "1", "no", "no?", "ya", 2);
+                        database.questionDao().insertNew(question, que);
+
                         QuizRecyclerFragment quizFragment = new QuizRecyclerFragment();
                         FragmentManager fragmentManager2 = getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
