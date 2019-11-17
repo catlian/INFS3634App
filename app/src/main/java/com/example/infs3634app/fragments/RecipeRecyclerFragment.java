@@ -39,7 +39,7 @@ public class RecipeRecyclerFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
+    private String categoryName;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
@@ -70,9 +70,10 @@ public class RecipeRecyclerFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            categoryName = getArguments().getString("CATEGORY_NAME");
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        System.out.println(categoryName);
     }
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState){
@@ -80,6 +81,7 @@ public class RecipeRecyclerFragment extends Fragment {
         Response.Listener<String> responseListener = new Response.Listener<String>(){
             @Override
             public void onResponse(String response){
+                System.out.println("response: "+response);
                 RecyclerView recipeRecycler = view.findViewById(R.id.recipeRecycler);
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                 recipeRecycler.setLayoutManager(layoutManager);
@@ -95,7 +97,7 @@ public class RecipeRecyclerFragment extends Fragment {
             }
 
         };
-        String url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail";
+        String url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c="+categoryName;
         StringRequest stringRequest = new StringRequest(Request.Method.GET,url,responseListener,errorListener);
         requestQueue.add(stringRequest);
 

@@ -34,8 +34,8 @@ public class DrinksViewHolder extends RecyclerView.ViewHolder {
         super(v);
         this.view = v;
         drinkName = v.findViewById(R.id.drinkName);
-        category = v.findViewById(R.id.category);
-        alcoholic = v.findViewById(R.id.alcoholic);
+        category = v.findViewById(R.id.previewCategory);
+        alcoholic = v.findViewById(R.id.previewAlcoholic);
         drinkImage=v.findViewById(R.id.drinkImage);
         previewLayout=v.findViewById(R.id.previewLayout);
         ing1 = v.findViewById(R.id.ing1);
@@ -55,6 +55,7 @@ public class DrinksViewHolder extends RecyclerView.ViewHolder {
                 FragmentManager fragmentManager = activity.getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_slot, recipeDetailFragment);
+                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
         }));

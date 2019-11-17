@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/browseButton"
+        android:title="Browse"
+        android:enabled="true"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/quizButton"
+        android:title="Quiz Me!"
+        android:enabled="true"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/myRecipes"
+        android:title="My Recipes"
+        android:enabled="true"
+        app:showAsAction="ifRoom"/>
+    <!--<item
+        android:id="@+id/profileButton"
+        android:title="My Profile"
+        android:enabled="true"
+        app:showAsAction="ifRoom"/>-->
+</menu>

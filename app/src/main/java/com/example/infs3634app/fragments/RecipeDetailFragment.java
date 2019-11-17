@@ -84,7 +84,10 @@ public class RecipeDetailFragment extends Fragment {
             public void onResponse(String response){
                 DrinksImport drinkImports = new Gson().fromJson(response,DrinksImport.class);
                 ArrayList<DrinksImport> drinkArrayList= new ArrayList<DrinksImport>(Arrays.asList(drinkImports));
-                setFragment(drinkArrayList);
+                Drinks selectedDrink = drinkArrayList.get(0).getDrinks().get(0);
+                setIngredients(selectedDrink);
+                setMethod(selectedDrink);
+                setTags(selectedDrink);
             }
         };
         Response.ErrorListener errorListener=new Response.ErrorListener(){
@@ -99,8 +102,25 @@ public class RecipeDetailFragment extends Fragment {
         requestQueue.add(stringRequest);
     }
 
-    private void setFragment(ArrayList<DrinksImport> drinkArrayList) {
-        Drinks selectedDrink = drinkArrayList.get(0).getDrinks().get(0);
+    private void setTags(Drinks selectedDrink) {
+        TextView alcoholic = getView().findViewById(R.id.alcoholic);
+        TextView category = getView().findViewById(R.id.category);
+        alcoholic.setText(selectedDrink.getStrAlcoholic());
+        category.setText(selectedDrink.getStrCategory());
+    }
+
+    private void setMethod(Drinks selectedDrink) {
+        TextView method = getView().findViewById(R.id.method);
+        try {
+            method.setText(selectedDrink.getStrInstructions());
+        }
+        catch(NullPointerException e){
+            method.setText("No instructions available");
+        }
+    }
+
+    private void setIngredients(Drinks selectedDrink) {
+
         TextView drinkName = getView().findViewById(R.id.drinkName);
         drinkName.setText(selectedDrink.getStrDrink());
         ArrayList<String> methodResult=new ArrayList<>();

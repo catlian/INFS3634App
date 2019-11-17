@@ -5,12 +5,25 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.infs3634app.R;
+import com.example.infs3634app.model.CategoryAdapter;
+import com.example.infs3634app.model.DrinksAdapter;
+import com.example.infs3634app.model.DrinksImport;
+import com.google.gson.Gson;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,6 +74,32 @@ public class BrowseRecipeCategoryFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+    }
+    @Override
+    public void onViewCreated(final View view, Bundle savedInstanceState) {
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                RecyclerView categoryRecycler = view.findViewById(R.id.categoryRecycler);
+                GridLayoutManager layoutManager = new GridLayoutManager(getContext(),3);
+                categoryRecycler.setLayoutManager(layoutManager);
+                DrinksImport drinksImport = new Gson().fromJson(response, DrinksImport.class);
+                //TODO: make category import
+                CategoryAdapter categoryAdapter = new CategoryAdapter(drinksImport.getDrinks());
+                categoryRecycler.setAdapter(categoryAdapter);
+            }
+        };
+        Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("Request failed"); }
+
+        };
+        String url = "https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list";
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, responseListener, errorListener);
+        requestQueue.add(stringRequest);
     }
 
     @Override

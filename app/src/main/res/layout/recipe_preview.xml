@@ -18,9 +18,11 @@
 
     <TextView
         android:id="@+id/drinkName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:text="Drink Name"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,22 +30,22 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/alcoholic"
+        android:id="@+id/previewAlcoholic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Alcoholic"
+        android:layout_marginStart="16dp"
+        android:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/drinkImage"
         app:layout_constraintTop_toBottomOf="@+id/drinkName" />
 
     <TextView
-        android:id="@+id/category"
+        android:id="@+id/previewCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="Category"
+        android:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/drinkImage"
-        app:layout_constraintTop_toBottomOf="@+id/alcoholic" />
+        app:layout_constraintTop_toBottomOf="@+id/previewAlcoholic" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
