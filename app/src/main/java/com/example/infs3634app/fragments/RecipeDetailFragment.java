@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,12 +26,18 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.infs3634app.R;
+import com.example.infs3634app.activities.MainActivity;
+import com.example.infs3634app.database.AppDatabase;
+import com.example.infs3634app.database.GetFavouritesAsyncTask;
+import com.example.infs3634app.database.GetFavouritesDelegate;
+import com.example.infs3634app.database.InsertFavouritesAsyncTask;
 import com.example.infs3634app.model.Drinks;
 import com.example.infs3634app.model.DrinksImport;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,11 +47,13 @@ import java.util.Arrays;
  * Use the {@link RecipeDetailFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RecipeDetailFragment extends Fragment {
+public class RecipeDetailFragment extends Fragment implements GetFavouritesDelegate {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private Fragment thisFragment = this;
+    private Drinks selectedDrink;
 
 
     // TODO: Rename and change types of parameters
@@ -86,10 +97,11 @@ public class RecipeDetailFragment extends Fragment {
             public void onResponse(String response){
                 DrinksImport drinkImports = new Gson().fromJson(response,DrinksImport.class);
                 ArrayList<DrinksImport> drinkArrayList= new ArrayList<DrinksImport>(Arrays.asList(drinkImports));
-                Drinks selectedDrink = drinkArrayList.get(0).getDrinks().get(0);
+                selectedDrink = drinkArrayList.get(0).getDrinks().get(0);
                 setIngredients(selectedDrink);
                 setMethod(selectedDrink);
                 setTags(selectedDrink);
+                setLike(selectedDrink);
 
             }
         };
@@ -105,11 +117,28 @@ public class RecipeDetailFragment extends Fragment {
         requestQueue.add(stringRequest);
     }
 
+    private void setLike(final Drinks selectedDrink) {
+        final ImageView likeButton = getView().findViewById(R.id.likeButton);
+        AppDatabase db = AppDatabase.getInstance(getContext());
+        GetFavouritesAsyncTask getFavouritesAsyncTask = new GetFavouritesAsyncTask();
+        getFavouritesAsyncTask.setDatabase(db);
+        getFavouritesAsyncTask.setDelegate(this);
+        getFavouritesAsyncTask.execute(Integer.parseInt(getString(R.string.user_id)));
+
+    }
+
     private void setTags(Drinks selectedDrink) {
         TextView alcoholic = getView().findViewById(R.id.alcoholic);
         TextView category = getView().findViewById(R.id.category);
-        alcoholic.setText(selectedDrink.getStrAlcoholic());
-        category.setText(selectedDrink.getStrCategory());
+        TextView tags = getView().findViewById(R.id.tags);
+        alcoholic.setText("Alcoholic: "+selectedDrink.getStrAlcoholic());
+        category.setText("Category: "+selectedDrink.getStrCategory());
+        if(selectedDrink.getStrTags()!=null){
+            tags.setText("Tags: "+selectedDrink.getStrTags());
+        }
+        else{
+            tags.setVisibility(View.GONE);
+        }
         ImageView drinkImage = getView().findViewById(R.id.detailImage);
         Glide.with(drinkImage.getContext()).load(selectedDrink.getStrDrinkThumb()).into(drinkImage);
     }
@@ -243,6 +272,48 @@ public class RecipeDetailFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void handleTaskResult(final List<Drinks> favDrinks) {
+        final ImageView likeButton = getView().findViewById(R.id.likeButton);
+        if(favDrinks.size()>0){
+            for(int i=0;i<favDrinks.size();i++) {
+                if (drinkID.equals(favDrinks.get(0).getIdDrink())) {
+                    System.out.println("already liked");
+                    likeButton.setImageResource(R.drawable.liked);
+                }
+                else{
+                    likeButton.setImageResource(R.drawable.like);
+                }
+            }
+        }
+        likeButton.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("clicked");
+                AppCompatActivity activity = (AppCompatActivity)getView().getContext();
+                if(likeButton.getDrawable().getConstantState()==getResources().getDrawable(R.drawable.like).getConstantState()){
+                    likeButton.setImageResource(R.drawable.liked);
+                    MainActivity.user.addToFavourite(selectedDrink);
+                }
+                else{
+                    likeButton.setImageResource(R.drawable.like);
+                    for(int i=0;i<favDrinks.size();i++){
+                        if(drinkID.equals(favDrinks.get(i).getIdDrink())){
+                            System.out.println("match found id: "+drinkID+"= "+favDrinks.get(i).getIdDrink());
+
+                            MainActivity.user.deleteFromFavourite(i);
+                        }
+                    }
+                }
+                AppDatabase db = AppDatabase.getInstance(getContext());
+                InsertFavouritesAsyncTask insertFavouritesAsyncTask = new InsertFavouritesAsyncTask();
+                insertFavouritesAsyncTask.setDatabase(db);
+                insertFavouritesAsyncTask.setDelegate((GetFavouritesDelegate)thisFragment);
+                insertFavouritesAsyncTask.execute(MainActivity.user);
+            }
+        }));
     }
 
     /**

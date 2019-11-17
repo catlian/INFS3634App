@@ -1,5 +1,6 @@
 package com.example.infs3634app.model;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,23 +39,8 @@ public class IngredientCategoryAdapter extends RecyclerView.Adapter<CategoryView
     public void onBindViewHolder(@NonNull final CategoryViewHolder holder, int position) {
         String categoryName = listCategories.get(position).getStrIngredient1();
         holder.categoryName.setText(categoryName);
-        RequestQueue requestQueue = Volley.newRequestQueue(holder.v.getContext());
-        Response.Listener<String> responseListener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                DrinksImport drinksImport = new Gson().fromJson(response, DrinksImport.class);
-                Glide.with(holder.categoryImage.getContext()).load(drinksImport.getDrinks().get(0).getStrDrinkThumb()).into(holder.categoryImage);
-            }
-        };
-        Response.ErrorListener errorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println("Request failed"); }
+        holder.categoryImage.setBackgroundColor(Color.GRAY);
 
-        };
-        String url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i="+categoryName;
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, responseListener, errorListener);
-        requestQueue.add(stringRequest);
     }
 
     @Override

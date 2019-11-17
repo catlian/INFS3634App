@@ -93,7 +93,6 @@ public class BrowseRecipeCategoryFragment extends Fragment {
                 GridLayoutManager layoutManager = new GridLayoutManager(getContext(),3);
                 ingredientRecycler.setLayoutManager(layoutManager);
                 DrinksImport drinksImport = new Gson().fromJson(response, DrinksImport.class);
-                //TODO: make category import
                 IngredientCategoryAdapter ingredientCategoryAdapter = new IngredientCategoryAdapter(drinksImport.getDrinks());
                 ingredientRecycler.setAdapter(ingredientCategoryAdapter);
             }
