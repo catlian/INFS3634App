@@ -1,8 +1,9 @@
-package com.example.infs3634app.model;
+package com.example.infs3634app.database;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import com.example.infs3634app.model.*;
 
 import java.util.List;
 
@@ -14,6 +15,6 @@ public interface QuestionDAO {
     @Insert
     void insertNew(Question...questions);
 
-    @Query("SELECT * FROM questions WHERE QuestionId = :id")
-    Question findById(int id);
+    @Query("SELECT * FROM questions WHERE quizId = :id")
+    List<Question> findByQuizId(int id);
 }
