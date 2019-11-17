@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerFra
                         break;
                     case R.id.quizButton:
                         Toast.makeText(MainActivity.this, "Quiz", Toast.LENGTH_SHORT).show();
-                        AppDatabase database = AppDatabase.getInstance(getApplicationContext());
+                        /*AppDatabase database = AppDatabase.getInstance(getApplicationContext());
                         Quiz quiz = new Quiz(1, "test", "great quiz");
                         Quiz quiz2 = new Quiz(2, "test2", "great quiz2");
                         database.quizDAO().insertNew(quiz, quiz2);
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerFra
                         //adding test questions
                         Question question = new Question(0,"what's the answer?", "yes", "no", "no?", "ya", 2);
                         Question que = new Question(0,"what's the answer?2", "1", "no", "no?", "ya", 2);
-                        database.questionDao().insertNew(question, que);
+                        database.questionDao().insertNew(question, que);*/
 
                         QuizRecyclerFragment quizFragment = new QuizRecyclerFragment();
                         FragmentManager fragmentManager2 = getSupportFragmentManager();
