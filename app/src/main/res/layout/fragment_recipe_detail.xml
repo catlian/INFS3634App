@@ -23,7 +23,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="Category"
-                app:layout_constraintStart_toEndOf="@+id/drinkImage"
+                app:layout_constraintStart_toEndOf="@id/detailImage"
                 app:layout_constraintTop_toBottomOf="@+id/alcoholic" />
 
             <TextView
@@ -35,7 +35,7 @@
                 android:text="Ingredients"
                 android:textSize="30sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/drinkImage" />
+                app:layout_constraintTop_toBottomOf="@id/detailImage" />
 
             <TextView
                 android:id="@+id/drinkName"
@@ -45,11 +45,11 @@
                 android:text="Drink Name"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/drinkImage"
+                app:layout_constraintStart_toEndOf="@id/detailImage"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/drinkImage"
+                android:id="@+id/detailImage"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginStart="16dp"
@@ -65,7 +65,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="Alcoholic"
-                app:layout_constraintStart_toEndOf="@+id/drinkImage"
+                app:layout_constraintStart_toEndOf="@id/detailImage"
                 app:layout_constraintTop_toBottomOf="@+id/drinkName" />
 
             <LinearLayout

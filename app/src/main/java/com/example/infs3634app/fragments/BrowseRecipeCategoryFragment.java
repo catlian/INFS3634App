@@ -23,6 +23,7 @@ import com.example.infs3634app.R;
 import com.example.infs3634app.model.CategoryAdapter;
 import com.example.infs3634app.model.DrinksAdapter;
 import com.example.infs3634app.model.DrinksImport;
+import com.example.infs3634app.model.IngredientCategoryAdapter;
 import com.google.gson.Gson;
 
 /**
@@ -78,6 +79,37 @@ public class BrowseRecipeCategoryFragment extends Fragment {
     }
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
+        setCategories(view);
+        setIngredients(view);
+
+    }
+
+    private void setIngredients(final View view) {
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                RecyclerView ingredientRecycler = view.findViewById(R.id.ingredientRecycler);
+                GridLayoutManager layoutManager = new GridLayoutManager(getContext(),3);
+                ingredientRecycler.setLayoutManager(layoutManager);
+                DrinksImport drinksImport = new Gson().fromJson(response, DrinksImport.class);
+                //TODO: make category import
+                IngredientCategoryAdapter ingredientCategoryAdapter = new IngredientCategoryAdapter(drinksImport.getDrinks());
+                ingredientRecycler.setAdapter(ingredientCategoryAdapter);
+            }
+        };
+        Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("Request failed"); }
+
+        };
+        String url = "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list";
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, responseListener, errorListener);
+        requestQueue.add(stringRequest);
+    }
+
+    private void setCategories(final View view) {
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override

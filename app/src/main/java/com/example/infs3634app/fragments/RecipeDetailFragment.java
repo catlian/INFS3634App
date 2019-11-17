@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.example.infs3634app.R;
 import com.example.infs3634app.model.Drinks;
 import com.example.infs3634app.model.DrinksImport;
@@ -88,6 +90,7 @@ public class RecipeDetailFragment extends Fragment {
                 setIngredients(selectedDrink);
                 setMethod(selectedDrink);
                 setTags(selectedDrink);
+
             }
         };
         Response.ErrorListener errorListener=new Response.ErrorListener(){
@@ -107,6 +110,8 @@ public class RecipeDetailFragment extends Fragment {
         TextView category = getView().findViewById(R.id.category);
         alcoholic.setText(selectedDrink.getStrAlcoholic());
         category.setText(selectedDrink.getStrCategory());
+        ImageView drinkImage = getView().findViewById(R.id.detailImage);
+        Glide.with(drinkImage.getContext()).load(selectedDrink.getStrDrinkThumb()).into(drinkImage);
     }
 
     private void setMethod(Drinks selectedDrink) {
