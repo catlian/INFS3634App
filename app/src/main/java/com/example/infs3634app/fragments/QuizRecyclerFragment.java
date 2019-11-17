@@ -40,10 +40,10 @@ public class QuizRecyclerFragment extends Fragment implements GetQuizzesDelegate
 
         AppDatabase database = AppDatabase.getInstance(getContext());
 
-        GetQuizzesAsyncTask getBooksAsyncTask = new GetQuizzesAsyncTask();
-        getBooksAsyncTask.setDatabase(database);
-        getBooksAsyncTask.setDelegate(QuizRecyclerFragment.this);
-        getBooksAsyncTask.execute();
+        GetQuizzesAsyncTask getQuizzesAsyncTask = new GetQuizzesAsyncTask();
+        getQuizzesAsyncTask.setDatabase(database);
+        getQuizzesAsyncTask.setDelegate(QuizRecyclerFragment.this);
+        getQuizzesAsyncTask.execute();
 
         return view;
     }

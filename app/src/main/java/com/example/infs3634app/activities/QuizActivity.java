@@ -15,13 +15,17 @@ import android.widget.Toast;
 
 import com.example.infs3634app.R;
 import com.example.infs3634app.database.AppDatabase;
+import com.example.infs3634app.database.GetQuestionsAsyncTask;
+import com.example.infs3634app.database.GetQuestionsDelegate;
+import com.example.infs3634app.database.GetQuizzesAsyncTask;
+import com.example.infs3634app.fragments.QuizRecyclerFragment;
 import com.example.infs3634app.model.Question;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class QuizActivity extends AppCompatActivity {
+public class QuizActivity extends AppCompatActivity implements GetQuestionsDelegate {
 
     private RadioGroup radioGroup;
     private RadioButton rbSelection;
@@ -62,27 +66,11 @@ public class QuizActivity extends AppCompatActivity {
         btnConfirm = findViewById(R.id.btnConfirm);
 
         AppDatabase database = AppDatabase.getInstance(getApplicationContext());
+        GetQuestionsAsyncTask getQuestionsAsyncTask = new GetQuestionsAsyncTask();
+        getQuestionsAsyncTask.setDatabase(database);
+        getQuestionsAsyncTask.setDelegate(QuizActivity.this);
+        getQuestionsAsyncTask.execute(quizId);
 
-        questionList = database.questionDao().findByQuizId(quizId); //will be passing quiz id via intent and using that
-        Collections.shuffle(questionList);
-        questionListSize = questionList.size();
-
-        showNextQuestion();
-
-        btnConfirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!responded){
-                    if(rbOne.isChecked() || rbTwo.isChecked() || rbThree.isChecked() || rbFour.isChecked()){
-                        checkAnswer();
-                    }else{
-                        Toast.makeText(QuizActivity.this, "Please select an answer", Toast.LENGTH_SHORT).show();
-                    }
-                }else{
-                    showNextQuestion();
-                }
-            }
-        });
 
     }
 
@@ -165,6 +153,30 @@ public class QuizActivity extends AppCompatActivity {
     private void saveResults(){
         //save in user table
 
+    }
+
+    @Override
+    public void handleTaskResult(List<Question> questionList) {
+        this.questionList = questionList;
+        Collections.shuffle(questionList);
+        questionListSize = questionList.size();
+
+        showNextQuestion();
+
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!responded){
+                    if(rbOne.isChecked() || rbTwo.isChecked() || rbThree.isChecked() || rbFour.isChecked()){
+                        checkAnswer();
+                    }else{
+                        Toast.makeText(QuizActivity.this, "Please select an answer", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    showNextQuestion();
+                }
+            }
+        });
     }
     //insert results delegate response here - toast confirm save, finish?
 
