@@ -19,9 +19,11 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
     View v;
     ImageView categoryImage;
     TextView categoryName;
+    String type;
     public CategoryViewHolder(@NonNull View itemView) {
         super(itemView);
         v = itemView;
+
         categoryName = itemView.findViewById(R.id.categoryName);
         categoryImage = itemView.findViewById(R.id.categoryImage);
 
@@ -31,6 +33,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
                 Bundle bundle = new Bundle();
                 String catName = categoryName.getText().toString();
                 bundle.putString("CATEGORY_NAME",catName);
+                bundle.putString("CATEGORY_TYPE",type);
                 AppCompatActivity activity = (AppCompatActivity)v.getContext();
                 RecipeRecyclerFragment recipeFragment = new RecipeRecyclerFragment();
                 recipeFragment.setArguments(bundle);

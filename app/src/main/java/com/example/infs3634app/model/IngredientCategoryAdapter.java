@@ -38,6 +38,7 @@ public class IngredientCategoryAdapter extends RecyclerView.Adapter<CategoryView
     @Override
     public void onBindViewHolder(@NonNull final CategoryViewHolder holder, int position) {
         String categoryName = listCategories.get(position).getStrIngredient1();
+        holder.type = "ingredient";
         holder.categoryName.setText(categoryName);
         holder.categoryImage.setBackgroundColor(Color.GRAY);
 

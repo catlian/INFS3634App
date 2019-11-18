@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.infs3634app.database.AppDatabase;
 import com.example.infs3634app.database.InsertUserAsyncTask;
+import com.example.infs3634app.fragments.MyRecipesFragment;
 import com.example.infs3634app.fragments.QuizRecyclerFragment;
 
 import android.content.Context;
@@ -30,7 +31,8 @@ public class MainActivity extends AppCompatActivity
         implements RecipeRecyclerFragment.OnFragmentInteractionListener,
         RecipeDetailFragment.OnFragmentInteractionListener,
         BrowseRecipeCategoryFragment.OnFragmentInteractionListener,
-        com.example.infs3634app.database.InsertUserDelegate
+        com.example.infs3634app.database.InsertUserDelegate,
+        MyRecipesFragment.OnFragmentInteractionListener
 {
     public static User user = new User(1,"tester","0");
     @Override
@@ -40,11 +42,11 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         //cheeky new user
 
-        AppDatabase db = AppDatabase.getInstance(this.getApplicationContext());
+        /*AppDatabase db = AppDatabase.getInstance(this.getApplicationContext());
         InsertUserAsyncTask insertUserAsyncTask =  new InsertUserAsyncTask();
         insertUserAsyncTask.setDatabase(db);
         insertUserAsyncTask.setDelegate(this);
-        insertUserAsyncTask.execute(user);
+        insertUserAsyncTask.execute(user);*/
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavBar);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -70,7 +72,11 @@ public class MainActivity extends AppCompatActivity
                         break;
                     case R.id.myRecipes:
                         Toast.makeText(MainActivity.this, "My Recipes", Toast.LENGTH_SHORT).show();
-
+                        MyRecipesFragment myRecipesFragment = new MyRecipesFragment();
+                        FragmentManager fragmentManager3 = getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction3 = fragmentManager3.beginTransaction();
+                        fragmentTransaction3.replace(R.id.fragment_slot, myRecipesFragment);
+                        fragmentTransaction3.commit();
                         break;
                 }
                 return true;

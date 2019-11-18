@@ -40,7 +40,7 @@ public class RecipeRecyclerFragment extends Fragment {
 
     // TODO: Rename and change types of parameters
     private String categoryName;
-    private String mParam2;
+    private String type;
 
     private OnFragmentInteractionListener mListener;
 
@@ -71,7 +71,7 @@ public class RecipeRecyclerFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             categoryName = getArguments().getString("CATEGORY_NAME");
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            type = getArguments().getString("CATEGORY_TYPE");
         }
         System.out.println(categoryName);
     }
@@ -97,6 +97,10 @@ public class RecipeRecyclerFragment extends Fragment {
 
         };
         String url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c="+categoryName;
+        if(type.equals("ingredient")){
+            url="https://www.thecocktaildb.com/api/json/v1/1/filter.php?i="+categoryName;
+        }
+
         StringRequest stringRequest = new StringRequest(Request.Method.GET,url,responseListener,errorListener);
         requestQueue.add(stringRequest);
 
