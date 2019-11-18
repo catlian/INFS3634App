@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase;
 import com.example.infs3634app.model.*;
 
 @Database(entities = {Question.class, User.class, Quiz.class}, version = 1)
-public abstract class AppDatabase extends RoomDatabase {
+public abstract class AppDatabase extends RoomDatabase{
     public abstract QuestionDAO questionDao();
     public abstract UserDao userDao();
     public abstract QuizDAO quizDAO();
@@ -19,9 +19,33 @@ public abstract class AppDatabase extends RoomDatabase {
 
         if(instance == null) {
             instance = Room.databaseBuilder(context, AppDatabase.class, "quizDB")
-                    //.allowMainThreadQueries()
+                    .allowMainThreadQueries()
                     .build();
+            instance.populateInitialData();
         }
         return instance;
+    }
+    private void populateInitialData() {
+        if (quizDAO().count() == 0) {
+            runInTransaction(new Runnable() {
+                @Override
+                public void run() {
+
+
+                }
+            });
+        }
+        if (questionDao().count() == 0) {
+            runInTransaction(new Runnable() {
+                @Override
+                public void run() {
+                    InsertInitialDataAsyncTask insertInitialDataAsyncTask = new
+                            InsertInitialDataAsyncTask();
+                    insertInitialDataAsyncTask.setDatabase(instance);
+                    insertInitialDataAsyncTask.execute();
+
+                }
+            });
+        }
     }
 }

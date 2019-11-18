@@ -19,4 +19,7 @@ public interface QuizDAO {
 
     @Query("SELECT * FROM quizzes WHERE quizId = :id")
     Quiz findById(int id);
+
+    @Query("SELECT COUNT(*) FROM quizzes")
+    int count();
 }
