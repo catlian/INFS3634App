@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity
     public static User user = new User(1,"tester","0");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("oncreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //cheeky new user
@@ -83,13 +82,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
-    public void onClickBrowseRecipe(View view){
-        BrowseRecipeCategoryFragment browseRecipeCategoryFragment = new BrowseRecipeCategoryFragment();
-        FragmentManager fragmentManager=getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_slot, browseRecipeCategoryFragment);
-        fragmentTransaction.commit();
-    }
 
     @Override
     public void onFragmentInteraction(Uri uri) {
@@ -99,6 +91,10 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void handleTaskResult(User user) {
 
+    }
+    public void onClickAddRecipe(View view) {
+        Intent intent = new Intent(getApplicationContext(), NewRecipeActivity.class);
+        startActivity(intent);
     }
 }
 

@@ -7,6 +7,20 @@
     tools:context=".fragments.MyRecipesFragment">
 
     <!-- TODO: Update blank fragment layout -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addRecipe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        android:onClick="onClickAddRecipe"
+        android:src="@android:drawable/ic_menu_add"
+        app:backgroundTint="#9575CD"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:rippleColor="@color/design_default_color_primary" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/myRecipeRecycler"
         android:layout_width="wrap_content"

@@ -1,6 +1,7 @@
 package com.example.infs3634app.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -12,23 +13,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.infs3634app.R;
+import com.example.infs3634app.activities.NewRecipeActivity;
 import com.example.infs3634app.database.AppDatabase;
 import com.example.infs3634app.database.GetFavouritesAsyncTask;
 import com.example.infs3634app.database.GetFavouritesDelegate;
 import com.example.infs3634app.model.Drinks;
 import com.example.infs3634app.model.DrinksAdapter;
-import com.example.infs3634app.model.DrinksImport;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -129,6 +122,10 @@ public class MyRecipesFragment extends Fragment implements GetFavouritesDelegate
         myRecipeRecycler.setLayoutManager(layoutManager);
         DrinksAdapter drinksAdapter = new DrinksAdapter((ArrayList<Drinks>)favDrinks);
         myRecipeRecycler.setAdapter(drinksAdapter);
+    }
+    public void onClickAddRecipe(View view) {
+        Intent intent = new Intent(getContext(), NewRecipeActivity.class);
+        startActivity(intent);
     }
 
     /**
