@@ -70,7 +70,6 @@ public class User {
     }
 
     public void deleteFromFavourite (int index){
-
         favourites.remove(index);
     }
 }

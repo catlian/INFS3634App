@@ -8,7 +8,7 @@ import com.example.infs3634app.model.User;
 
 import java.util.List;
 
-public class GetFavouritesAsyncTask extends AsyncTask<Integer, Integer, List<Drinks>> {
+public class GetFavouritesAsyncTask extends AsyncTask<Integer, Integer, User> {
     private GetFavouritesDelegate delegate;
     private AppDatabase database;
 
@@ -21,15 +21,17 @@ public class GetFavouritesAsyncTask extends AsyncTask<Integer, Integer, List<Dri
     }
 
     @Override
-    protected List<Drinks> doInBackground(Integer... integers) {
+    protected User doInBackground(Integer... integers) {
         System.out.println("userid: "+integers[0]);
         User user = database.userDao().getFavourites(integers[0]);
-        System.out.println(user.getUsername());
-        List<Drinks> favDrinks = user.getFavourites();
-        return favDrinks;
+        return user;
     }
     @Override
-    protected void onPostExecute(List<Drinks> favDrinks) {
+    protected void onPostExecute(User user) {
+        List<Drinks> favDrinks = user.getFavourites();
+        for(int i=0;i<favDrinks.size();i++){
+            System.out.println(favDrinks.get(i).getStrDrink());
+        }
         delegate.handleTaskResult(favDrinks);
     }
 }

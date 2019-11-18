@@ -31,8 +31,10 @@ import com.example.infs3634app.database.AppDatabase;
 import com.example.infs3634app.database.GetFavouritesAsyncTask;
 import com.example.infs3634app.database.GetFavouritesDelegate;
 import com.example.infs3634app.database.InsertFavouritesAsyncTask;
+import com.example.infs3634app.database.InsertFavouritesDelegate;
 import com.example.infs3634app.model.Drinks;
 import com.example.infs3634app.model.DrinksImport;
+import com.example.infs3634app.model.User;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -47,7 +49,7 @@ import java.util.List;
  * Use the {@link RecipeDetailFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RecipeDetailFragment extends Fragment implements GetFavouritesDelegate {
+public class RecipeDetailFragment extends Fragment implements GetFavouritesDelegate, InsertFavouritesDelegate {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -101,7 +103,7 @@ public class RecipeDetailFragment extends Fragment implements GetFavouritesDeleg
                 setIngredients(selectedDrink);
                 setMethod(selectedDrink);
                 setTags(selectedDrink);
-                setLike(selectedDrink);
+                setLike();
 
             }
         };
@@ -117,7 +119,7 @@ public class RecipeDetailFragment extends Fragment implements GetFavouritesDeleg
         requestQueue.add(stringRequest);
     }
 
-    private void setLike(final Drinks selectedDrink) {
+    private void setLike() {
         final ImageView likeButton = getView().findViewById(R.id.likeButton);
         AppDatabase db = AppDatabase.getInstance(getContext());
         GetFavouritesAsyncTask getFavouritesAsyncTask = new GetFavouritesAsyncTask();
@@ -276,14 +278,18 @@ public class RecipeDetailFragment extends Fragment implements GetFavouritesDeleg
 
     @Override
     public void handleTaskResult(final List<Drinks> favDrinks) {
+        MainActivity.user.setFavourites(favDrinks);
+        System.out.println("received favDrinks list");
         final ImageView likeButton = getView().findViewById(R.id.likeButton);
         if(favDrinks.size()>0){
             for(int i=0;i<favDrinks.size();i++) {
-                if (drinkID.equals(favDrinks.get(0).getIdDrink())) {
+                if (drinkID.equals(favDrinks.get(i).getIdDrink())) {
                     System.out.println("already liked");
                     likeButton.setImageResource(R.drawable.liked);
+                    break;
                 }
                 else{
+                    System.out.println("not liked yet");
                     likeButton.setImageResource(R.drawable.like);
                 }
             }
@@ -291,29 +297,35 @@ public class RecipeDetailFragment extends Fragment implements GetFavouritesDeleg
         likeButton.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("clicked");
                 AppCompatActivity activity = (AppCompatActivity)getView().getContext();
                 if(likeButton.getDrawable().getConstantState()==getResources().getDrawable(R.drawable.like).getConstantState()){
+                    System.out.println(selectedDrink.getStrDrink()+" has not been liked yet");
                     likeButton.setImageResource(R.drawable.liked);
                     MainActivity.user.addToFavourite(selectedDrink);
                 }
                 else{
+                    System.out.println(selectedDrink.getStrDrink()+" is already liked");
                     likeButton.setImageResource(R.drawable.like);
                     for(int i=0;i<favDrinks.size();i++){
                         if(drinkID.equals(favDrinks.get(i).getIdDrink())){
-                            System.out.println("match found id: "+drinkID+"= "+favDrinks.get(i).getIdDrink());
-
+                            System.out.println("TO DELETE: match found id: "+drinkID+"= "+favDrinks.get(i).getIdDrink());
                             MainActivity.user.deleteFromFavourite(i);
                         }
                     }
                 }
                 AppDatabase db = AppDatabase.getInstance(getContext());
+                System.out.println("updating database");
                 InsertFavouritesAsyncTask insertFavouritesAsyncTask = new InsertFavouritesAsyncTask();
                 insertFavouritesAsyncTask.setDatabase(db);
-                insertFavouritesAsyncTask.setDelegate((GetFavouritesDelegate)thisFragment);
+                insertFavouritesAsyncTask.setDelegate((InsertFavouritesDelegate)thisFragment);
                 insertFavouritesAsyncTask.execute(MainActivity.user);
             }
         }));
+    }
+
+    @Override
+    public void handleTaskResult(User user) {
+        setLike();
     }
 
     /**

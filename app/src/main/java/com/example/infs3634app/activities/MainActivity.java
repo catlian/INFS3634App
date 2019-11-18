@@ -23,8 +23,6 @@ import com.example.infs3634app.R;
 import com.example.infs3634app.fragments.BrowseRecipeCategoryFragment;
 import com.example.infs3634app.fragments.RecipeDetailFragment;
 import com.example.infs3634app.fragments.RecipeRecyclerFragment;
-import com.example.infs3634app.model.Question;
-import com.example.infs3634app.model.Quiz;
 import com.example.infs3634app.model.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -40,13 +38,13 @@ public class MainActivity extends AppCompatActivity
         System.out.println("oncreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         //cheeky new user
-        /*AppDatabase db = AppDatabase.getInstance(this.getApplicationContext());
+
+        AppDatabase db = AppDatabase.getInstance(this.getApplicationContext());
         InsertUserAsyncTask insertUserAsyncTask =  new InsertUserAsyncTask();
         insertUserAsyncTask.setDatabase(db);
         insertUserAsyncTask.setDelegate(this);
-        insertUserAsyncTask.execute(user);*/
+        insertUserAsyncTask.execute(user);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavBar);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -85,11 +83,6 @@ public class MainActivity extends AppCompatActivity
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_slot, browseRecipeCategoryFragment);
         fragmentTransaction.commit();
-        /*RecipeRecyclerFragment recipeFragment = new RecipeRecyclerFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_slot, recipeFragment);
-        fragmentTransaction.commit();*/
     }
 
     @Override
