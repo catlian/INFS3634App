@@ -25,17 +25,11 @@ public abstract class AppDatabase extends RoomDatabase{
         }
         return instance;
     }
+    /*https://github.com/android/architecture-components-samples/blob/master/PersistenceContentProviderSample/app/src/main/java/com/example/android/contentprovidersample/data/SampleDatabase.java
+    code referenced from this link
+     */
     private void populateInitialData() {
         if (quizDAO().count() == 0) {
-            runInTransaction(new Runnable() {
-                @Override
-                public void run() {
-
-
-                }
-            });
-        }
-        if (questionDao().count() == 0) {
             runInTransaction(new Runnable() {
                 @Override
                 public void run() {
