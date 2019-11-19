@@ -38,6 +38,7 @@ public class User {
     public User(int userId, String username){
         this.userId = userId;
         this.username = username;
+        favourites = new ArrayList<>();
     }
 
     public int getUserId() {

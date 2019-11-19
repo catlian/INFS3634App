@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -124,6 +126,11 @@ public class AddIngredientsFragment extends Fragment {
                     measurement[i]=measureInput;
                 }
                 activity.addIngredientsToDrink(ingredients,qty,measurement);
+                AddRecipeImageFragment addRecipeImageFragment = new AddRecipeImageFragment();
+                FragmentManager fragmentManager=getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.new_recipe_slot, addRecipeImageFragment);
+                fragmentTransaction.commit();
             }
         }));
     }
