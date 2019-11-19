@@ -2,6 +2,6 @@ package com.example.infs3634app.database;
 
 import com.example.infs3634app.model.User;
 
-public interface InsertFavouritesDelegate {
+public interface UpdateUserDataDelegate {
     void handleTaskResult(User user);
 }

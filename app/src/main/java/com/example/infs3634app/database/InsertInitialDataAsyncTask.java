@@ -8,11 +8,7 @@ import com.example.infs3634app.model.Quiz;
 import java.util.List;
 
 public class InsertInitialDataAsyncTask extends AsyncTask<Void, Void, Void>{
-        private InsertDataDelegate delegate;
         private AppDatabase database;
-        public void setDelegate(InsertDataDelegate delegate) {
-            this.delegate = delegate;
-        }
         public void setDatabase(AppDatabase database) {
             this.database = database;
         }

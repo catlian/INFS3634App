@@ -1,49 +1,30 @@
-package com.example.infs3634app.fragments;
+package com.example.infs3634app.activities;
 
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.infs3634app.R;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
-import com.google.android.youtube.player.YouTubePlayerFragment;
 import com.google.android.youtube.player.YouTubePlayerView;
-
-/**
- * A simple {@link Fragment} subclass.
- */
-/*public class YoutubeFragment extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener{
+//code referenced from https://www.youtube.com/watch?v=0uXuByBwv8E
+public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener{
     private YouTubePlayerView youTubePlayerView;
 
     final String API_KEY = "AIzaSyAGuQAXeEzz3dcfu9FavEzJG4_fyVXb_EI";
     final String playlist_id = "PLLALQuK1NDrg2D1BpRhd2N1Etf_ytM-Qq";
 
-    public YoutubeFragment() {
-        // Required empty public constructor
-    }
-
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_youtube, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_youtube);
 
         youTubePlayerView = findViewById(R.id.youtubePlayer);
         youTubePlayerView.initialize(API_KEY, this);
-
-
-        return view;
     }
-
     @Override
     public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult result){
         Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show();
@@ -95,6 +76,5 @@ import com.google.android.youtube.player.YouTubePlayerView;
         public void onVideoStarted() {
         }
     };
-}*/
-
+}
 

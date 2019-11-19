@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "bb7e0dae70ae55b7f16d2bd118fe3485",
+    "identityHash": "dddd9e2bdfe51f645683fa2e0362fc76",
     "entities": [
       {
         "tableName": "Questions",
@@ -83,7 +83,7 @@
       },
       {
         "tableName": "users",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`userId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `username` TEXT, `totalPoints` TEXT, `favourites` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`userId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `username` TEXT, `totalPoints` INTEGER, `highScore` INTEGER, `favourites` TEXT)",
         "fields": [
           {
             "fieldPath": "userId",
@@ -100,7 +100,13 @@
           {
             "fieldPath": "totalPoints",
             "columnName": "totalPoints",
-            "affinity": "TEXT",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "highScore",
+            "columnName": "highScore",
+            "affinity": "INTEGER",
             "notNull": false
           },
           {
@@ -155,7 +161,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'bb7e0dae70ae55b7f16d2bd118fe3485')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'dddd9e2bdfe51f645683fa2e0362fc76')"
     ]
   }
 }

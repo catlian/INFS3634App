@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.infs3634app.R;
 import com.example.infs3634app.activities.QuizActivity;
+import com.example.infs3634app.activities.YoutubeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
