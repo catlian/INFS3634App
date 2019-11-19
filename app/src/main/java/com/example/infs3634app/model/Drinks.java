@@ -56,6 +56,7 @@ public class Drinks {
     private String strMeasure14;
     private String strMeasure15;
 
+    public Drinks(){}
 
     public Drinks(String strDrink, String strIngredient10, String strIngredient12, String strIngredient11, String strIngredient14, String strCategory, String strAlcoholic, String strIngredient13, String strIngredient15, String strCreativeCommonsConfirmed, String strIBA, String strVideo, String strTags, String strInstructions, String strIngredient1, String strIngredient3, String strIngredient2, String strIngredient5, String strIngredient4, String strIngredient7, String strIngredient6, String strIngredient9, String strIngredient8, String idDrink, String strInstructionsES, String strGlass, String strMeasure12, String strMeasure13, String strMeasure10, String strMeasure11, String dateModified, String strDrinkAlternate, String strDrinkThumb, String strMeasure9, String strMeasure7, String strMeasure8, String strMeasure5, String strMeasure6, String strMeasure3, String strMeasure4, String strMeasure1, String strMeasure2, String strMeasure14, String strMeasure15) {
         this.strDrink = strDrink;
