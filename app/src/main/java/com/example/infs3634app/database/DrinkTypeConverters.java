@@ -15,6 +15,15 @@ public class DrinkTypeConverters {
     static Gson gson = new Gson();
 
     @TypeConverter
+    public static String drinkToString(Drinks drink){
+        return gson.toJson(drink);
+    }
+    @TypeConverter
+    public static Drinks stringToDrink(String json){
+        Type type = new TypeToken<Drinks>(){}.getType();
+        return gson.fromJson(json,type);
+    }
+    @TypeConverter
     public static String drinksToString (List<Drinks> drinksList){
         return gson.toJson(drinksList);
     }

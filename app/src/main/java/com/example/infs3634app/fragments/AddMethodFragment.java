@@ -11,27 +11,21 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.infs3634app.R;
 import com.example.infs3634app.activities.NewRecipeActivity;
-import com.example.infs3634app.database.AppDatabase;
-import com.example.infs3634app.database.InsertDrinkAsyncTask;
-import com.example.infs3634app.database.InsertDrinkDelegate;
-import com.example.infs3634app.model.Drinks;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link AddRecipeImageFragment.OnFragmentInteractionListener} interface
+ * {@link AddMethodFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link AddRecipeImageFragment#newInstance} factory method to
+ * Use the {@link AddMethodFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddRecipeImageFragment extends Fragment implements InsertDrinkDelegate {
+public class AddMethodFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -43,7 +37,7 @@ public class AddRecipeImageFragment extends Fragment implements InsertDrinkDeleg
 
     private OnFragmentInteractionListener mListener;
 
-    public AddRecipeImageFragment() {
+    public AddMethodFragment() {
         // Required empty public constructor
     }
 
@@ -53,11 +47,11 @@ public class AddRecipeImageFragment extends Fragment implements InsertDrinkDeleg
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment AddRecipeImageFragment.
+     * @return A new instance of fragment AddMethodFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AddRecipeImageFragment newInstance(String param1, String param2) {
-        AddRecipeImageFragment fragment = new AddRecipeImageFragment();
+    public static AddMethodFragment newInstance(String param1, String param2) {
+        AddMethodFragment fragment = new AddMethodFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -73,43 +67,31 @@ public class AddRecipeImageFragment extends Fragment implements InsertDrinkDeleg
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState){
-        TextView errormsg = view.findViewById(R.id.errorMsg);
-        errormsg.setVisibility(View.GONE);
-    }
+    public void onViewCreated(final View view, Bundle savedInstanceState){
 
-    public void onClickAddMethod(View view){
-        AddMethodFragment addMethodFragment = new AddMethodFragment();
-        FragmentManager fragmentManager=getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.new_recipe_slot, addMethodFragment);
-        fragmentTransaction.commit();
-    }
-    public void onClickAddIngredients(View view){
-        AddIngredientsFragment addIngredientsFragment = new AddIngredientsFragment();
-        FragmentManager fragmentManager=getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.new_recipe_slot, addIngredientsFragment);
-        fragmentTransaction.commit();
-    }
-    public void onClickLoadImage(View view){
-        ImageView drinkImage = view.findViewById(R.id.newDrinkImage);
-        EditText newDrinkName = (EditText)view.findViewById(R.id.newDrinkName);
-        EditText newDrinkImageLink = (EditText)view.findViewById(R.id.imageURL);
-        String drinkName = newDrinkName.getText().toString();
-        String drinkImageURL = newDrinkImageLink.getText().toString().replace("\\","");
-        Glide.with(this).load(drinkImageURL).into(drinkImage);
-        NewRecipeActivity activity = (NewRecipeActivity)getActivity();
-        activity.addNameImage(drinkName,drinkImageURL);
+        Button submitMethodButton = view.findViewById(R.id.submitMethod);
+        submitMethodButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText methodInput = (EditText)view.findViewById(R.id.methodInput);
+                String method = methodInput.getText().toString();
+                NewRecipeActivity activity = (NewRecipeActivity)getActivity();
+                activity.addMethodToDrink(method);
+                AddRecipeImageFragment addRecipeImageFragment = new AddRecipeImageFragment();
+                FragmentManager fragmentManager=getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.new_recipe_slot, addRecipeImageFragment);
+                fragmentTransaction.commit();
+            }
+        });
 
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_recipe_image, container, false);
+        return inflater.inflate(R.layout.fragment_add_method, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -134,11 +116,6 @@ public class AddRecipeImageFragment extends Fragment implements InsertDrinkDeleg
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    @Override
-    public void handleTaskResult(Drinks drink) {
-
     }
 
     /**

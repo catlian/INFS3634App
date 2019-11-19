@@ -1,14 +1,19 @@
 package com.example.infs3634app.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
-@Entity
+import com.example.infs3634app.database.DrinkTypeConverters;
+
+@Entity(tableName = "drinks")
+@TypeConverters(DrinkTypeConverters.class)
 public class Drinks {
-    @PrimaryKey
     private String idDrink;
-
+    @PrimaryKey
+    @NonNull
     private String strDrink;
     private String strIngredient12;
     private String strIngredient11;
