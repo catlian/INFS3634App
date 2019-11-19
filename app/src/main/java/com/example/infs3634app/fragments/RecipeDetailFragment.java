@@ -1,22 +1,17 @@
 package com.example.infs3634app.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -30,8 +25,8 @@ import com.example.infs3634app.activities.MainActivity;
 import com.example.infs3634app.database.AppDatabase;
 import com.example.infs3634app.database.GetFavouritesAsyncTask;
 import com.example.infs3634app.database.GetFavouritesDelegate;
-import com.example.infs3634app.database.InsertFavouritesAsyncTask;
-import com.example.infs3634app.database.InsertFavouritesDelegate;
+import com.example.infs3634app.database.UpdateUserAsyncTask;
+import com.example.infs3634app.database.UpdateUserDataDelegate;
 import com.example.infs3634app.model.Drinks;
 import com.example.infs3634app.model.DrinksImport;
 import com.example.infs3634app.model.User;
@@ -49,7 +44,7 @@ import java.util.List;
  * Use the {@link RecipeDetailFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RecipeDetailFragment extends Fragment implements GetFavouritesDelegate, InsertFavouritesDelegate {
+public class RecipeDetailFragment extends Fragment implements GetFavouritesDelegate, UpdateUserDataDelegate {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -315,10 +310,10 @@ public class RecipeDetailFragment extends Fragment implements GetFavouritesDeleg
                 }
                 AppDatabase db = AppDatabase.getInstance(getContext());
                 System.out.println("updating database");
-                InsertFavouritesAsyncTask insertFavouritesAsyncTask = new InsertFavouritesAsyncTask();
-                insertFavouritesAsyncTask.setDatabase(db);
-                insertFavouritesAsyncTask.setDelegate((InsertFavouritesDelegate)thisFragment);
-                insertFavouritesAsyncTask.execute(MainActivity.user);
+                UpdateUserAsyncTask updateUserAsyncTask = new UpdateUserAsyncTask();
+                updateUserAsyncTask.setDatabase(db);
+                updateUserAsyncTask.setDelegate((UpdateUserDataDelegate)thisFragment);
+                updateUserAsyncTask.execute(MainActivity.user);
             }
         }));
     }

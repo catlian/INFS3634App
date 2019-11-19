@@ -2,17 +2,13 @@ package com.example.infs3634app.database;
 
 import android.os.AsyncTask;
 
-import com.example.infs3634app.R;
-import com.example.infs3634app.model.Drinks;
 import com.example.infs3634app.model.User;
 
-import java.util.List;
-
-public class InsertFavouritesAsyncTask extends AsyncTask<User,Integer,User> {
-    private InsertFavouritesDelegate delegate;
+public class UpdateUserAsyncTask extends AsyncTask<User,Integer,User> {
+    private UpdateUserDataDelegate delegate;
     private AppDatabase database;
 
-    public void setDelegate(InsertFavouritesDelegate delegate) {
+    public void setDelegate(UpdateUserDataDelegate delegate) {
         this.delegate = delegate;
     }
 

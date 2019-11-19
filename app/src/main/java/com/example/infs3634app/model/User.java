@@ -18,19 +18,26 @@ public class User {
     @PrimaryKey (autoGenerate = true)
     private int userId;
     private String username;
-    private String totalPoints;
+    private Integer totalPoints;
+    private Integer highScore;
     private List<Drinks> favourites;
 
     @Ignore
-    public User(int userId, String username, String totalPoints) {
+    public User(int userId, String username, Integer totalPoints, Integer highScore) {
         this.userId = userId;
         this.username = username;
         this.totalPoints = totalPoints;
-        favourites = new ArrayList<>();
+        this.highScore = highScore;
     }
+
     public User(int userId, List<Drinks> favourites){
         this.userId = userId;
         this.favourites = favourites;
+    }
+    @Ignore
+    public User(int userId, String username){
+        this.userId = userId;
+        this.username = username;
     }
 
     public int getUserId() {
@@ -49,11 +56,11 @@ public class User {
         this.username = username;
     }
 
-    public String getTotalPoints() {
+    public Integer getTotalPoints() {
         return totalPoints;
     }
 
-    public void setTotalPoints(String totalPoints) {
+    public void setTotalPoints(Integer totalPoints) {
         this.totalPoints = totalPoints;
     }
 
@@ -71,5 +78,13 @@ public class User {
 
     public void deleteFromFavourite (int index){
         favourites.remove(index);
+    }
+
+    public Integer getHighScore() {
+        return highScore;
+    }
+
+    public void setHighScore(Integer highScore) {
+        this.highScore = highScore;
     }
 }

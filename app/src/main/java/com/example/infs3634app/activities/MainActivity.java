@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity
         com.example.infs3634app.database.InsertUserDelegate,
         MyRecipesFragment.OnFragmentInteractionListener
 {
-    public static User user = new User(1,"tester","0");
+    public static User user = new User(1, "test");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
