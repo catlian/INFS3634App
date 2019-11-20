@@ -16,19 +16,20 @@ import android.widget.Toast;
 import com.example.infs3634app.R;
 import com.example.infs3634app.database.AppDatabase;
 import com.example.infs3634app.database.GetQuestionsAsyncTask;
-import com.example.infs3634app.database.GetQuestionsDelegate;
-import com.example.infs3634app.database.GetQuizzesAsyncTask;
-import com.example.infs3634app.fragments.QuizRecyclerFragment;
+import com.example.infs3634app.database.GetUserAsyncTask;
+import com.example.infs3634app.database.QuizDelegate;
+import com.example.infs3634app.database.UpdateUserAsyncTask;
+import com.example.infs3634app.database.UpdateUserDataDelegate;
 import com.example.infs3634app.model.Question;
+import com.example.infs3634app.model.User;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class QuizActivity extends AppCompatActivity implements GetQuestionsDelegate {
+public class QuizActivity extends AppCompatActivity implements QuizDelegate, UpdateUserDataDelegate {
 
     private RadioGroup radioGroup;
-    private RadioButton rbSelection;
     private RadioButton rbOne;
     private RadioButton rbTwo;
     private RadioButton rbThree;
@@ -46,6 +47,10 @@ public class QuizActivity extends AppCompatActivity implements GetQuestionsDeleg
     private ArrayList<String> optionsList = new ArrayList<>();
     private boolean responded;
     private String selectedResponse;
+    private User user;
+    private int highScore;
+    private int totalPoints;
+    private AppDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +70,7 @@ public class QuizActivity extends AppCompatActivity implements GetQuestionsDeleg
         txtQuestion = findViewById(R.id.txtQuestion);
         btnConfirm = findViewById(R.id.btnConfirm);
 
-        AppDatabase database = AppDatabase.getInstance(getApplicationContext());
+        database = AppDatabase.getInstance(getApplicationContext());
         GetQuestionsAsyncTask getQuestionsAsyncTask = new GetQuestionsAsyncTask();
         getQuestionsAsyncTask.setDatabase(database);
         getQuestionsAsyncTask.setDelegate(QuizActivity.this);
@@ -101,7 +106,14 @@ public class QuizActivity extends AppCompatActivity implements GetQuestionsDeleg
             //store points in user db
             Toast.makeText(this, "Score: "
                     + scoreCount, Toast.LENGTH_SHORT).show();
-            saveResults();
+
+            //fixdis
+            GetUserAsyncTask getUserAsyncTask = new GetUserAsyncTask();
+            getUserAsyncTask.setDatabase(database);
+            getUserAsyncTask.setDelegate(QuizActivity.this);
+            User userxd = MainActivity.user;
+            int id = userxd.getUserId();
+            getUserAsyncTask.execute(id);
         }
     }
     private List<String> getOptionsList(){
@@ -148,15 +160,10 @@ public class QuizActivity extends AppCompatActivity implements GetQuestionsDeleg
         }else{
             btnConfirm.setText("Save Results");
         }
-
-    }
-    private void saveResults(){
-        //save in user table
-
     }
 
     @Override
-    public void handleTaskResult(List<Question> questionList) {
+    public void handleQuestionResult(List<Question> questionList) {
         this.questionList = questionList;
         Collections.shuffle(questionList);
         questionListSize = questionList.size();
@@ -170,7 +177,8 @@ public class QuizActivity extends AppCompatActivity implements GetQuestionsDeleg
                     if(rbOne.isChecked() || rbTwo.isChecked() || rbThree.isChecked() || rbFour.isChecked()){
                         checkAnswer();
                     }else{
-                        Toast.makeText(QuizActivity.this, "Please select an answer", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(QuizActivity.this, "Please select an answer",
+                                Toast.LENGTH_SHORT).show();
                     }
                 }else{
                     showNextQuestion();
@@ -178,6 +186,27 @@ public class QuizActivity extends AppCompatActivity implements GetQuestionsDeleg
             }
         });
     }
-    //insert results delegate response here - toast confirm save, finish?
+    @Override
+    public void handleUserResult(User user){
+        this.user = user;
+        highScore = user.getHighScore();
+        totalPoints = user.getTotalPoints();
 
+        if(scoreCount > highScore){
+            user.setHighScore(scoreCount);
+            Toast.makeText(QuizActivity.this, "Congrats that was a new high score!",
+                    Toast.LENGTH_SHORT).show();
+        }
+        totalPoints +=scoreCount;
+        user.setTotalPoints(totalPoints);
+
+        UpdateUserAsyncTask updateUserAsyncTask = new UpdateUserAsyncTask();
+        updateUserAsyncTask.setDatabase(database);
+        updateUserAsyncTask.setDelegate(QuizActivity.this);
+        updateUserAsyncTask.execute(user);
+    }
+
+    @Override
+    public void handleTaskResult(String string) {
+    }
 }

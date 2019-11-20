@@ -319,7 +319,7 @@ public class RecipeDetailFragment extends Fragment implements GetFavouritesDeleg
     }
 
     @Override
-    public void handleTaskResult(User user) {
+    public void handleTaskResult(String string) {
         setLike();
     }
 
