@@ -35,6 +35,7 @@ public class DrinksAdapter extends RecyclerView.Adapter<DrinksViewHolder> {
         holder.category.setText(drinksArrayList.get(position).getStrCategory());
         holder.alcoholic.setText(drinksArrayList.get(position).getStrAlcoholic());
         Glide.with(holder.drinkImage.getContext()).load(drinksArrayList.get(position).getStrDrinkThumb()).into(holder.drinkImage);
+
     }
 
     @Override

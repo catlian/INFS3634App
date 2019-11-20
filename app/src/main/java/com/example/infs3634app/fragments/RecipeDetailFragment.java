@@ -25,6 +25,7 @@ import com.example.infs3634app.activities.MainActivity;
 import com.example.infs3634app.database.AppDatabase;
 import com.example.infs3634app.database.GetFavouritesAsyncTask;
 import com.example.infs3634app.database.GetFavouritesDelegate;
+import com.example.infs3634app.database.GetMyRecipesAsyncTask;
 import com.example.infs3634app.database.UpdateUserAsyncTask;
 import com.example.infs3634app.database.UpdateUserDataDelegate;
 import com.example.infs3634app.model.Drinks;
@@ -44,7 +45,8 @@ import java.util.List;
  * Use the {@link RecipeDetailFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RecipeDetailFragment extends Fragment implements GetFavouritesDelegate, UpdateUserDataDelegate {
+public class RecipeDetailFragment extends Fragment implements
+        GetFavouritesDelegate, UpdateUserDataDelegate {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -55,7 +57,7 @@ public class RecipeDetailFragment extends Fragment implements GetFavouritesDeleg
 
     // TODO: Rename and change types of parameters
     private String drinkID;
-    private String mParam2;
+    private int position;
 
     private OnFragmentInteractionListener mListener;
 
@@ -86,32 +88,42 @@ public class RecipeDetailFragment extends Fragment implements GetFavouritesDeleg
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             drinkID = getArguments().getString("DRINK_ID");
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            position = getArguments().getInt("USER_DRINK_INT");
         }
-        final RequestQueue requestQueue= Volley.newRequestQueue(getContext());
-        final Response.Listener<String> responseListener = new Response.Listener<String>(){
-            @Override
-            public void onResponse(String response){
-                DrinksImport drinkImports = new Gson().fromJson(response,DrinksImport.class);
-                ArrayList<DrinksImport> drinkArrayList= new ArrayList<DrinksImport>(Arrays.asList(drinkImports));
-                selectedDrink = drinkArrayList.get(0).getDrinks().get(0);
-                setIngredients(selectedDrink);
-                setMethod(selectedDrink);
-                setTags(selectedDrink);
-                setLike();
+        if(drinkID!=null){
+            final RequestQueue requestQueue= Volley.newRequestQueue(getContext());
+            final Response.Listener<String> responseListener = new Response.Listener<String>(){
+                @Override
+                public void onResponse(String response){
+                    DrinksImport drinkImports = new Gson().fromJson(response,DrinksImport.class);
+                    ArrayList<DrinksImport> drinkArrayList= new ArrayList<DrinksImport>(Arrays.asList(drinkImports));
+                    selectedDrink = drinkArrayList.get(0).getDrinks().get(0);
+                    setIngredients(selectedDrink);
+                    setMethod(selectedDrink);
+                    setTags(selectedDrink);
+                    setLike();
 
-            }
-        };
-        Response.ErrorListener errorListener=new Response.ErrorListener(){
-            @Override
-            public void onErrorResponse(VolleyError error){
-                System.out.println("Request failed");
-            }
+                }
+            };
+            Response.ErrorListener errorListener=new Response.ErrorListener(){
+                @Override
+                public void onErrorResponse(VolleyError error){
+                    System.out.println("Request failed");
+                }
 
-        };
-        String url = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i="+drinkID;
-        StringRequest stringRequest = new StringRequest(Request.Method.GET,url,responseListener,errorListener);
-        requestQueue.add(stringRequest);
+            };
+            String url = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i="+drinkID;
+            StringRequest stringRequest = new StringRequest(Request.Method.GET,url,responseListener,errorListener);
+            requestQueue.add(stringRequest);
+        }
+        else{
+            AppDatabase db = AppDatabase.getInstance(getContext());
+            GetMyRecipesAsyncTask getMyRecipesAsyncTask = new GetMyRecipesAsyncTask();
+            getMyRecipesAsyncTask.setDatabase(db);
+            getMyRecipesAsyncTask.setDelegate(this);
+            getMyRecipesAsyncTask.execute(Integer.parseInt(getString(R.string.user_id)));
+        }
+
     }
 
     private void setLike() {
@@ -273,49 +285,59 @@ public class RecipeDetailFragment extends Fragment implements GetFavouritesDeleg
 
     @Override
     public void handleTaskResult(final List<Drinks> favDrinks) {
-        MainActivity.user.setFavourites(favDrinks);
-        System.out.println("received favDrinks list");
-        final ImageView likeButton = getView().findViewById(R.id.likeButton);
-        if(favDrinks.size()>0){
-            for(int i=0;i<favDrinks.size();i++) {
-                if (drinkID.equals(favDrinks.get(i).getIdDrink())) {
-                    System.out.println("already liked");
-                    likeButton.setImageResource(R.drawable.liked);
-                    break;
-                }
-                else{
-                    System.out.println("not liked yet");
-                    likeButton.setImageResource(R.drawable.like);
-                }
-            }
+        if (drinkID==null) {
+            selectedDrink = favDrinks.get(position);
+            setIngredients(selectedDrink);
+            setMethod(selectedDrink);
+            setTags(selectedDrink);
+            getView().findViewById(R.id.likeButton).setVisibility(View.GONE);
         }
-        likeButton.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AppCompatActivity activity = (AppCompatActivity)getView().getContext();
-                if(likeButton.getDrawable().getConstantState()==getResources().getDrawable(R.drawable.like).getConstantState()){
-                    System.out.println(selectedDrink.getStrDrink()+" has not been liked yet");
-                    likeButton.setImageResource(R.drawable.liked);
-                    MainActivity.user.addToFavourite(selectedDrink);
-                }
-                else{
-                    System.out.println(selectedDrink.getStrDrink()+" is already liked");
-                    likeButton.setImageResource(R.drawable.like);
-                    for(int i=0;i<favDrinks.size();i++){
-                        if(drinkID.equals(favDrinks.get(i).getIdDrink())){
-                            System.out.println("TO DELETE: match found id: "+drinkID+"= "+favDrinks.get(i).getIdDrink());
-                            MainActivity.user.deleteFromFavourite(i);
-                        }
+        else{
+            MainActivity.user.setFavourites(favDrinks);
+            System.out.println("received favDrinks list");
+            final ImageView likeButton = getView().findViewById(R.id.likeButton);
+            if(favDrinks.size()>0){
+                for(int i=0;i<favDrinks.size();i++) {
+                    if (drinkID.equals(favDrinks.get(i).getIdDrink())) {
+                        System.out.println("already liked");
+                        likeButton.setImageResource(R.drawable.liked);
+                        break;
+                    }
+                    else{
+                        System.out.println("not liked yet");
+                        likeButton.setImageResource(R.drawable.like);
                     }
                 }
-                AppDatabase db = AppDatabase.getInstance(getContext());
-                System.out.println("updating database");
-                UpdateUserAsyncTask updateUserAsyncTask = new UpdateUserAsyncTask();
-                updateUserAsyncTask.setDatabase(db);
-                updateUserAsyncTask.setDelegate((UpdateUserDataDelegate)thisFragment);
-                updateUserAsyncTask.execute(MainActivity.user);
             }
-        }));
+            likeButton.setOnClickListener((new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AppCompatActivity activity = (AppCompatActivity)getView().getContext();
+                    if(likeButton.getDrawable().getConstantState()==getResources().getDrawable(R.drawable.like).getConstantState()){
+                        System.out.println(selectedDrink.getStrDrink()+" has not been liked yet");
+                        likeButton.setImageResource(R.drawable.liked);
+                        MainActivity.user.addToFavourite(selectedDrink);
+                    }
+                    else{
+                        System.out.println(selectedDrink.getStrDrink()+" is already liked");
+                        likeButton.setImageResource(R.drawable.like);
+                        for(int i=0;i<favDrinks.size();i++){
+                            if(drinkID.equals(favDrinks.get(i).getIdDrink())){
+                                System.out.println("TO DELETE: match found id: "+drinkID+"= "+favDrinks.get(i).getIdDrink());
+                                MainActivity.user.deleteFromFavourite(i);
+                            }
+                        }
+                    }
+                    AppDatabase db = AppDatabase.getInstance(getContext());
+                    System.out.println("updating database");
+                    UpdateUserAsyncTask updateUserAsyncTask = new UpdateUserAsyncTask();
+                    updateUserAsyncTask.setDatabase(db);
+                    updateUserAsyncTask.setDelegate((UpdateUserDataDelegate)thisFragment);
+                    updateUserAsyncTask.execute(MainActivity.user);
+                }
+            }));
+        }
+
     }
 
     @Override

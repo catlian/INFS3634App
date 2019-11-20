@@ -71,6 +71,11 @@ public class FavouritesFragment extends Fragment implements GetFavouritesDelegat
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        AppDatabase db = AppDatabase.getInstance(getContext());
+        GetFavouritesAsyncTask getFavouritesAsyncTask = new GetFavouritesAsyncTask();
+        getFavouritesAsyncTask.setDatabase(db);
+        getFavouritesAsyncTask.setDelegate(this);
+        getFavouritesAsyncTask.execute(Integer.parseInt(getString(R.string.user_id)));
     }
 
     @Override
@@ -81,11 +86,7 @@ public class FavouritesFragment extends Fragment implements GetFavouritesDelegat
     }
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
-        AppDatabase db = AppDatabase.getInstance(getContext());
-        GetFavouritesAsyncTask getFavouritesAsyncTask = new GetFavouritesAsyncTask();
-        getFavouritesAsyncTask.setDatabase(db);
-        getFavouritesAsyncTask.setDelegate(this);
-        getFavouritesAsyncTask.execute(Integer.parseInt(getString(R.string.user_id)));
+
     }
     @Override
     public void handleTaskResult(List<Drinks> favDrinks) {
