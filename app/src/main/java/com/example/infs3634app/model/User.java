@@ -21,6 +21,7 @@ public class User {
     private Integer totalPoints;
     private Integer highScore;
     private List<Drinks> favourites;
+    private List<Drinks> myRecipes;
 
     @Ignore
     public User(int userId, String username, Integer totalPoints, Integer highScore) {
@@ -28,17 +29,21 @@ public class User {
         this.username = username;
         this.totalPoints = totalPoints;
         this.highScore = highScore;
+        favourites = new ArrayList<>();
+        myRecipes = new ArrayList<>();
     }
-
+    /*
+    @Ignore
     public User(int userId, List<Drinks> favourites){
         this.userId = userId;
         this.favourites = favourites;
     }
-    @Ignore
+*/
     public User(int userId, String username){
         this.userId = userId;
         this.username = username;
         favourites = new ArrayList<>();
+        myRecipes = new ArrayList<>();
     }
 
     public int getUserId() {
@@ -87,5 +92,17 @@ public class User {
 
     public void setHighScore(Integer highScore) {
         this.highScore = highScore;
+    }
+
+    public List<Drinks> getMyRecipes() {
+        return myRecipes;
+    }
+
+    public void setMyRecipes(List<Drinks> myRecipes) {
+        this.myRecipes = myRecipes;
+    }
+    public void addToMyRecipes(Drinks selectedDrink){
+        myRecipes.add(selectedDrink);
+        System.out.println("added new drink to myrecipes");
     }
 }

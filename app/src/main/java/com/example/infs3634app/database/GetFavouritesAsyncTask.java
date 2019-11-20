@@ -22,12 +22,12 @@ public class GetFavouritesAsyncTask extends AsyncTask<Integer, Integer, User> {
 
     @Override
     protected User doInBackground(Integer... integers) {
-        System.out.println("userid: "+integers[0]);
         User user = database.userDao().getFavourites(integers[0]);
         return user;
     }
     @Override
     protected void onPostExecute(User user) {
+        System.out.println("user id: "+user.getUserId());
         List<Drinks> favDrinks = user.getFavourites();
         for(int i=0;i<favDrinks.size();i++){
             System.out.println(favDrinks.get(i).getStrDrink());

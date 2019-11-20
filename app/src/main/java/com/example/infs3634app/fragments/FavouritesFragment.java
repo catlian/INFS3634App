@@ -89,11 +89,11 @@ public class FavouritesFragment extends Fragment implements GetFavouritesDelegat
     }
     @Override
     public void handleTaskResult(List<Drinks> favDrinks) {
-        RecyclerView myRecipeRecycler = getView().findViewById(R.id.myRecipeRecycler);
+        RecyclerView myFavouritesRecycler = getView().findViewById(R.id.myFavouritesRecycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        myRecipeRecycler.setLayoutManager(layoutManager);
+        myFavouritesRecycler.setLayoutManager(layoutManager);
         DrinksAdapter drinksAdapter = new DrinksAdapter((ArrayList<Drinks>)favDrinks);
-        myRecipeRecycler.setAdapter(drinksAdapter);
+        myFavouritesRecycler.setAdapter(drinksAdapter);
     }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

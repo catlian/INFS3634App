@@ -129,7 +129,10 @@ public class MyRecipesFragment extends Fragment implements
     public void onFragmentInteraction(Uri uri) {
 
     }
-
+    public void onClickAddRecipe(View view){
+        Intent intent = new Intent(getContext(),NewRecipeActivity.class);
+        startActivity(intent);
+    }
 
     /**
      * This interface must be implemented by activities that contain this
