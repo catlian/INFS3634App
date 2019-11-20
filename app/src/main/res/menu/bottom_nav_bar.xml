@@ -4,19 +4,22 @@
 
     <item
         android:id="@+id/browseButton"
-        android:title="Browse"
         android:enabled="true"
-        app:showAsAction="ifRoom"/>
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="Browse"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/quizButton"
-        android:title="Quiz Me!"
         android:enabled="true"
-        app:showAsAction="ifRoom"/>
+        android:icon="@drawable/testquiz"
+        android:title="Quiz Me!"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/myRecipes"
-        android:title="My Recipes"
         android:enabled="true"
-        app:showAsAction="ifRoom"/>
+        android:icon="@drawable/cocktail"
+        android:title="My Recipes"
+        app:showAsAction="ifRoom" />
     <!--<item
         android:id="@+id/profileButton"
         android:title="My Profile"

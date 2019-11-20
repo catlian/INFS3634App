@@ -1,20 +1,33 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="buttonStyle">@style/CustomButton</item>
+        <!--<item name="android:textViewStyle">@style/NewTextViewStyle</item>-->
     </style>
 
     <style name = "CustomButton" parent = "Widget.AppCompat.Button">
         <item name="android:background">@drawable/selector_button</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@android:color/holo_purple</item>
         <item name="android:padding">16dp</item>
         <item name="android:colorButtonNormal">@android:color/holo_purple</item>
         <item name="android:colorControlHighlight">@android:color/holo_blue_dark</item>
+    </style>
+
+    <style name = "NewTextViewStyle" parent = "android:Widget.TextView">
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name= "TitleText" parent = "@android:style/TextAppearance.Large">
+        <item name="android:fontFamily">@font/lobster</item>
+    </style>
+
+    <style name="Subtitle" parent="@android:style/TextAppearance.Medium">
+        <item name="android:fontFamily">@font/concertone</item>
     </style>
 
 </resources>

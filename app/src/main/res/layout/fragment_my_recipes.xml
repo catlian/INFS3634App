@@ -12,9 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?actionBarSize"
-        app:tabBackground="@android:color/holo_purple"
+        app:tabBackground="@color/colorPrimaryUnsaturated"
         app:tabGravity="fill"
-        app:tabIndicatorColor="#7E57C2"
+        app:tabIndicatorColor="@color/colorPrimaryDark"
         app:tabIndicatorHeight="4dp"
         app:tabMode="fixed"
         app:tabSelectedTextColor="#FFFFFF"
@@ -41,7 +41,7 @@
         android:clickable="true"
         android:onClick="onClickAddRecipe"
         android:src="@android:drawable/ic_menu_add"
-        app:backgroundTint="#9575CD"
+        app:backgroundTint="@android:color/white"
         app:rippleColor="@color/design_default_color_primary" />
 
 </RelativeLayout>

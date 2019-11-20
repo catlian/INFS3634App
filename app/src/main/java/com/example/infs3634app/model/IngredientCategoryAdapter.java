@@ -40,7 +40,7 @@ public class IngredientCategoryAdapter extends RecyclerView.Adapter<CategoryView
         String categoryName = listCategories.get(position).getStrIngredient1();
         holder.type = "ingredient";
         holder.categoryName.setText(categoryName);
-        holder.categoryImage.setBackgroundColor(Color.GRAY);
+        holder.categoryImage.setBackgroundColor(R.color.colorPrimaryUnsaturated);
 
     }
 

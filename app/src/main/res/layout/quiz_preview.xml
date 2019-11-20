@@ -16,18 +16,21 @@
 
     <TextView
         android:id="@+id/txtQuizName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
         android:text="TextView"
+        android:textAppearance="@style/Subtitle"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/imgQuiz"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtQuizDescription"
-        android:layout_width="122dp"
-        android:layout_height="79dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_margin="12dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -42,7 +45,7 @@
         android:layout_margin="12dp"
         android:gravity="center_vertical"
         android:padding="12dp"
-        android:text="Do this quiz"
+        android:text="Attempt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
