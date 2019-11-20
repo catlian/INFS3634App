@@ -11,8 +11,8 @@ import java.util.List;
 
 @Dao
 public interface DrinkDAO {
-    @Query("SELECT * FROM drinks")
-    List<Drinks> getAllDrinks(User user);
+    /*@Query("SELECT * FROM drinks")
+    List<Drinks> getAllDrinks(User user);*/
 
     @Insert
     void insertNewDrink(Drinks...drinks);

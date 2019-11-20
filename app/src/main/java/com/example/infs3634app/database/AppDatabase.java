@@ -7,11 +7,12 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import com.example.infs3634app.model.*;
 
-@Database(entities = {Question.class, User.class, Quiz.class}, version = 1)
+@Database(entities = {Question.class, User.class, Quiz.class, Drinks.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase{
     public abstract QuestionDAO questionDao();
     public abstract UserDao userDao();
     public abstract QuizDAO quizDAO();
+    public abstract DrinkDAO drinkDAO();
 
 
     private static AppDatabase instance;

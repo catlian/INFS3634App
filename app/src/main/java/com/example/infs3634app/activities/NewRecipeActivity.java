@@ -14,7 +14,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.infs3634app.R;
+import com.example.infs3634app.database.AppDatabase;
+import com.example.infs3634app.database.InsertDrinkAsyncTask;
+import com.example.infs3634app.database.InsertDrinkDelegate;
 import com.example.infs3634app.fragments.AddIngredientsFragment;
+import com.example.infs3634app.fragments.AddMethodFragment;
 import com.example.infs3634app.fragments.AddRecipeImageFragment;
 import com.example.infs3634app.model.Drinks;
 
@@ -26,9 +30,24 @@ import java.net.URLEncoder;
 
 public class NewRecipeActivity extends AppCompatActivity implements
         AddRecipeImageFragment.OnFragmentInteractionListener,
-        AddIngredientsFragment.OnFragmentInteractionListener{
-    public static Drinks newDrink = new Drinks();
+        AddIngredientsFragment.OnFragmentInteractionListener,
+        AddMethodFragment.OnFragmentInteractionListener,
+        InsertDrinkDelegate {
+    private Drinks newDrink = new Drinks();
 
+    public Drinks getNewDrink(){//TODO: think about how to display preview information?
+        return newDrink;
+    }
+
+    public void onClickSubmitAll(View view){
+        System.out.println(newDrink.getStrDrink());
+        System.out.println(newDrink.getStrInstructions());
+        InsertDrinkAsyncTask insertDrinkAsyncTask = new InsertDrinkAsyncTask();
+        AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+        insertDrinkAsyncTask.setDatabase(db);
+        insertDrinkAsyncTask.setDelegate(this);
+        insertDrinkAsyncTask.execute(newDrink);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +60,10 @@ public class NewRecipeActivity extends AppCompatActivity implements
         fragmentTransaction.commit();
     }
 
+    public void addNameImage(String name, String url){
+        newDrink.setStrDrink(name);
+        newDrink.setStrDrinkThumb(url);
+    }
     public void addIngredientsToDrink(String[] ingredients, String[] qty, String[] measurements){
         newDrink.setStrIngredient1(ingredients[0]);
         newDrink.setStrMeasure1(qty[0]+measurements[0]);
@@ -56,11 +79,22 @@ public class NewRecipeActivity extends AppCompatActivity implements
         System.out.println(newDrink.getStrIngredient5()+newDrink.getStrMeasure5());
     }
 
+    public void addMethodToDrink(String method){
+        newDrink.setStrInstructions(method);
+        System.out.println(method);
+    }
     public void onClickAddIngredients(View view){
         AddIngredientsFragment addIngredientsFragment = new AddIngredientsFragment();
         FragmentManager fragmentManager=getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.new_recipe_slot, addIngredientsFragment);
+        fragmentTransaction.commit();
+    }
+    public void onClickAddMethod(View view){
+        AddMethodFragment addMethodFragment = new AddMethodFragment();
+        FragmentManager fragmentManager=getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.new_recipe_slot, addMethodFragment);
         fragmentTransaction.commit();
     }
     public void onClickLoadImage(View view){
@@ -75,6 +109,11 @@ public class NewRecipeActivity extends AppCompatActivity implements
 
     @Override
     public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void handleTaskResult(Drinks drink) {
 
     }
 }
