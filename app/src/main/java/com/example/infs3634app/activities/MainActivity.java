@@ -7,6 +7,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.infs3634app.database.AppDatabase;
 import com.example.infs3634app.database.InsertUserAsyncTask;
+import com.example.infs3634app.fragments.FavouritesFragment;
+import com.example.infs3634app.fragments.MyCreatedRecipesFragment;
 import com.example.infs3634app.fragments.MyRecipesFragment;
 import com.example.infs3634app.fragments.QuizRecyclerFragment;
 
@@ -32,7 +34,9 @@ public class MainActivity extends AppCompatActivity
         RecipeDetailFragment.OnFragmentInteractionListener,
         BrowseRecipeCategoryFragment.OnFragmentInteractionListener,
         com.example.infs3634app.database.InsertUserDelegate,
-        MyRecipesFragment.OnFragmentInteractionListener
+        MyRecipesFragment.OnFragmentInteractionListener,
+        FavouritesFragment.OnFragmentInteractionListener,
+        MyCreatedRecipesFragment.OnFragmentInteractionListener
 {
     public static User user = new User(1, "test", 0, 0);
     @Override

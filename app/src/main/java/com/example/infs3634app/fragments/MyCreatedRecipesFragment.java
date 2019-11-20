@@ -1,43 +1,26 @@
 package com.example.infs3634app.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.infs3634app.R;
-import com.example.infs3634app.activities.NewRecipeActivity;
-import com.example.infs3634app.database.AppDatabase;
-import com.example.infs3634app.database.GetFavouritesAsyncTask;
-import com.example.infs3634app.database.GetFavouritesDelegate;
-import com.example.infs3634app.model.Drinks;
-import com.example.infs3634app.model.DrinksAdapter;
-import com.example.infs3634app.model.TabAdapter;
-import com.google.android.material.tabs.TabLayout;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link MyRecipesFragment.OnFragmentInteractionListener} interface
+ * {@link MyCreatedRecipesFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link MyRecipesFragment#newInstance} factory method to
+ * Use the {@link MyCreatedRecipesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MyRecipesFragment extends Fragment implements
-        FavouritesFragment.OnFragmentInteractionListener,
-        MyCreatedRecipesFragment.OnFragmentInteractionListener{
+public class MyCreatedRecipesFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -46,13 +29,10 @@ public class MyRecipesFragment extends Fragment implements
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private TabAdapter adapter;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
 
     private OnFragmentInteractionListener mListener;
 
-    public MyRecipesFragment() {
+    public MyCreatedRecipesFragment() {
         // Required empty public constructor
     }
 
@@ -62,11 +42,11 @@ public class MyRecipesFragment extends Fragment implements
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment MyRecipesFragment.
+     * @return A new instance of fragment MyCreatedRecipesFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MyRecipesFragment newInstance(String param1, String param2) {
-        MyRecipesFragment fragment = new MyRecipesFragment();
+    public static MyCreatedRecipesFragment newInstance(String param1, String param2) {
+        MyCreatedRecipesFragment fragment = new MyCreatedRecipesFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -81,26 +61,15 @@ public class MyRecipesFragment extends Fragment implements
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_recipes, container, false);
+        return inflater.inflate(R.layout.fragment_my_created_recipes, container, false);
     }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState){
-        viewPager = (ViewPager)getView().findViewById(R.id.viewPager);
-        tabLayout = (TabLayout)getView().findViewById(R.id.tabLayout);
-        adapter = new TabAdapter(getFragmentManager());
-        adapter.addFragment(new FavouritesFragment(), "Favourites");
-        adapter.addFragment(new MyCreatedRecipesFragment(), "My Recipes");
-        viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
-    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -124,12 +93,6 @@ public class MyRecipesFragment extends Fragment implements
         super.onDetach();
         mListener = null;
     }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
-
 
     /**
      * This interface must be implemented by activities that contain this
