@@ -1,8 +1,11 @@
 package com.example.infs3634app.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -13,12 +16,19 @@ import com.example.infs3634app.R;
 import com.example.infs3634app.database.AppDatabase;
 import com.example.infs3634app.database.UpdateUserAsyncTask;
 import com.example.infs3634app.database.UpdateUserDataDelegate;
+import com.example.infs3634app.fragments.BrowseRecipeCategoryFragment;
+import com.example.infs3634app.fragments.FavouritesFragment;
+import com.example.infs3634app.fragments.MyCreatedRecipesFragment;
+import com.example.infs3634app.fragments.MyRecipesFragment;
 import com.example.infs3634app.model.Drinks;
 
 import java.util.ArrayList;
 
 public class NewRecipeActivity extends AppCompatActivity implements
-        UpdateUserDataDelegate {
+        UpdateUserDataDelegate,
+        FavouritesFragment.OnFragmentInteractionListener,
+        MyCreatedRecipesFragment.OnFragmentInteractionListener,
+MyRecipesFragment.OnFragmentInteractionListener{
     private Drinks newDrink = new Drinks();
     private int countRows;
     private ArrayList<View> rows = new ArrayList<>();
@@ -132,6 +142,15 @@ public class NewRecipeActivity extends AppCompatActivity implements
 
     @Override
     public void handleTaskResult(String string) {
+        MyRecipesFragment myRecipesFragment = new MyRecipesFragment();
+        FragmentManager fragmentManager=getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_slot, myRecipesFragment);
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
     }
 }
