@@ -20,9 +20,10 @@
         android:icon="@drawable/cocktail"
         android:title="My Recipes"
         app:showAsAction="ifRoom" />
-    <!--<item
-        android:id="@+id/profileButton"
-        android:title="My Profile"
+    <item
+        android:id="@+id/youtubeButton"
         android:enabled="true"
-        app:showAsAction="ifRoom"/>-->
+        android:icon="@drawable/playbutton"
+        android:title="Watch"
+        app:showAsAction="ifRoom" />
 </menu>

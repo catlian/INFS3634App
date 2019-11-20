@@ -6,79 +6,106 @@
     android:layout_height="match_parent"
     tools:context=".activities.QuizActivity">
 
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="224dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <RadioButton
-            android:id="@+id/btnOption1"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:text="String of correct answer from db retrieval" />
+            android:orientation="vertical">
 
-        <RadioButton
-            android:id="@+id/btnOption2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:text="Button" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary">
 
-        <RadioButton
-            android:id="@+id/btnOption3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:text="Button" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="Question"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/TitleText"
+                    android:textColor="@android:color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <RadioButton
-            android:id="@+id/btnOption4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:text="Button" />
-    </RadioGroup>
+            <ImageView
+                android:id="@+id/imgQuestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                tools:srcCompat="@tools:sample/avatars[3]" />
 
-    <TextView
-        android:id="@+id/txtScore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="176dp"
-        android:layout_marginTop="40dp"
-        android:text="Score: 0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+            <TextView
+                android:id="@+id/txtQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryUnsaturated"
+                android:padding="10dp"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textAppearance="@style/Subtitle"
+                android:textColor="@android:color/white" />
 
-    <TextView
-        android:id="@+id/txtQuestion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="176dp"
-        android:layout_marginTop="172dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
 
-    <ImageView
-        android:id="@+id/imgQuestion"
-        android:layout_width="match_parent"
-        android:layout_height="126dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars[3]" />
+                <RadioButton
+                    android:id="@+id/btnOption1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:text="String of correct answer from db retrieval" />
 
-    <Button
-        android:id="@+id/btnConfirm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="32dp"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+                <RadioButton
+                    android:id="@+id/btnOption2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:text="Button" />
+
+                <RadioButton
+                    android:id="@+id/btnOption3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:text="Button" />
+
+                <RadioButton
+                    android:id="@+id/btnOption4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:text="Button" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/txtScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="32dp"
+                android:text="Score: 0"
+                android:textAlignment="center"
+                android:textAppearance="@style/Subtitle" />
+
+            <Button
+                android:id="@+id/btnConfirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="Button" />
+        </LinearLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

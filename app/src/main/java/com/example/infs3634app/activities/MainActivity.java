@@ -82,6 +82,11 @@ public class MainActivity extends AppCompatActivity
                         fragmentTransaction3.replace(R.id.fragment_slot, myRecipesFragment);
                         fragmentTransaction3.commit();
                         break;
+                    case R.id.youtubeButton:
+                        Toast.makeText(MainActivity.this,"Watch",Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this,YoutubeActivity.class);
+                        startActivity(intent);
+                        break;
                 }
                 return true;
             }
