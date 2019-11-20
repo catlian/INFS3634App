@@ -8,9 +8,9 @@ import com.example.infs3634app.model.User;
 import java.util.List;
 
 public class GetUserAsyncTask extends AsyncTask<Integer, Void, User>{
-        private QuizDelegate delegate;
+        private GetUserDelegate delegate;
         private AppDatabase database;
-        public void setDelegate(QuizDelegate delegate) {
+        public void setDelegate(GetUserDelegate delegate) {
             this.delegate = delegate;
         }
         public void setDatabase(AppDatabase database) {

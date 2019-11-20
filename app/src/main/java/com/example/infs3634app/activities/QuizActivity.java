@@ -18,6 +18,7 @@ import com.example.infs3634app.R;
 import com.example.infs3634app.database.AppDatabase;
 import com.example.infs3634app.database.GetQuestionsAsyncTask;
 import com.example.infs3634app.database.GetUserAsyncTask;
+import com.example.infs3634app.database.GetUserDelegate;
 import com.example.infs3634app.database.QuizDelegate;
 import com.example.infs3634app.database.UpdateUserAsyncTask;
 import com.example.infs3634app.database.UpdateUserDataDelegate;
@@ -28,7 +29,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class QuizActivity extends AppCompatActivity implements QuizDelegate, UpdateUserDataDelegate {
+public class QuizActivity extends AppCompatActivity implements QuizDelegate, UpdateUserDataDelegate,
+        GetUserDelegate {
 
     private RadioGroup radioGroup;
     private RadioButton rbOne;
@@ -107,8 +109,7 @@ public class QuizActivity extends AppCompatActivity implements QuizDelegate, Upd
             GetUserAsyncTask getUserAsyncTask = new GetUserAsyncTask();
             getUserAsyncTask.setDatabase(database);
             getUserAsyncTask.setDelegate(QuizActivity.this);
-            User userxd = MainActivity.user;
-            int id = userxd.getUserId();
+            int id = getResources().getInteger(R.integer.user_id);
             getUserAsyncTask.execute(id);
         }
     }
