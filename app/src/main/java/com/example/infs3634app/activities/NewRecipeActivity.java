@@ -3,7 +3,6 @@ package com.example.infs3634app.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -12,21 +11,17 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.example.infs3634app.R;
 import com.example.infs3634app.database.AppDatabase;
-import com.example.infs3634app.database.InsertDrinkAsyncTask;
-import com.example.infs3634app.database.InsertDrinkDelegate;
+import com.example.infs3634app.database.UpdateUserAsyncTask;
+import com.example.infs3634app.database.UpdateUserDataDelegate;
 import com.example.infs3634app.model.Drinks;
 
 import java.util.ArrayList;
 
 public class NewRecipeActivity extends AppCompatActivity implements
-        InsertDrinkDelegate {
+        UpdateUserDataDelegate {
     private Drinks newDrink = new Drinks();
     private int countRows;
     private ArrayList<View> rows = new ArrayList<>();
-
-    public Drinks getNewDrink() {//TODO: think about how to display preview information?
-        return newDrink;
-    }
 
     public void onClickSubmitAll(View view) {
         System.out.println(newDrink.getStrDrink());
@@ -34,11 +29,12 @@ public class NewRecipeActivity extends AppCompatActivity implements
         handleIngredients();
         handleNameImage();
         handleMethod();
-        InsertDrinkAsyncTask insertDrinkAsyncTask = new InsertDrinkAsyncTask();
-        AppDatabase db = AppDatabase.getInstance(getApplicationContext());
-        insertDrinkAsyncTask.setDatabase(db);
-        insertDrinkAsyncTask.setDelegate(this);
-        insertDrinkAsyncTask.execute(newDrink);
+        MainActivity.user.addToMyRecipes(newDrink);
+        AppDatabase db = AppDatabase.getInstance(this);
+        UpdateUserAsyncTask updateUserAsyncTask = new UpdateUserAsyncTask();
+        updateUserAsyncTask.setDatabase(db);
+        updateUserAsyncTask.setDelegate((UpdateUserDataDelegate)this);
+        updateUserAsyncTask.execute(MainActivity.user);
     }
 
     @Override
@@ -135,7 +131,7 @@ public class NewRecipeActivity extends AppCompatActivity implements
 
 
     @Override
-    public void handleTaskResult(Drinks drink) {
+    public void handleTaskResult(String string) {
 
     }
 }

@@ -1,19 +1,8 @@
 package com.example.infs3634app.model;
 
-import androidx.annotation.NonNull;
-import androidx.room.Entity;
-import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
-import androidx.room.TypeConverters;
-
-import com.example.infs3634app.database.DrinkTypeConverters;
-
-@Entity(tableName = "drinks")
-@TypeConverters(DrinkTypeConverters.class)
 public class Drinks {
     private String idDrink;
-    @PrimaryKey
-    @NonNull
+
     private String strDrink;
     private String strIngredient12;
     private String strIngredient11;
@@ -23,9 +12,7 @@ public class Drinks {
     private String strAlcoholic;
     private String strIngredient13;
     private String strIngredient15;
-    @Ignore
     private String strCreativeCommonsConfirmed;
-    @Ignore
     private String strIBA;
     private String strVideo;
     private String strTags;
@@ -39,7 +26,6 @@ public class Drinks {
     private String strIngredient6;
     private String strIngredient9;
     private String strIngredient8;
-    @Ignore
     private String strInstructionsES;
     private String strGlass;
     private String strMeasure12;

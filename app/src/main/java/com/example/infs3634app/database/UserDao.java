@@ -23,6 +23,9 @@ public interface UserDao {
     @Query("SELECT userId, favourites FROM users WHERE userId= :id")
     User getFavourites(int id);
 
+    @Query("SELECT userId, myRecipes FROM users WHERE userId= :id")
+    User getMyRecipes (int id);
+
     @Update
     void updateUsers(User...users);
 
