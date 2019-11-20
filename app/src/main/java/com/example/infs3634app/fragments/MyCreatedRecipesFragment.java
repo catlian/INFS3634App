@@ -73,17 +73,18 @@ implements GetFavouritesDelegate {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        AppDatabase db = AppDatabase.getInstance(getContext());
-        GetMyRecipesAsyncTask getMyRecipesAsyncTask = new GetMyRecipesAsyncTask();
-        getMyRecipesAsyncTask.setDatabase(db);
-        getMyRecipesAsyncTask.setDelegate(this);
-        getMyRecipesAsyncTask.execute(Integer.parseInt(getString(R.string.user_id)));
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        AppDatabase db = AppDatabase.getInstance(getContext());
+        GetMyRecipesAsyncTask getMyRecipesAsyncTask = new GetMyRecipesAsyncTask();
+        getMyRecipesAsyncTask.setDatabase(db);
+        getMyRecipesAsyncTask.setDelegate(this);
+        getMyRecipesAsyncTask.execute(Integer.parseInt(getString(R.string.user_id)));
         return inflater.inflate(R.layout.fragment_my_created_recipes, container, false);
     }
 
