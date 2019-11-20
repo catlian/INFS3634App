@@ -7,5 +7,4 @@ import java.util.List;
 
 public interface QuizDelegate {
     void handleQuestionResult(List<Question> questionList);
-    void handleUserResult(User user);
 }

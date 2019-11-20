@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.example.infs3634app.R;
 import com.example.infs3634app.database.AppDatabase;
+import com.example.infs3634app.database.GetUserAsyncTask;
+import com.example.infs3634app.database.GetUserDelegate;
 import com.example.infs3634app.database.UpdateUserAsyncTask;
 import com.example.infs3634app.database.UpdateUserDataDelegate;
 import com.example.infs3634app.fragments.BrowseRecipeCategoryFragment;
@@ -21,17 +23,21 @@ import com.example.infs3634app.fragments.FavouritesFragment;
 import com.example.infs3634app.fragments.MyCreatedRecipesFragment;
 import com.example.infs3634app.fragments.MyRecipesFragment;
 import com.example.infs3634app.model.Drinks;
+import com.example.infs3634app.model.User;
 
 import java.util.ArrayList;
 
 public class NewRecipeActivity extends AppCompatActivity implements
         UpdateUserDataDelegate,
+        GetUserDelegate,
         FavouritesFragment.OnFragmentInteractionListener,
         MyCreatedRecipesFragment.OnFragmentInteractionListener,
-MyRecipesFragment.OnFragmentInteractionListener{
+        MyRecipesFragment.OnFragmentInteractionListener{
     private Drinks newDrink = new Drinks();
     private int countRows;
     private ArrayList<View> rows = new ArrayList<>();
+    private int id = getResources().getInteger(R.integer.user_id);
+    private AppDatabase database;
 
     public void onClickSubmitAll(View view) {
         System.out.println(newDrink.getStrDrink());
@@ -39,12 +45,11 @@ MyRecipesFragment.OnFragmentInteractionListener{
         handleIngredients();
         handleNameImage();
         handleMethod();
-        MainActivity.user.addToMyRecipes(newDrink);
-        AppDatabase db = AppDatabase.getInstance(this);
-        UpdateUserAsyncTask updateUserAsyncTask = new UpdateUserAsyncTask();
-        updateUserAsyncTask.setDatabase(db);
-        updateUserAsyncTask.setDelegate((UpdateUserDataDelegate)this);
-        updateUserAsyncTask.execute(MainActivity.user);
+
+        GetUserAsyncTask getUserAsyncTask = new GetUserAsyncTask();
+        getUserAsyncTask.setDatabase(database);
+        getUserAsyncTask.setDelegate(NewRecipeActivity.this);
+        getUserAsyncTask.execute(id);
     }
 
     @Override
@@ -53,6 +58,7 @@ MyRecipesFragment.OnFragmentInteractionListener{
         setContentView(R.layout.activity_new_recipe);
         Intent intent = getIntent();
         countRows=1;
+        database = AppDatabase.getInstance(getApplicationContext());
     }
 
     @Override
@@ -139,6 +145,21 @@ MyRecipesFragment.OnFragmentInteractionListener{
         newDrink.setStrInstructions(method);
     }
 
+    @Override
+    public void handleUserResult(User user) {
+        user.addToMyRecipes(newDrink);
+
+        UpdateUserAsyncTask updateUserAsyncTask = new UpdateUserAsyncTask();
+        updateUserAsyncTask.setDatabase(database);
+        updateUserAsyncTask.setDelegate((UpdateUserDataDelegate)this);
+        updateUserAsyncTask.execute(user);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
 
     @Override
     public void handleTaskResult(String string) {
@@ -147,10 +168,5 @@ MyRecipesFragment.OnFragmentInteractionListener{
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_slot, myRecipesFragment);
         fragmentTransaction.commit();
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 }
