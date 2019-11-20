@@ -3,14 +3,13 @@ package com.example.infs3634app.database;
 import android.os.AsyncTask;
 
 import com.example.infs3634app.model.Question;
-import com.example.infs3634app.model.Quiz;
 
 import java.util.List;
 
 public class GetQuestionsAsyncTask extends AsyncTask<Integer, Void, List<Question>> {
-    private GetQuestionsDelegate delegate;
+    private QuizDelegate delegate;
     private AppDatabase database;
-    public void setDelegate(GetQuestionsDelegate delegate) {
+    public void setDelegate(QuizDelegate delegate) {
         this.delegate = delegate;
     }
     public void setDatabase(AppDatabase database) {
@@ -26,6 +25,6 @@ public class GetQuestionsAsyncTask extends AsyncTask<Integer, Void, List<Questio
 
     @Override
     protected void onPostExecute(List<Question> questionList) {
-        delegate.handleTaskResult(questionList);
+        delegate.handleQuestionResult(questionList);
     }
 }

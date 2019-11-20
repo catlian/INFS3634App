@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 
 import com.example.infs3634app.model.User;
 
-public class UpdateUserAsyncTask extends AsyncTask<User,Integer,User> {
+public class UpdateUserAsyncTask extends AsyncTask<User,Integer,String> {
     private UpdateUserDataDelegate delegate;
     private AppDatabase database;
 
@@ -17,14 +17,15 @@ public class UpdateUserAsyncTask extends AsyncTask<User,Integer,User> {
     }
 
     @Override
-    protected User doInBackground(User...users) {
+    protected String doInBackground(User...users) {
         User user = users[0];
         database.userDao().updateUsers(user);
-        return user;
+        String string = "Successful update";
+        return string;
     }
     @Override
-    protected void onPostExecute (User user){
-        delegate.handleTaskResult(user);
+    protected void onPostExecute (String string){
+        delegate.handleTaskResult(string);
 //        System.out.println("received details about "+user.getUsername());
 //        List<Drinks> favDrinks = user.getFavourites();
 //        delegate.handleTaskResult(favDrinks);
