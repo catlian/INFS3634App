@@ -1,8 +1,6 @@
 package com.example.infs3634app.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -10,107 +8,131 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.infs3634app.R;
 import com.example.infs3634app.database.AppDatabase;
 import com.example.infs3634app.database.InsertDrinkAsyncTask;
 import com.example.infs3634app.database.InsertDrinkDelegate;
-import com.example.infs3634app.fragments.AddIngredientsFragment;
-import com.example.infs3634app.fragments.AddMethodFragment;
-import com.example.infs3634app.fragments.AddRecipeImageFragment;
 import com.example.infs3634app.model.Drinks;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
+import java.util.ArrayList;
 
 public class NewRecipeActivity extends AppCompatActivity implements
-        AddRecipeImageFragment.OnFragmentInteractionListener,
-        AddIngredientsFragment.OnFragmentInteractionListener,
-        AddMethodFragment.OnFragmentInteractionListener,
         InsertDrinkDelegate {
     private Drinks newDrink = new Drinks();
+    private int countRows;
+    private ArrayList<View> rows = new ArrayList<>();
 
-    public Drinks getNewDrink(){//TODO: think about how to display preview information?
+    public Drinks getNewDrink() {//TODO: think about how to display preview information?
         return newDrink;
     }
 
-    public void onClickSubmitAll(View view){
+    public void onClickSubmitAll(View view) {
         System.out.println(newDrink.getStrDrink());
         System.out.println(newDrink.getStrInstructions());
+        handleIngredients();
+        handleNameImage();
+        handleMethod();
         InsertDrinkAsyncTask insertDrinkAsyncTask = new InsertDrinkAsyncTask();
         AppDatabase db = AppDatabase.getInstance(getApplicationContext());
         insertDrinkAsyncTask.setDatabase(db);
         insertDrinkAsyncTask.setDelegate(this);
         insertDrinkAsyncTask.execute(newDrink);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_recipe);
         Intent intent = getIntent();
-        AddRecipeImageFragment addRecipeImageFragment = new AddRecipeImageFragment();
-        FragmentManager fragmentManager=getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.new_recipe_slot, addRecipeImageFragment);
-        fragmentTransaction.commit();
-    }
-
-    public void addNameImage(String name, String url){
-        newDrink.setStrDrink(name);
-        newDrink.setStrDrinkThumb(url);
-    }
-    public void addIngredientsToDrink(String[] ingredients, String[] qty, String[] measurements){
-        newDrink.setStrIngredient1(ingredients[0]);
-        newDrink.setStrMeasure1(qty[0]+measurements[0]);
-        newDrink.setStrIngredient2(ingredients[1]);
-        newDrink.setStrMeasure2(qty[1]+measurements[1]);
-        newDrink.setStrIngredient3(ingredients[2]);
-        newDrink.setStrMeasure3(qty[2]+measurements[2]);
-        newDrink.setStrIngredient4(ingredients[3]);
-        newDrink.setStrMeasure4(qty[3]+measurements[3]);
-        newDrink.setStrIngredient5(ingredients[4]);
-        newDrink.setStrMeasure5(qty[4]+measurements[4]);
-        System.out.println(newDrink.getStrIngredient1()+newDrink.getStrMeasure1());
-        System.out.println(newDrink.getStrIngredient5()+newDrink.getStrMeasure5());
-    }
-
-    public void addMethodToDrink(String method){
-        newDrink.setStrInstructions(method);
-        System.out.println(method);
-    }
-    public void onClickAddIngredients(View view){
-        AddIngredientsFragment addIngredientsFragment = new AddIngredientsFragment();
-        FragmentManager fragmentManager=getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.new_recipe_slot, addIngredientsFragment);
-        fragmentTransaction.commit();
-    }
-    public void onClickAddMethod(View view){
-        AddMethodFragment addMethodFragment = new AddMethodFragment();
-        FragmentManager fragmentManager=getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.new_recipe_slot, addMethodFragment);
-        fragmentTransaction.commit();
-    }
-    public void onClickLoadImage(View view){
-        ImageView drinkImage = findViewById(R.id.newDrinkImage);
-        EditText newDrinkName = (EditText)findViewById(R.id.newDrinkName);
-        EditText newDrinkImageLink = (EditText)findViewById(R.id.imageURL);
-        //String drinkName = newDrinkName.getText().toString();
-        String drinkImageURL = newDrinkImageLink.getText().toString().replace("\\","");
-        Glide.with(this).load(drinkImageURL).into(drinkImage);
-
+        countRows=1;
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    protected void onStart() {
+        super.onStart();
+        final View row1 = findViewById(R.id.row1);
+        final View row2 = findViewById(R.id.row2);
+        final View row3 = findViewById(R.id.row3);
+        final View row4 = findViewById(R.id.row4);
+        final View row5 = findViewById(R.id.row5);
+
+        rows.add(row1);
+        rows.add(row2);
+        rows.add(row3);
+        rows.add(row4);
+        rows.add(row5);
+        for (View row : rows) {
+            row.setVisibility(View.GONE);
+        }
+        row1.setVisibility(View.VISIBLE);
+        final ImageView addIngredientRow = findViewById(R.id.addIngredientRowButton);
+        addIngredientRow.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                countRows++;
+                System.out.println("number of rows now: " + countRows);
+                if (countRows < 5) {
+                    rows.get(countRows - 1).setVisibility(View.VISIBLE);
+                } else {
+                    rows.get(countRows - 1).setVisibility(View.VISIBLE);
+                    addIngredientRow.setVisibility(View.GONE);
+                }
+            }
+
+            ;
+        }));
 
     }
+    public void onClickShowImage(View view){
+        ImageView drinkImage = findViewById(R.id.newDrinkImage);
+        EditText newDrinkImageLink = (EditText)findViewById(R.id.imageURL);
+        String drinkImageURL = newDrinkImageLink.getText().toString().replace("\\","");
+        Glide.with(this).load(drinkImageURL).into(drinkImage);
+    }
+    public void handleNameImage(){
+        ImageView drinkImage = findViewById(R.id.newDrinkImage);
+        EditText newDrinkName = (EditText)findViewById(R.id.newDrinkName);
+        EditText newDrinkImageLink = (EditText)findViewById(R.id.imageURL);
+        String drinkName = newDrinkName.getText().toString();
+        String drinkImageURL = newDrinkImageLink.getText().toString().replace("\\","");
+        Glide.with(this).load(drinkImageURL).into(drinkImage);
+        newDrink.setStrDrink(drinkName);
+        newDrink.setStrDrinkThumb(drinkImageURL);
+    }
+
+    public void handleIngredients(){
+        String[] ingredients = new String[5];
+        String[] qty = new String[5];
+        String[] measurement = new String[5];
+        for (int i = 0; i < rows.size(); i++) {
+            EditText ingInputEdit = (EditText)rows.get(i).findViewById(R.id.ingInput);
+            String ingInput = ingInputEdit.getText().toString();
+            String qtyInput = ((EditText) rows.get(i).findViewById(R.id.qtyInput)).getText().toString();
+            String measureInput = ((EditText) rows.get(i).findViewById(R.id.measurement)).getText().toString();
+            System.out.println(ingInput + " " + qtyInput + measureInput);
+            ingredients[i] = ingInput;
+            qty[i] = qtyInput;
+            measurement[i] = measureInput;
+        }
+        newDrink.setStrIngredient1(ingredients[0]);
+        newDrink.setStrMeasure1(qty[0] + measurement[0]);
+        newDrink.setStrIngredient2(ingredients[1]);
+        newDrink.setStrMeasure2(qty[1] + measurement[1]);
+        newDrink.setStrIngredient3(ingredients[2]);
+        newDrink.setStrMeasure3(qty[2] + measurement[2]);
+        newDrink.setStrIngredient4(ingredients[3]);
+        newDrink.setStrMeasure4(qty[3] + measurement[3]);
+        newDrink.setStrIngredient5(ingredients[4]);
+        newDrink.setStrMeasure5(qty[4] + measurement[4]);
+    }
+    public void handleMethod(){
+        EditText methodInput = (EditText)findViewById(R.id.methodInput);
+        String method = methodInput.getText().toString();
+        newDrink.setStrInstructions(method);
+    }
+
 
     @Override
     public void handleTaskResult(Drinks drink) {
