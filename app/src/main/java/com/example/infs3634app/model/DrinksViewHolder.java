@@ -30,6 +30,7 @@ public class DrinksViewHolder extends RecyclerView.ViewHolder {
     TextView amt1;
     TextView amt2;
     String drinkID;
+    Drinks selectedDrink;
     public DrinksViewHolder(@NonNull View v) {
         super(v);
         this.view = v;
@@ -49,6 +50,7 @@ public class DrinksViewHolder extends RecyclerView.ViewHolder {
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putString("DRINK_ID",drinkID);
+                bundle.putInt("USER_DRINK_INT",getAdapterPosition());
                 AppCompatActivity activity = (AppCompatActivity)view.getContext();
                 RecipeDetailFragment recipeDetailFragment = new RecipeDetailFragment();
                 recipeDetailFragment.setArguments(bundle);
