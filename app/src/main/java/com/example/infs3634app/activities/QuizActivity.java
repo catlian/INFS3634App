@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -102,11 +103,6 @@ public class QuizActivity extends AppCompatActivity implements QuizDelegate, Upd
             btnConfirm.setText("Confirm");
         }
         else{
-            //show results screen - new xml? toast? dialogbos?
-            //store points in user db
-            Toast.makeText(this, "Score: "
-                    + scoreCount, Toast.LENGTH_SHORT).show();
-
             //fixdis
             GetUserAsyncTask getUserAsyncTask = new GetUserAsyncTask();
             getUserAsyncTask.setDatabase(database);
@@ -208,5 +204,15 @@ public class QuizActivity extends AppCompatActivity implements QuizDelegate, Upd
 
     @Override
     public void handleTaskResult(String string) {
+        final String message = string;
+        //slight delay to minimise toast overlap when high score congrats message displays
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(QuizActivity.this, message, Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }, 1500);
+
     }
 }

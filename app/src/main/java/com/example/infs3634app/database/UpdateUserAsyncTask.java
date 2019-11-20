@@ -20,7 +20,7 @@ public class UpdateUserAsyncTask extends AsyncTask<User,Integer,String> {
     protected String doInBackground(User...users) {
         User user = users[0];
         database.userDao().updateUsers(user);
-        String string = "Successful update";
+        String string = "Saved successfully.";
         return string;
     }
     @Override
