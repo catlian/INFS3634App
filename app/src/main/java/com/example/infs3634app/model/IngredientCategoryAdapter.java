@@ -40,7 +40,8 @@ public class IngredientCategoryAdapter extends RecyclerView.Adapter<CategoryView
         String categoryName = listCategories.get(position).getStrIngredient1();
         holder.type = "ingredient";
         holder.categoryName.setText(categoryName);
-        holder.categoryImage.setBackgroundColor(R.color.colorPrimaryUnsaturated);
+        String imageUrl = "https://www.thecocktaildb.com/images/ingredients/"+categoryName+".png";
+        Glide.with(holder.categoryImage.getContext()).load(imageUrl).into(holder.categoryImage);
 
     }
 

@@ -164,10 +164,6 @@ public class NewRecipeActivity extends AppCompatActivity implements
 
     @Override
     public void handleTaskResult(String string) {
-        MyRecipesFragment myRecipesFragment = new MyRecipesFragment();
-        FragmentManager fragmentManager=getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_slot, myRecipesFragment);
-        fragmentTransaction.commit();
+        finish();
     }
 }

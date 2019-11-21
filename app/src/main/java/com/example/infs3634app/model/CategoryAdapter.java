@@ -20,18 +20,19 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder>{
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
     ArrayList<Drinks> listCategories;
     ViewGroup parentRecycler;
-    public CategoryAdapter(ArrayList<Drinks> categoryList){
-        this.listCategories=categoryList;
+
+    public CategoryAdapter(ArrayList<Drinks> categoryList) {
+        this.listCategories = categoryList;
     }
 
     @NonNull
     @Override
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_tiles, parent, false);
-        parentRecycler=parent;
+        parentRecycler = parent;
         CategoryViewHolder categoryViewHolder = new CategoryViewHolder(view);
         return categoryViewHolder;
     }
@@ -51,16 +52,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder>{
         Response.ErrorListener errorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("Request failed"); }
+                System.out.println("Request failed");
+            }
 
         };
-        String url="https://www.thecocktaildb.com/api/json/v1/1/filter.php?c="+categoryName;
-        if(parentRecycler.getId()==R.id.categoryRecycler){
-            url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c="+categoryName;
-            holder.type="category";
-        }else if(parentRecycler.getId()==R.id.ingredientRecycler){
-            url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i="+categoryName;
-            holder.type="ingredient";
+        String url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=" + categoryName;
+        if (parentRecycler.getId() == R.id.categoryRecycler) {
+            url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=" + categoryName;
+            holder.type = "category";
+        } else if (parentRecycler.getId() == R.id.ingredientRecycler) {
+            url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=" + categoryName;
+            holder.type = "ingredient";
         }
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, responseListener, errorListener);
         requestQueue.add(stringRequest);

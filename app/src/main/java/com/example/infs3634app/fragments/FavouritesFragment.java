@@ -42,7 +42,6 @@ public class FavouritesFragment extends Fragment implements GetFavouritesDelegat
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -58,7 +57,6 @@ public class FavouritesFragment extends Fragment implements GetFavouritesDelegat
     }
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
-
     }
     @Override
     public void handleTaskResult(List<Drinks> favDrinks) {
