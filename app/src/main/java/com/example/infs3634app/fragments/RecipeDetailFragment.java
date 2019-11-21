@@ -71,15 +71,6 @@ public class RecipeDetailFragment extends Fragment implements
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RecipeDetailFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static RecipeDetailFragment newInstance(String param1, String param2) {
         RecipeDetailFragment fragment = new RecipeDetailFragment();
         Bundle args = new Bundle();
@@ -146,8 +137,10 @@ public class RecipeDetailFragment extends Fragment implements
         TextView alcoholic = getView().findViewById(R.id.alcoholic);
         TextView category = getView().findViewById(R.id.category);
         TextView tags = getView().findViewById(R.id.tags);
+        TextView glass = getView().findViewById(R.id.glass);
         alcoholic.setText("Alcoholic: "+selectedDrink.getStrAlcoholic());
         category.setText("Category: "+selectedDrink.getStrCategory());
+        glass.setText("Glass: "+selectedDrink.getStrGlass());
         if(selectedDrink.getStrTags()!=null){
             tags.setText("Tags: "+selectedDrink.getStrTags());
         }

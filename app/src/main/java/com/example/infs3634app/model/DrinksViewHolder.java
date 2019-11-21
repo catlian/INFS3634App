@@ -31,6 +31,7 @@ public class DrinksViewHolder extends RecyclerView.ViewHolder {
     TextView amt2;
     String drinkID;
     Drinks selectedDrink;
+    TextView glass;
     public DrinksViewHolder(@NonNull View v) {
         super(v);
         this.view = v;
@@ -63,11 +64,4 @@ public class DrinksViewHolder extends RecyclerView.ViewHolder {
         }));
     }
 
-    /*
-    Bundle bundle = new Bundle();
-    bundle.putString("param1", "First Argument");
-    bundle.putString("param2", "Second Argument");
-    fragment.setArguments(bundle)
-    swapFragment(fragment);
-     */
 }
