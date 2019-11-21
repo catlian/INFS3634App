@@ -1,6 +1,7 @@
 package com.example.infs3634app.database;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import com.example.infs3634app.model.*;
@@ -20,4 +21,7 @@ public interface QuestionDAO {
 
     @Query("SELECT COUNT(*) FROM questions")
     int count();
+
+    @Query("DELETE FROM questions WHERE quizId=:id")
+    void deleteQuestionsForQuiz(int id);
 }

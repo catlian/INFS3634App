@@ -32,15 +32,8 @@ public class InsertInitialDataAsyncTask extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... voids) {
         Quiz quiz = new Quiz(1, "test", "great quiz");
-        Quiz quiz2 = new Quiz(2, "test2", "great quiz2");
+        Quiz quiz2 = new Quiz(2, "Name the drink", "Name the drink based off the image");
         database.quizDAO().insertNew(quiz, quiz2);
-
-        Question question = new Question(
-                0, "what's the answer?",
-                "https:\\/\\/www.thecocktaildb.com\\/images\\/media\\/drink\\/wpxpvu1439905379.jpg",
-                "Margarita", "Black Russian", "Mojito-Cocktail", "Dry Martini", 2);
-        Question que = new Question(0, "what's the answer?2", "1", "no", "no?", "ya", 2);
-        database.questionDao().insertNew(question, que);
 
         User user = new User(1, "test", 0, 0);
         database.userDao().insertNew(user);

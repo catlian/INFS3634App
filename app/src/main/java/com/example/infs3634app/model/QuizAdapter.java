@@ -2,6 +2,7 @@ package com.example.infs3634app.model;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +10,15 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.infs3634app.R;
 import com.example.infs3634app.activities.QuizActivity;
 import com.example.infs3634app.activities.YoutubeActivity;
+import com.example.infs3634app.fragments.QuizSettingFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,10 +65,19 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
                 btnSelect.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Context context = view.getContext();
-                        Intent intent = new Intent(context, QuizActivity.class);
-                        intent.putExtra("quizId", quiz.getQuizId());
-                        context.startActivity(intent);
+                        AppCompatActivity activity = (AppCompatActivity)v.getContext();
+                        QuizSettingFragment quizSettingFragment = new QuizSettingFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("QUIZ_ID",quiz.getQuizId());
+                        bundle.putString("QUIZ_NAME",quiz.getName());
+                        bundle.putString("QUIZ_DESCRIPTION",quiz.getDescription());
+                        quizSettingFragment.setArguments(bundle);
+                        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.fragment_slot, quizSettingFragment);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+
                     }
                 });
             }

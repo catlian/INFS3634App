@@ -33,6 +33,7 @@ import android.widget.Toast;
 
 import com.example.infs3634app.R;
 import com.example.infs3634app.fragments.BrowseRecipeCategoryFragment;
+import com.example.infs3634app.fragments.QuizSettingFragment;
 import com.example.infs3634app.fragments.RecipeDetailFragment;
 import com.example.infs3634app.fragments.RecipeRecyclerFragment;
 import com.example.infs3634app.model.Drinks;
@@ -52,8 +53,9 @@ public class MainActivity extends AppCompatActivity
         MyRecipesFragment.OnFragmentInteractionListener,
         FavouritesFragment.OnFragmentInteractionListener,
         MyCreatedRecipesFragment.OnFragmentInteractionListener,
-        FAQFragment.OnFragmentInteractionListener {
-    int countLoop;
+        FAQFragment.OnFragmentInteractionListener,
+        QuizSettingFragment.OnFragmentInteractionListener {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,89 +138,6 @@ public class MainActivity extends AppCompatActivity
         Intent intent = new Intent(getApplicationContext(), NewRecipeActivity.class);
         startActivity(intent);
     }
-/*
-    public void onClickNumQuestions(View view) {
-        createQuestions(5);
-    }
-
-    public void createQuestions(int numQuestions) {
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        Response.Listener<String> responseListener = new Response.Listener<String>() {
-            int numOptions = 0;
-            Question question = new Question();
-            @Override
-            public void onResponse(String response) {
-                System.out.println("got response");
-                //set answer, option1, option 2, etc.
-                //create question
-                //insert questions async task
-                DrinksImport drinksImport = new Gson().fromJson(response, DrinksImport.class);
-                ArrayList<Drinks> drinksList = drinksImport.getDrinks();
-                Drinks selectedDrink = drinksList.get(0);
-                switch(numOptions){
-                    case 0: question.setAnswer(selectedDrink.getStrDrink());
-                        String drinkImage = selectedDrink.getStrDrinkThumb();
-                        question.setImageUrl(drinkImage);
-                        break;
-                    case 1: question.setOption2(selectedDrink.getStrDrink());
-                        break;
-                    case 2: question.setOption3(selectedDrink.getStrDrink());
-                    case 3: question.setOption4(selectedDrink.getStrDrink());
-                }
 
 
-
-                question.setQuestion("What is this drink?");
-                AppDatabase db = AppDatabase.getInstance(getApplicationContext());
-                InsertQuestionAsyncTask insertQuestionAsyncTask = new InsertQuestionAsyncTask();
-                insertQuestionAsyncTask.setDatabase(db);
-                insertQuestionAsyncTask.execute(question);
-                numOptions++;
-            }
-        };
-        Response.ErrorListener errorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println("Request failed");
-            }
-
-        };
-        String url = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, responseListener, errorListener);
-
-        for (numOptions = 0; numOptions < 4; numOptions++) {
-            requestQueue.add(stringRequest);
-            System.out.println("added string request");
-        }
-
-
-    }
-
-    private void generateRandomDrink() {
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        Response.Listener<String> responseListener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                //set answer, option1, option 2, etc.
-                //create question
-                //insert questions async task
-                DrinksImport drinksImport = new Gson().fromJson(response, DrinksImport.class);
-                ArrayList<Drinks> drinksList = drinksImport.getDrinks();
-                Drinks selectedDrink = drinksList.get(0);
-                option2 = selectedDrink.getStrDrink();
-            }
-        };
-        Response.ErrorListener errorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println("Request failed");
-            }
-
-        };
-        String url = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, responseListener, errorListener);
-        requestQueue.add(stringRequest);
-    }*/
 }

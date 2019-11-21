@@ -1,6 +1,7 @@
 package com.example.infs3634app.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,7 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -24,6 +28,7 @@ import com.example.infs3634app.database.*;
 import com.example.infs3634app.model.Drinks;
 import com.example.infs3634app.model.DrinksAdapter;
 import com.example.infs3634app.model.DrinksImport;
+import com.example.infs3634app.model.ID;
 import com.example.infs3634app.model.Question;
 import com.example.infs3634app.model.Quiz;
 import com.example.infs3634app.model.QuizAdapter;
@@ -58,9 +63,6 @@ public class QuizRecyclerFragment extends Fragment implements GetQuizzesDelegate
 
         return view;
     }
-
-
-
 
 
     @Override

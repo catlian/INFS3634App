@@ -45,7 +45,7 @@
         android:layout_margin="12dp"
         android:gravity="center_vertical"
         android:padding="12dp"
-        android:text="Attempt"
+        android:text="Select Quiz"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
