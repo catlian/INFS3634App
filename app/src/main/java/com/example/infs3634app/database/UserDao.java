@@ -26,7 +26,7 @@ public interface UserDao {
     @Query("SELECT userId, myRecipes FROM users WHERE userId= :id")
     User getMyRecipes (int id);
 
-    @Query("SELECT username, totalPoints FROM users")
+    @Query("SELECT userId, username, totalPoints FROM users ORDER BY totalPoints DESC")
     List<User> getLeaderboard();
 
     @Update
