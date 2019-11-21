@@ -2,17 +2,23 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "1f7ce07331a7a2995438c9b5158ee464",
+    "identityHash": "ce3e8b5c2119ade003624fcfb269a628",
     "entities": [
       {
         "tableName": "Questions",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`questionId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `question` TEXT NOT NULL, `answer` TEXT NOT NULL, `option2` TEXT NOT NULL, `option3` TEXT NOT NULL, `option4` TEXT NOT NULL, `quizId` INTEGER NOT NULL, FOREIGN KEY(`quizId`) REFERENCES `quizzes`(`quizId`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`questionId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `imageUrl` TEXT, `question` TEXT NOT NULL, `answer` TEXT NOT NULL, `option2` TEXT NOT NULL, `option3` TEXT NOT NULL, `option4` TEXT NOT NULL, `quizId` INTEGER NOT NULL, FOREIGN KEY(`quizId`) REFERENCES `quizzes`(`quizId`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "questionId",
             "columnName": "questionId",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "imageUrl",
+            "columnName": "imageUrl",
+            "affinity": "TEXT",
+            "notNull": false
           },
           {
             "fieldPath": "question",
@@ -167,7 +173,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1f7ce07331a7a2995438c9b5158ee464')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ce3e8b5c2119ade003624fcfb269a628')"
     ]
   }
 }

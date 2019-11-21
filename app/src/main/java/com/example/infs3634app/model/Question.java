@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 
@@ -14,6 +15,7 @@ import androidx.room.PrimaryKey;
 public class Question {
     @PrimaryKey(autoGenerate = true)
     private int questionId;
+    private String imageUrl;
     @NonNull private String question;
     @NonNull private String answer;
     @NonNull private String option2;
@@ -22,7 +24,9 @@ public class Question {
     @ColumnInfo(index = true)
     @NonNull private int quizId;
 
-
+    @Ignore
+    public Question(){}
+    @Ignore
     public Question(int questionId, String question, String answer, String option2, String option3,
                     String option4, int quizId) {
         this.questionId = questionId;
@@ -33,6 +37,19 @@ public class Question {
         this.option4 = option4;
         this.quizId = quizId;
     }
+
+    public Question(int questionId, String question, String imageUrl, String answer, String option2, String option3,
+                    String option4, int quizId) {
+        this.questionId = questionId;
+        this.question = question;
+        this.answer = answer;
+        this.option2 = option2;
+        this.option3 = option3;
+        this.option4 = option4;
+        this.quizId = quizId;
+        this.imageUrl=imageUrl;
+    }
+
 
     public int getQuizId() {
         return quizId;
@@ -54,7 +71,7 @@ public class Question {
         return question;
     }
 
-    public void setQuestion(String name) {
+    public void setQuestion(String question) {
         this.question = question;
     }
 
@@ -88,5 +105,13 @@ public class Question {
 
     public void setOption4(String option4) {
         this.option4 = option4;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
