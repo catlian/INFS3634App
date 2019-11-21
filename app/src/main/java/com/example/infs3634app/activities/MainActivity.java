@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.infs3634app.database.AppDatabase;
 import com.example.infs3634app.database.InsertUserAsyncTask;
+import com.example.infs3634app.fragments.FAQFragment;
 import com.example.infs3634app.fragments.FavouritesFragment;
 import com.example.infs3634app.fragments.MyCreatedRecipesFragment;
 import com.example.infs3634app.fragments.MyRecipesFragment;
@@ -19,6 +20,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +38,8 @@ public class MainActivity extends AppCompatActivity
         com.example.infs3634app.database.InsertUserDelegate,
         MyRecipesFragment.OnFragmentInteractionListener,
         FavouritesFragment.OnFragmentInteractionListener,
-        MyCreatedRecipesFragment.OnFragmentInteractionListener
+        MyCreatedRecipesFragment.OnFragmentInteractionListener,
+        FAQFragment.OnFragmentInteractionListener
 {
 
     @Override
@@ -45,6 +48,19 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         AppDatabase database = AppDatabase.getInstance(this);
+
+        ImageView faqButton = findViewById(R.id.faqButton);
+        faqButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                FAQFragment faqFragment = new FAQFragment();
+                FragmentManager fragmentManager5=getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction5 = fragmentManager5.beginTransaction();
+                fragmentTransaction5.replace(R.id.fragment_slot, faqFragment);
+                fragmentTransaction5.addToBackStack(null);
+                fragmentTransaction5.commit();
+            }
+        });
 
         final BrowseRecipeCategoryFragment browseRecipeCategoryFragment = new BrowseRecipeCategoryFragment();
         final FragmentManager fragmentManager=getSupportFragmentManager();
