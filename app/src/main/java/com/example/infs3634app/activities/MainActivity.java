@@ -6,26 +6,23 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.infs3634app.database.AppDatabase;
-import com.example.infs3634app.database.InsertUserAsyncTask;
 import com.example.infs3634app.fragments.FavouritesFragment;
 import com.example.infs3634app.fragments.MyCreatedRecipesFragment;
 import com.example.infs3634app.fragments.MyRecipesFragment;
 import com.example.infs3634app.fragments.QuizRecyclerFragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.infs3634app.R;
 import com.example.infs3634app.fragments.BrowseRecipeCategoryFragment;
 import com.example.infs3634app.fragments.RecipeDetailFragment;
 import com.example.infs3634app.fragments.RecipeRecyclerFragment;
+import com.example.infs3634app.model.ID;
 import com.example.infs3634app.model.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -36,13 +33,12 @@ public class MainActivity extends AppCompatActivity
         com.example.infs3634app.database.InsertUserDelegate,
         MyRecipesFragment.OnFragmentInteractionListener,
         FavouritesFragment.OnFragmentInteractionListener,
-        MyCreatedRecipesFragment.OnFragmentInteractionListener
-{
-
+        MyCreatedRecipesFragment.OnFragmentInteractionListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         AppDatabase database = AppDatabase.getInstance(this);
 
