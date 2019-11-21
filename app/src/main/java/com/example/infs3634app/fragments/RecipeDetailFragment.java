@@ -40,28 +40,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link RecipeDetailFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link RecipeDetailFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class RecipeDetailFragment extends Fragment implements
         GetFavouritesDelegate, UpdateUserDataDelegate, GetUserDelegate {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     private Drinks selectedDrink;
     private AppDatabase database;
     private int id;
     private List<Drinks> favDrinks;
     private User user;
 
-
-    // TODO: Rename and change types of parameters
+    //parameters
     private String drinkID;
     private int position;
 
@@ -74,8 +61,6 @@ public class RecipeDetailFragment extends Fragment implements
     public static RecipeDetailFragment newInstance(String param1, String param2) {
         RecipeDetailFragment fragment = new RecipeDetailFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -353,16 +338,7 @@ public class RecipeDetailFragment extends Fragment implements
         setLike();
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

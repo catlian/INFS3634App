@@ -18,9 +18,6 @@ import com.example.infs3634app.model.QuizAdapter;
 
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class QuizRecyclerFragment extends Fragment implements GetQuizzesDelegate {
     private RecyclerView recyclerView;
     private QuizAdapter quizAdapter;
