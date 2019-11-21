@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.infs3634app.R;
@@ -40,16 +41,20 @@ public class NewRecipeActivity extends AppCompatActivity implements
     private AppDatabase database;
 
     public void onClickSubmitAll(View view) {
-        System.out.println(newDrink.getStrDrink());
-        System.out.println(newDrink.getStrInstructions());
-        handleIngredients();
-        handleNameImage();
-        handleMethod();
+        EditText name = (EditText)view.findViewById(R.id.newDrinkName);
+        if(name==null){
+            Toast.makeText(this,"Drink must have name",Toast.LENGTH_LONG).show();
+        }
+        else{
+            handleIngredients();
+            handleNameImage();
+            handleMethod();
+            GetUserAsyncTask getUserAsyncTask = new GetUserAsyncTask();
+            getUserAsyncTask.setDatabase(database);
+            getUserAsyncTask.setDelegate(NewRecipeActivity.this);
+            getUserAsyncTask.execute(id);
+        }
 
-        GetUserAsyncTask getUserAsyncTask = new GetUserAsyncTask();
-        getUserAsyncTask.setDatabase(database);
-        getUserAsyncTask.setDelegate(NewRecipeActivity.this);
-        getUserAsyncTask.execute(id);
     }
 
     @Override
