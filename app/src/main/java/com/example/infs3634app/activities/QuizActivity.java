@@ -9,11 +9,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.infs3634app.R;
 import com.example.infs3634app.database.AppDatabase;
 import com.example.infs3634app.database.GetQuestionsAsyncTask;
@@ -40,6 +42,7 @@ public class QuizActivity extends AppCompatActivity implements QuizDelegate, Upd
     private TextView txtScore;
     private TextView txtQuestion;
     private Button btnConfirm;
+    private ImageView image;
 
     private int questionCount;
     private int scoreCount;
@@ -72,6 +75,7 @@ public class QuizActivity extends AppCompatActivity implements QuizDelegate, Upd
         rbFour = findViewById(R.id.btnOption4);
         txtQuestion = findViewById(R.id.txtQuestion);
         btnConfirm = findViewById(R.id.btnConfirm);
+        image = findViewById(R.id.imgQuestion);
 
         database = AppDatabase.getInstance(getApplicationContext());
         GetQuestionsAsyncTask getQuestionsAsyncTask = new GetQuestionsAsyncTask();
@@ -93,6 +97,10 @@ public class QuizActivity extends AppCompatActivity implements QuizDelegate, Upd
             currentQuestion = questionList.get(questionCount);
             answer = currentQuestion.getAnswer();
             txtQuestion.setText(currentQuestion.getQuestion());
+            if(currentQuestion.getImageUrl()!=null){
+                String imgUrl = currentQuestion.getImageUrl().replace("\\","");
+                Glide.with(this).load(imgUrl).into(image);
+            }
 
             getOptionsList();
             rbOne.setText(optionsList.get(0));
