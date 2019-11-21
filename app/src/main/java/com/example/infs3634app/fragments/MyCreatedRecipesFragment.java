@@ -84,7 +84,7 @@ implements GetFavouritesDelegate {
         GetMyRecipesAsyncTask getMyRecipesAsyncTask = new GetMyRecipesAsyncTask();
         getMyRecipesAsyncTask.setDatabase(db);
         getMyRecipesAsyncTask.setDelegate(this);
-        getMyRecipesAsyncTask.execute(Integer.parseInt(getString(R.string.user_id)));
+        getMyRecipesAsyncTask.execute(getResources().getInteger(R.integer.user_id));
         return inflater.inflate(R.layout.fragment_my_created_recipes, container, false);
     }
 

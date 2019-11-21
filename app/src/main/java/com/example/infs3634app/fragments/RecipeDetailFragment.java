@@ -128,7 +128,7 @@ public class RecipeDetailFragment extends Fragment implements
             GetMyRecipesAsyncTask getMyRecipesAsyncTask = new GetMyRecipesAsyncTask();
             getMyRecipesAsyncTask.setDatabase(database);
             getMyRecipesAsyncTask.setDelegate(this);
-            getMyRecipesAsyncTask.execute(Integer.parseInt(getString(R.string.user_id)));
+            getMyRecipesAsyncTask.execute(id);
         }
 
     }
@@ -138,7 +138,7 @@ public class RecipeDetailFragment extends Fragment implements
         GetFavouritesAsyncTask getFavouritesAsyncTask = new GetFavouritesAsyncTask();
         getFavouritesAsyncTask.setDatabase(database);
         getFavouritesAsyncTask.setDelegate(this);
-        getFavouritesAsyncTask.execute(Integer.parseInt(getString(R.string.user_id)));
+        getFavouritesAsyncTask.execute(id);
 
     }
 

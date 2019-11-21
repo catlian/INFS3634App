@@ -36,7 +36,7 @@ public class NewRecipeActivity extends AppCompatActivity implements
     private Drinks newDrink = new Drinks();
     private int countRows;
     private ArrayList<View> rows = new ArrayList<>();
-    private int id = getResources().getInteger(R.integer.user_id);
+    private int id;
     private AppDatabase database;
 
     public void onClickSubmitAll(View view) {
@@ -59,6 +59,7 @@ public class NewRecipeActivity extends AppCompatActivity implements
         Intent intent = getIntent();
         countRows=1;
         database = AppDatabase.getInstance(getApplicationContext());
+        id = getResources().getInteger(R.integer.user_id);
     }
 
     @Override

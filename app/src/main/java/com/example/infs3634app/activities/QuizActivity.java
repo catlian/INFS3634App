@@ -105,7 +105,6 @@ public class QuizActivity extends AppCompatActivity implements QuizDelegate, Upd
             btnConfirm.setText("Confirm");
         }
         else{
-            //fixdis
             GetUserAsyncTask getUserAsyncTask = new GetUserAsyncTask();
             getUserAsyncTask.setDatabase(database);
             getUserAsyncTask.setDelegate(QuizActivity.this);

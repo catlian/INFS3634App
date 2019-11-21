@@ -38,26 +38,25 @@ public class MainActivity extends AppCompatActivity
         FavouritesFragment.OnFragmentInteractionListener,
         MyCreatedRecipesFragment.OnFragmentInteractionListener
 {
-    public static User user = new User(1, "test", 0, 0);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //cheeky new user
+        AppDatabase database = AppDatabase.getInstance(this);
 
-        /*AppDatabase db = AppDatabase.getInstance(this.getApplicationContext());
-        InsertUserAsyncTask insertUserAsyncTask =  new InsertUserAsyncTask();
-        insertUserAsyncTask.setDatabase(db);
-        insertUserAsyncTask.setDelegate(this);
-        insertUserAsyncTask.execute(user);*/
+        final BrowseRecipeCategoryFragment browseRecipeCategoryFragment = new BrowseRecipeCategoryFragment();
+        final FragmentManager fragmentManager=getSupportFragmentManager();
+        FragmentTransaction fragmentTransactionInitial = fragmentManager.beginTransaction();
+        fragmentTransactionInitial.replace(R.id.fragment_slot, browseRecipeCategoryFragment);
+        fragmentTransactionInitial.commit();
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavBar);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                BrowseRecipeCategoryFragment browseRecipeCategoryFragment = new BrowseRecipeCategoryFragment();
-                FragmentManager fragmentManager=getSupportFragmentManager();
+
                 switch (item.getItemId()) {
                     case R.id.browseButton:
                         Toast.makeText(MainActivity.this, "Browse", Toast.LENGTH_SHORT).show();

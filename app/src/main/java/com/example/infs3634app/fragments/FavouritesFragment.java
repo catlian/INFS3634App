@@ -82,7 +82,7 @@ public class FavouritesFragment extends Fragment implements GetFavouritesDelegat
         GetFavouritesAsyncTask getFavouritesAsyncTask = new GetFavouritesAsyncTask();
         getFavouritesAsyncTask.setDatabase(db);
         getFavouritesAsyncTask.setDelegate(this);
-        getFavouritesAsyncTask.execute(Integer.parseInt(getString(R.string.user_id)));
+        getFavouritesAsyncTask.execute(getResources().getInteger(R.integer.user_id));
         return inflater.inflate(R.layout.fragment_favourites, container, false);
     }
     @Override
