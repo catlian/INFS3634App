@@ -48,6 +48,8 @@ public class QuizRecyclerFragment extends Fragment {
         quizList = new ArrayList<>();
         categoryArray = new ArrayList<>();
 
+        //api call for the list of category types, removing the ones with small amounts of drinks
+        //or have same image for drinks
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
@@ -61,6 +63,7 @@ public class QuizRecyclerFragment extends Fragment {
                 categoryArray.remove("Homemade Liqueur");
                 categoryArray.remove("Soft Drink \\/ Soda");
 
+                //creates quizzes for each category, adds this to quiz array to set recyclerview data
                 for(int i=0 ; i<categoryArray.size() ; i++){
                     String category = categoryArray.get(i);
                     Quiz quiz = new Quiz(i,getResources().getString(R.string.name_the) + " "

@@ -88,6 +88,7 @@ public class QuizActivity extends AppCompatActivity implements UpdateUserDataDel
     }
 
     private void showNextQuestion(){
+        //if not last question reset option text colours and selected radio button
         if(questionCount < questionListSize){
             rbOne.setTextColor(Color.BLACK);
             rbTwo.setTextColor(Color.BLACK);
@@ -95,14 +96,15 @@ public class QuizActivity extends AppCompatActivity implements UpdateUserDataDel
             rbFour.setTextColor(Color.BLACK);
             radioGroup.clearCheck();
 
-            currentQuestion = questionList.get(questionCount);
-            answer = currentQuestion.getAnswer();
+            currentQuestion = questionList.get(questionCount); //set current question to next question
+            answer = currentQuestion.getAnswer(); //get answer of current question
+            //load question data
             txtQuestion.setText(currentQuestion.getQuestion());
             if(currentQuestion.getImageUrl()!=null){
                 String imgUrl = currentQuestion.getImageUrl().replace("\\","");
                 Glide.with(this).load(imgUrl).into(image);
             }
-
+            //get the four answer options
             getOptionsList();
             rbOne.setText(optionsList.get(0));
             rbTwo.setText(optionsList.get(1));
@@ -134,7 +136,7 @@ public class QuizActivity extends AppCompatActivity implements UpdateUserDataDel
         Collections.shuffle(optionsList);
         return optionsList;
     }
-
+    //method to check if the answer matches answer text and sets colour of answer options accordingly
     private void checkAnswer(){
         responded = true;
         RadioButton rbSelected = findViewById(radioGroup.getCheckedRadioButtonId());
@@ -160,6 +162,7 @@ public class QuizActivity extends AppCompatActivity implements UpdateUserDataDel
             rbFour.setTextColor(Color.GREEN);
         }
 
+        //sets text of button to be next/save reuslts depending on whether that was last question
         if(questionCount < questionListSize){
             btnConfirm.setText("Next");
         }else{
@@ -168,13 +171,14 @@ public class QuizActivity extends AppCompatActivity implements UpdateUserDataDel
     }
 
     @Override
+    //gets list of questions and shuffles them for random order
     public void handleQuestionResult(List<Question> questionList) {
         this.questionList = questionList;
         Collections.shuffle(questionList);
         questionListSize = questionList.size();
 
         showNextQuestion();
-
+        //checks if an answer was selected and if yes, checks if correct, show solution, go to next question
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -192,6 +196,7 @@ public class QuizActivity extends AppCompatActivity implements UpdateUserDataDel
         });
     }
     @Override
+    //gets user objects from db, checks for high score to display toast, save updated values
     public void handleUserResult(User user){
         this.user = user;
         highScore = user.getHighScore();
@@ -212,6 +217,7 @@ public class QuizActivity extends AppCompatActivity implements UpdateUserDataDel
     }
 
     @Override
+    //display save success toast and finish activity
     public void handleTaskResult(String string) {
         final String message = string;
         //slight delay to minimise toast overlap when high score congrats message displays
