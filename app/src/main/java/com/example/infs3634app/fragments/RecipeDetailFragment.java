@@ -259,17 +259,14 @@ public class RecipeDetailFragment extends Fragment implements
     @Override
     public void handleUserResult(final User user) {
         user.setFavourites(favDrinks);
-        System.out.println("received favDrinks list");
         final ImageView likeButton = getView().findViewById(R.id.likeButton);
         if(favDrinks.size()>0){
             for(int i=0;i<favDrinks.size();i++) {
                 if (drinkID.equals(favDrinks.get(i).getIdDrink())) {
-                    System.out.println("already liked");
                     likeButton.setImageResource(R.drawable.liked);
                     break;
                 }
                 else{
-                    System.out.println("not liked yet");
                     likeButton.setImageResource(R.drawable.like);
                 }
             }
@@ -279,21 +276,17 @@ public class RecipeDetailFragment extends Fragment implements
             public void onClick(View v) {
                 AppCompatActivity activity = (AppCompatActivity)getView().getContext();
                 if(likeButton.getDrawable().getConstantState()==getResources().getDrawable(R.drawable.like).getConstantState()){
-                    System.out.println(selectedDrink.getStrDrink()+" has not been liked yet");
                     likeButton.setImageResource(R.drawable.liked);
                     user.addToFavourite(selectedDrink);
                 }
                 else{
-                    System.out.println(selectedDrink.getStrDrink()+" is already liked");
                     likeButton.setImageResource(R.drawable.like);
                     for(int i=0;i<favDrinks.size();i++){
                         if(drinkID.equals(favDrinks.get(i).getIdDrink())){
-                            System.out.println("TO DELETE: match found id: "+drinkID+"= "+favDrinks.get(i).getIdDrink());
                             user.deleteFromFavourite(i);
                         }
                     }
                 }
-                System.out.println("updating database");
                 UpdateUserAsyncTask updateUserAsyncTask = new UpdateUserAsyncTask();
                 updateUserAsyncTask.setDatabase(database);
                 updateUserAsyncTask.setDelegate((RecipeDetailFragment.this));

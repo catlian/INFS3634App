@@ -29,9 +29,6 @@ public class GetFavouritesAsyncTask extends AsyncTask<Integer, Integer, User> {
     protected void onPostExecute(User user) {
         System.out.println("user id: "+user.getUserId());
         List<Drinks> favDrinks = user.getFavourites();
-        for(int i=0;i<favDrinks.size();i++){
-            System.out.println(favDrinks.get(i).getStrDrink());
-        }
         delegate.handleTaskResult(favDrinks);
     }
 }

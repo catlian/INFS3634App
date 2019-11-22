@@ -37,28 +37,26 @@ public class FavouritesFragment extends Fragment implements GetFavouritesDelegat
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        AppDatabase db = AppDatabase.getInstance(getContext());
+        GetFavouritesAsyncTask getFavouritesAsyncTask = new GetFavouritesAsyncTask();
+        getFavouritesAsyncTask.setDatabase(db);
+        getFavouritesAsyncTask.setDelegate(this);
+        getFavouritesAsyncTask.execute(ID.user_id);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        AppDatabase db = AppDatabase.getInstance(getContext());
-        GetFavouritesAsyncTask getFavouritesAsyncTask = new GetFavouritesAsyncTask();
-        getFavouritesAsyncTask.setDatabase(db);
-        getFavouritesAsyncTask.setDelegate(this);
-        getFavouritesAsyncTask.execute(ID.user_id);
-        System.out.println("oncreateview");
         return inflater.inflate(R.layout.fragment_favourites, container, false);
 
     }
     public void onDestroy(){
         super.onDestroy();
-        System.out.println("destroy");
     }
     public void onResume(){
         super.onResume();
-        System.out.println("resume");
     }
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
