@@ -57,6 +57,9 @@ public class QuizRecyclerFragment extends Fragment {
                 for (Drinks drinks : result) {
                     categoryArray.add(drinks.getStrCategory());
                 }
+                categoryArray.remove("Cocoa");
+                categoryArray.remove("Homemade Liqueur");
+                categoryArray.remove("Soft Drink \\/ Soda");
 
                 for(int i=0 ; i<categoryArray.size() ; i++){
                     String category = categoryArray.get(i);
