@@ -3,15 +3,14 @@ package com.example.infs3634app.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -21,8 +20,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.infs3634app.R;
-import com.example.infs3634app.activities.MainActivity;
-import com.example.infs3634app.activities.NewRecipeActivity;
 import com.example.infs3634app.database.AppDatabase;
 import com.example.infs3634app.database.GetFavouritesAsyncTask;
 import com.example.infs3634app.database.GetFavouritesDelegate;
@@ -52,8 +49,6 @@ public class RecipeDetailFragment extends Fragment implements
     //parameters
     private String drinkID;
     private int position;
-
-    private OnFragmentInteractionListener mListener;
 
     public RecipeDetailFragment() {
         // Required empty public constructor
@@ -243,33 +238,6 @@ public class RecipeDetailFragment extends Fragment implements
         return inflater.inflate(R.layout.fragment_recipe_detail, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-
-
     @Override
     public void handleTaskResult(List<Drinks> favDrinks) {
         this.favDrinks = favDrinks;
@@ -339,9 +307,4 @@ public class RecipeDetailFragment extends Fragment implements
         setLike();
     }
 
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 }

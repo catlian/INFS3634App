@@ -1,7 +1,5 @@
 package com.example.infs3634app.model;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +14,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.infs3634app.R;
-import com.example.infs3634app.activities.QuizActivity;
-import com.example.infs3634app.activities.YoutubeActivity;
 import com.example.infs3634app.fragments.QuizSettingFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder> {

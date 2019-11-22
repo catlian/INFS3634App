@@ -1,16 +1,13 @@
 package com.example.infs3634app.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.infs3634app.R;
@@ -19,10 +16,6 @@ import com.example.infs3634app.database.GetUserAsyncTask;
 import com.example.infs3634app.database.GetUserDelegate;
 import com.example.infs3634app.database.UpdateUserAsyncTask;
 import com.example.infs3634app.database.UpdateUserDataDelegate;
-import com.example.infs3634app.fragments.BrowseRecipeCategoryFragment;
-import com.example.infs3634app.fragments.FavouritesFragment;
-import com.example.infs3634app.fragments.MyCreatedRecipesFragment;
-import com.example.infs3634app.fragments.MyRecipesFragment;
 import com.example.infs3634app.model.Drinks;
 import com.example.infs3634app.model.ID;
 import com.example.infs3634app.model.User;
@@ -31,10 +24,7 @@ import java.util.ArrayList;
 
 public class NewRecipeActivity extends AppCompatActivity implements
         UpdateUserDataDelegate,
-        GetUserDelegate,
-        FavouritesFragment.OnFragmentInteractionListener,
-        MyCreatedRecipesFragment.OnFragmentInteractionListener,
-        MyRecipesFragment.OnFragmentInteractionListener{
+        GetUserDelegate {
     private Drinks newDrink = new Drinks();
     private int countRows;
     private ArrayList<View> rows = new ArrayList<>();
@@ -161,13 +151,6 @@ public class NewRecipeActivity extends AppCompatActivity implements
         updateUserAsyncTask.setDelegate((UpdateUserDataDelegate)this);
         updateUserAsyncTask.execute(user);
     }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
-
-
     @Override
     public void handleTaskResult(String string) {
         finish();

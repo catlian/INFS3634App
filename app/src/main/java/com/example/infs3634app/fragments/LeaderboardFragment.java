@@ -3,24 +3,19 @@ package com.example.infs3634app.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+
 import com.example.infs3634app.R;
-import com.example.infs3634app.activities.QuizActivity;
 import com.example.infs3634app.database.AppDatabase;
-import com.example.infs3634app.database.GetUserAsyncTask;
 import com.example.infs3634app.database.GetUserDelegate;
 import com.example.infs3634app.database.GetUserListAsyncTask;
 import com.example.infs3634app.database.GetUserListDelegate;

@@ -1,62 +1,30 @@
 package com.example.infs3634app.activities;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import com.example.infs3634app.R;
 import com.example.infs3634app.database.AppDatabase;
-import com.example.infs3634app.database.InsertQuestionAsyncTask;
-import com.example.infs3634app.database.InsertUserAsyncTask;
+import com.example.infs3634app.fragments.BrowseRecipeCategoryFragment;
 import com.example.infs3634app.fragments.FAQFragment;
-import com.example.infs3634app.fragments.FavouritesFragment;
 import com.example.infs3634app.fragments.LeaderboardFragment;
-import com.example.infs3634app.fragments.MyCreatedRecipesFragment;
 import com.example.infs3634app.fragments.MyRecipesFragment;
 import com.example.infs3634app.fragments.QuizRecyclerFragment;
-
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.infs3634app.R;
-import com.example.infs3634app.fragments.BrowseRecipeCategoryFragment;
-import com.example.infs3634app.fragments.QuizSettingFragment;
-import com.example.infs3634app.fragments.RecipeDetailFragment;
-import com.example.infs3634app.fragments.RecipeRecyclerFragment;
-import com.example.infs3634app.model.Drinks;
-import com.example.infs3634app.model.DrinksImport;
-import com.example.infs3634app.model.Question;
 import com.example.infs3634app.model.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.gson.Gson;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
-        implements RecipeRecyclerFragment.OnFragmentInteractionListener,
-        RecipeDetailFragment.OnFragmentInteractionListener,
-        BrowseRecipeCategoryFragment.OnFragmentInteractionListener,
-        com.example.infs3634app.database.InsertUserDelegate,
-        MyRecipesFragment.OnFragmentInteractionListener,
-        FavouritesFragment.OnFragmentInteractionListener,
-        MyCreatedRecipesFragment.OnFragmentInteractionListener,
-        QuizSettingFragment.OnFragmentInteractionListener {
-
-
+        implements com.example.infs3634app.database.InsertUserDelegate{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -147,11 +115,6 @@ public class MainActivity extends AppCompatActivity
                 return true;
             }
         });
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 
     @Override
