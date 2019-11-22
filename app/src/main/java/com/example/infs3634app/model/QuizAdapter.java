@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.infs3634app.FragmentSwapper;
 import com.example.infs3634app.R;
 import com.example.infs3634app.fragments.QuizSettingFragment;
 
@@ -20,6 +21,7 @@ import java.util.List;
 
 public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder> {
         private List<Quiz> quizzesToAdapt;
+        private FragmentSwapper fs = new FragmentSwapper();
 
         public void setData(List<Quiz> quizzesToAdapt){ this.quizzesToAdapt = quizzesToAdapt; }
 

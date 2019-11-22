@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.infs3634app.FragmentSwapper;
 import com.example.infs3634app.R;
 import com.example.infs3634app.fragments.RecipeDetailFragment;
 import com.example.infs3634app.fragments.RecipeRecyclerFragment;
@@ -20,6 +21,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
     ImageView categoryImage;
     TextView categoryName;
     String type;
+    private FragmentSwapper fs = new FragmentSwapper();
     public CategoryViewHolder(@NonNull View itemView) {
         super(itemView);
         v = itemView;
@@ -37,11 +39,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
                 AppCompatActivity activity = (AppCompatActivity)v.getContext();
                 RecipeRecyclerFragment recipeFragment = new RecipeRecyclerFragment();
                 recipeFragment.setArguments(bundle);
-                FragmentManager fragmentManager = activity.getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_slot, recipeFragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                fs.swapFragmentBackstack(recipeFragment, v);
             }
         }));
     }

@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.infs3634app.FragmentSwapper;
 import com.example.infs3634app.R;
 import com.example.infs3634app.activities.MainActivity;
 import com.example.infs3634app.fragments.RecipeDetailFragment;
@@ -32,6 +33,8 @@ public class DrinksViewHolder extends RecyclerView.ViewHolder {
     String drinkID;
     Drinks selectedDrink;
     TextView glass;
+    FragmentSwapper fs = new FragmentSwapper();
+
     public DrinksViewHolder(@NonNull View v) {
         super(v);
         this.view = v;
@@ -55,11 +58,7 @@ public class DrinksViewHolder extends RecyclerView.ViewHolder {
                 AppCompatActivity activity = (AppCompatActivity)view.getContext();
                 RecipeDetailFragment recipeDetailFragment = new RecipeDetailFragment();
                 recipeDetailFragment.setArguments(bundle);
-                FragmentManager fragmentManager = activity.getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_slot, recipeDetailFragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                fs.swapFragmentBackstack(recipeDetailFragment, v);
             }
         }));
     }
