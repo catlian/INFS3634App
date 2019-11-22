@@ -67,6 +67,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
                         Bundle bundle = new Bundle();
                         bundle.putInt("QUIZ_ID",quiz.getQuizId());
                         bundle.putString("QUIZ_NAME",quiz.getName());
+                        bundle.putString("QUIZ_CAT", quiz.getCategory());
                         bundle.putString("QUIZ_DESCRIPTION",quiz.getDescription());
                         quizSettingFragment.setArguments(bundle);
                         FragmentManager fragmentManager = activity.getSupportFragmentManager();

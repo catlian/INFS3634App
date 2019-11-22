@@ -32,8 +32,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class QuizActivity extends AppCompatActivity implements QuizDelegate, UpdateUserDataDelegate,
-        GetUserDelegate {
+public class QuizActivity extends AppCompatActivity implements UpdateUserDataDelegate,
+        GetUserDelegate, QuizDelegate {
 
     private RadioGroup radioGroup;
     private RadioButton rbOne;
