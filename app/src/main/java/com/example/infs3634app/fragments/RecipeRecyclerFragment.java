@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,6 +31,9 @@ public class RecipeRecyclerFragment extends Fragment {
     private String categoryName;
     private String type;
 
+    private Button btnSearch;
+    private TextView searchText;
+
     public RecipeRecyclerFragment() {
         // Required empty public constructor
     }
@@ -46,6 +53,7 @@ public class RecipeRecyclerFragment extends Fragment {
             type = getArguments().getString("CATEGORY_TYPE");
         }
         System.out.println(categoryName);
+
     }
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState){
@@ -76,11 +84,52 @@ public class RecipeRecyclerFragment extends Fragment {
         StringRequest stringRequest = new StringRequest(Request.Method.GET,url,responseListener,errorListener);
         requestQueue.add(stringRequest);
 
+        searchText = view.findViewById(R.id.searchText);
+
+        btnSearch = view.findViewById(R.id.btnSearch);
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String searchString = searchText.getText().toString();
+                RequestQueue requestQueue= Volley.newRequestQueue(getContext());
+                Response.Listener<String> responseListener = new Response.Listener<String>(){
+                    @Override
+                    public void onResponse(String response){
+                        RecyclerView recipeRecycler = view.findViewById(R.id.recipeRecycler);
+                        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                        recipeRecycler.setLayoutManager(layoutManager);
+                        DrinksImport drinksImport=new Gson().fromJson(response,DrinksImport.class);
+                        DrinksAdapter drinksAdapter=new DrinksAdapter(drinksImport.getDrinks());
+                        recipeRecycler.setAdapter(drinksAdapter);
+                    }
+                };
+                Response.ErrorListener errorListener=new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        System.out.println("Request failed");
+                    }
+
+                };
+                String url = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s="+searchString;
+                StringRequest stringRequest = new StringRequest(Request.Method.GET,url,responseListener,errorListener);
+                requestQueue.add(stringRequest);
+                hideSoftKeyboard();
+            }
+        });
+
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_recipe_recycler, container, false);
+    }
+
+    //code ref: https://stackoverflow.com/questions/4005728/hide-default-keyboard-on-click-in-android
+    private void hideSoftKeyboard(){
+        if(getActivity().getCurrentFocus()!=null && getActivity().getCurrentFocus() instanceof EditText){
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(searchText.getWindowToken(), 0);
+        }
     }
 }
