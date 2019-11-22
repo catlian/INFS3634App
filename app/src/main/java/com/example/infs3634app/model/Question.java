@@ -8,10 +8,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 
-@Entity (tableName = "Questions",
-        foreignKeys = @ForeignKey(entity = Quiz.class,
-        parentColumns = "quizId",
-        childColumns = "quizId"))
+@Entity (tableName = "Questions")
 public class Question {
     @PrimaryKey(autoGenerate = true)
     private int questionId;
@@ -21,7 +18,6 @@ public class Question {
     @NonNull private String option2;
     @NonNull private String option3;
     @NonNull private String option4;
-    @ColumnInfo(index = true)
     @NonNull private int quizId;
 
     @Ignore

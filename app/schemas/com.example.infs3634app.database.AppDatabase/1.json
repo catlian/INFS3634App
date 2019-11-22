@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "ce3e8b5c2119ade003624fcfb269a628",
+    "identityHash": "15619da47cf7094a924c1f44364de265",
     "entities": [
       {
         "tableName": "Questions",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`questionId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `imageUrl` TEXT, `question` TEXT NOT NULL, `answer` TEXT NOT NULL, `option2` TEXT NOT NULL, `option3` TEXT NOT NULL, `option4` TEXT NOT NULL, `quizId` INTEGER NOT NULL, FOREIGN KEY(`quizId`) REFERENCES `quizzes`(`quizId`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`questionId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `imageUrl` TEXT, `question` TEXT NOT NULL, `answer` TEXT NOT NULL, `option2` TEXT NOT NULL, `option3` TEXT NOT NULL, `option4` TEXT NOT NULL, `quizId` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "questionId",
@@ -63,29 +63,8 @@
           ],
           "autoGenerate": true
         },
-        "indices": [
-          {
-            "name": "index_Questions_quizId",
-            "unique": false,
-            "columnNames": [
-              "quizId"
-            ],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_Questions_quizId` ON `${TABLE_NAME}` (`quizId`)"
-          }
-        ],
-        "foreignKeys": [
-          {
-            "table": "quizzes",
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "columns": [
-              "quizId"
-            ],
-            "referencedColumns": [
-              "quizId"
-            ]
-          }
-        ]
+        "indices": [],
+        "foreignKeys": []
       },
       {
         "tableName": "users",
@@ -136,44 +115,12 @@
         },
         "indices": [],
         "foreignKeys": []
-      },
-      {
-        "tableName": "quizzes",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`quizId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `description` TEXT)",
-        "fields": [
-          {
-            "fieldPath": "quizId",
-            "columnName": "quizId",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "name",
-            "columnName": "name",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "description",
-            "columnName": "description",
-            "affinity": "TEXT",
-            "notNull": false
-          }
-        ],
-        "primaryKey": {
-          "columnNames": [
-            "quizId"
-          ],
-          "autoGenerate": true
-        },
-        "indices": [],
-        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ce3e8b5c2119ade003624fcfb269a628')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '15619da47cf7094a924c1f44364de265')"
     ]
   }
 }

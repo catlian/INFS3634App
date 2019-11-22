@@ -3,7 +3,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <integer name="user_id">1</integer>
     <string name="faq">Welcome to our app! Here\'s a quick how-to guide so you know your way around.</string>
     <string name="faqnav">"Browse" - see categories of drinks and browse drink recipes.
         \n"Quiz me!" - test yourself on your knowledge!
@@ -13,4 +12,7 @@
     \nAt the moment you can only add drink images from URL but we are working on being able to upload your own pictures.
         You can use imgur.com to store images online.</string>
     <string name="howtofav">Go to the detailed view of the drink and click on the heart in the top right corner. If it\'s already red, you\'ve already favourited the drink!</string>
+    <string name="quiz_description">Based off of the image, name the drink from the</string>
+    <string name="cat">category.</string>
+    <string name="name_the">Name the</string>
 </resources>

@@ -12,8 +12,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -26,7 +24,6 @@ import com.example.infs3634app.activities.QuizActivity;
 import com.example.infs3634app.database.AppDatabase;
 import com.example.infs3634app.database.InsertQuestionAsyncTask;
 import com.example.infs3634app.database.QuizDelegate;
-import com.example.infs3634app.model.CategoryAdapter;
 import com.example.infs3634app.model.Drinks;
 import com.example.infs3634app.model.DrinksImport;
 import com.example.infs3634app.model.Question;
@@ -41,9 +38,8 @@ public class QuizSettingFragment extends Fragment implements QuizDelegate {
     private int quizID;
     private String quizDescriptionString;
     private String quizNameString;
-    private ArrayList<String> categoryArray;
+    private String quizCategory;
     private Button btnSelect;
-    private String selectedCategory;
 
     int numQuestionsCreated;
     Question question = new Question();
@@ -59,6 +55,7 @@ public class QuizSettingFragment extends Fragment implements QuizDelegate {
         if (getArguments() != null) {
             quizID = getArguments().getInt("QUIZ_ID");
             quizNameString = getArguments().getString("QUIZ_NAME");
+            quizCategory = getArguments().getString("QUIZ_CAT");
             quizDescriptionString = getArguments().getString("QUIZ_DESCRIPTION");
         }
         numQuestionsCreated = 0;
@@ -73,8 +70,6 @@ public class QuizSettingFragment extends Fragment implements QuizDelegate {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceBundle) {
-        categoryArray = new ArrayList<>();
-
         TextView quizName = view.findViewById(R.id.quizName);
         TextView quizDescription = view.findViewById(R.id.quizDescription);
         quizName.setText(quizNameString);
@@ -88,7 +83,6 @@ public class QuizSettingFragment extends Fragment implements QuizDelegate {
         progressBar.setVisibility(View.GONE);
 
         final Spinner spinner = view.findViewById(R.id.numQuestionsSpinner);
-        final Spinner categorySpinner = view.findViewById(R.id.spinner2);
         btnSelect = view.findViewById(R.id.selectNumQuestions);
 
         Integer[] numQuestions = new Integer[]{5, 10, 15, 20};
@@ -98,55 +92,27 @@ public class QuizSettingFragment extends Fragment implements QuizDelegate {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        Response.Listener<String> responseListener = new Response.Listener<String>() {
+        btnSelect.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(String response) {
-                RecyclerView categoryRecycler = getView().findViewById(R.id.categoryRecycler);
-                DrinksImport drinksImport = new Gson().fromJson(response, DrinksImport.class);
-                ArrayList<Drinks> result = new ArrayList<>(drinksImport.getDrinks());
-                for (Drinks drinks : result){
-                    categoryArray.add(drinks.getStrCategory());
-                }
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                        (getContext(), android.R.layout.simple_spinner_item, categoryArray);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                categorySpinner.setAdapter(adapter);
-
-                btnSelect.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int numQuestions = (Integer.parseInt(String.valueOf(spinner.getSelectedItem())));
-                        selectedCategory = String.valueOf(categorySpinner.getSelectedItem());
-                        System.out.println("numQuestions wanted: "+numQuestions);
-                        System.out.println(selectedCategory);
-                        loadMsg.setVisibility(View.VISIBLE);
-                        loadMsg.setText("Please wait while we load your questions.");
-                        progressBar.setVisibility(View.VISIBLE);
-                        createQuestions(numQuestions, selectedCategory);
-                    }
-                });
-
+            public void onClick(View v) {
+                int numQuestions = (Integer.parseInt(String.valueOf(spinner.getSelectedItem())));
+                System.out.println("numQuestions wanted: "+numQuestions);
+                loadMsg.setVisibility(View.VISIBLE);
+                loadMsg.setText("Please wait while we load your questions.");
+                progressBar.setVisibility(View.VISIBLE);
+                createQuestions(numQuestions, quizCategory);
             }
-        };
-        Response.ErrorListener errorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println("Request failed"); }
+        });
 
-        };
-        String url = "https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, responseListener, errorListener);
-        requestQueue.add(stringRequest);
     }
     //create question options
     //create questions
 
-    public void createQuestions(final int numQuestions, String selectedCategory) {
-        createQuestionAnswer(numQuestions, selectedCategory);
+    public void createQuestions(final int numQuestions, String quizCategory) {
+        createQuestionAnswer(numQuestions, quizCategory);
     }
 
-    private void createQuestionAnswer(final int numQuestions, String selectedCategory) {
+    private void createQuestionAnswer(final int numQuestions, String quizCategory) {
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
@@ -171,7 +137,7 @@ public class QuizSettingFragment extends Fragment implements QuizDelegate {
                 System.out.println("Request failed");
             }
         };
-        String url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=" + selectedCategory;
+        String url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=" + quizCategory;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, responseListener, errorListener);
         requestQueue.add(stringRequest);
     }
@@ -227,7 +193,7 @@ public class QuizSettingFragment extends Fragment implements QuizDelegate {
                         insertQuestionAsyncTask.execute(arrayQuestions);
                     }
                     else{
-                        createQuestionAnswer(numQuestions, selectedCategory);
+                        createQuestionAnswer(numQuestions, quizCategory);
                     }
                 }
                 else{
@@ -247,7 +213,7 @@ public class QuizSettingFragment extends Fragment implements QuizDelegate {
                 System.out.println("Request failed");
             }
         };
-        String url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=" + selectedCategory;
+        String url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=" + quizCategory;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, responseListener, errorListener);
         requestQueue.add(stringRequest);
         System.out.println("added string request");

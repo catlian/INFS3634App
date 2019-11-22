@@ -3,18 +3,18 @@ package com.example.infs3634app.model;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "quizzes")
 public class Quiz {
-    @PrimaryKey(autoGenerate = true)
     private int quizId;
     private String name;
+    private String category;
     private String description;
 
 
 
-    public Quiz(int quizId, String name, String description) {
+    public Quiz(int quizId, String name, String category, String description) {
         this.quizId = quizId;
         this.name = name;
+        this.category = category;
         this.description = description;
     }
 
@@ -40,5 +40,13 @@ public class Quiz {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

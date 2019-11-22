@@ -23,7 +23,7 @@
         android:textAppearance="@style/Subtitle"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnSelect"
         app:layout_constraintStart_toEndOf="@id/imgQuiz"
         app:layout_constraintTop_toTopOf="parent" />
 
