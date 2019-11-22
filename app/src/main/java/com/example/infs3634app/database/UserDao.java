@@ -35,4 +35,7 @@ public interface UserDao {
     @Update
     void updateUsers(User...users);
 
+    @Query("SELECT COUNT(*) FROM users")
+    int count();
+
 }

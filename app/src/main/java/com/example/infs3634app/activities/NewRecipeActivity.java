@@ -32,7 +32,7 @@ public class NewRecipeActivity extends AppCompatActivity implements
     private AppDatabase database;
 
     public void onClickSubmitAll(View view) {
-        EditText name = (EditText)view.findViewById(R.id.newDrinkName);
+        EditText name = findViewById(R.id.newDrinkName);
         if(name==null){
             Toast.makeText(this,"Drink must have name",Toast.LENGTH_LONG).show();
         }
@@ -102,8 +102,8 @@ public class NewRecipeActivity extends AppCompatActivity implements
     }
     public void handleNameImage(){
         ImageView drinkImage = findViewById(R.id.newDrinkImage);
-        EditText newDrinkName = (EditText)findViewById(R.id.newDrinkName);
-        EditText newDrinkImageLink = (EditText)findViewById(R.id.imageURL);
+        EditText newDrinkName = findViewById(R.id.newDrinkName);
+        EditText newDrinkImageLink = findViewById(R.id.imageURL);
         String drinkName = newDrinkName.getText().toString();
         String drinkImageURL = newDrinkImageLink.getText().toString().replace("\\","");
         Glide.with(this).load(drinkImageURL).into(drinkImage);

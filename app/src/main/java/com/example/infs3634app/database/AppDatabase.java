@@ -29,7 +29,7 @@ public abstract class AppDatabase extends RoomDatabase{
     code referenced from this link
      */
     private void populateInitialData() {
-        if (quizDAO().count() == 0) {
+        if (userDao().count() == 0) {
             runInTransaction(new Runnable() {
                 @Override
                 public void run() {
