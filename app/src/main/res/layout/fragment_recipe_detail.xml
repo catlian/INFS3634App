@@ -87,7 +87,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:paddingEnd="50dp">
+                    android:paddingEnd="20dp">
 
                     <TextView
                         android:id="@+id/ing1"
