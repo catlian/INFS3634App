@@ -18,7 +18,9 @@ import com.example.infs3634app.R;
 import com.example.infs3634app.activities.MainActivity;
 import com.example.infs3634app.fragments.RecipeDetailFragment;
 import com.example.infs3634app.fragments.RecipeRecyclerFragment;
-
+/*
+Also used a lot (see DrinksAdapter comments)
+ */
 public class DrinksViewHolder extends RecyclerView.ViewHolder {
     View view;
     TextView drinkName;

@@ -20,7 +20,9 @@ import com.example.infs3634app.model.CategoryViewHolder;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-
+/*
+Used for the ingredient recycler view in Browse.
+ */
 public class IngredientCategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
     ArrayList<Drinks> listCategories;
     public IngredientCategoryAdapter (ArrayList<Drinks> categoryList){

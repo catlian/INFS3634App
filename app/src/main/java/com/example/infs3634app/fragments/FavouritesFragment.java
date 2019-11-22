@@ -20,7 +20,9 @@ import com.example.infs3634app.model.ID;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/*
+Uses DrinksAdapter to recycle code.
+ */
 public class FavouritesFragment extends Fragment implements GetFavouritesDelegate {
     public FavouritesFragment() {
         // Required empty public constructor

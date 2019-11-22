@@ -38,6 +38,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/*
+This file controls fragment_recipe_detail.xml
+ */
 public class RecipeDetailFragment extends Fragment implements
         GetFavouritesDelegate, UpdateUserDataDelegate, GetUserDelegate {
     private Drinks selectedDrink;
@@ -70,6 +73,12 @@ public class RecipeDetailFragment extends Fragment implements
             drinkID = getArguments().getString("DRINK_ID");
             position = getArguments().getInt("USER_DRINK_INT");
         }
+        /*
+        checking if drinkID is null or not as results retrieved from the API will have a drinkID,
+        whereas user generated drinks will not (which is bad coding practice, i know :( )
+        future plans: add user generated drinks to API (Costs money to get API key), so that they
+        have a drinkID too!
+         */
         if(drinkID!=null){
             final RequestQueue requestQueue= Volley.newRequestQueue(getContext());
             final Response.Listener<String> responseListener = new Response.Listener<String>(){
@@ -105,6 +114,9 @@ public class RecipeDetailFragment extends Fragment implements
 
     }
 
+    /*
+    Retrieves a list of favourited drinks from the Room database... see HandleUserResult for more info.
+     */
     private void setLike() {
         final ImageView likeButton = getView().findViewById(R.id.likeButton);
         GetFavouritesAsyncTask getFavouritesAsyncTask = new GetFavouritesAsyncTask();
@@ -261,6 +273,12 @@ public class RecipeDetailFragment extends Fragment implements
         }
     }
 
+    /*
+    Retrieves a user because the favourites list is an attribute of the User class.
+    then sets the user's favourites in Java (user.setFavourites(favDrinks);
+    before pushing the user update through the database (UpdateAsyncTask)
+    In between is code for toggling the state of the like button.
+     */
     @Override
     public void handleUserResult(final User user) {
         user.setFavourites(favDrinks);
@@ -299,7 +317,12 @@ public class RecipeDetailFragment extends Fragment implements
             }
         });
     }
+/*
+After retrieving list of favourite drinks, check if they are already liked or not by calling setLike()
+It kind of loops because after a favourites list is updated, the favourites button needs to be
+updated to reflect the change. Hence why it calls setLike();
 
+ */
     @Override
     public void handleTaskResult(String string) {
         setLike();

@@ -104,9 +104,23 @@ public class QuizSettingFragment extends Fragment implements QuizDelegate {
         });
 
     }
-    //create question options
-    //create questions
-
+/*
+The way this part works:
+    1) create question options by randomly generating 4 drinks.
+        1a) the first drink's name & image will be used as the answer & question.
+        1b) the 2nd-4th drinks' names will be used as options.
+            This is done as a loop of the volley query which checks how many options have already been made
+    2) after question options are created (i.e. looped 3 times to create 3 other options),
+        load the question into an array list
+    3) repeat above 2 steps until all questions have arrived in the array list.
+        asynctask will insert the questions into the database
+    4) once this operation is done, go to quiz activity with the quizID (which will retrieve those questions)
+Unfortunately, it does take a long time to go through this process which is why we included the
+loading text & progress bar.
+Possible improvements could be to upload question by question instead of waiting for the whole
+list of questions, and start the quiz once 2-3 questions have already been uploaded. However, there is
+the risk of the user completing those questions too quickly so the other questions won't load in time.
+ */
     public void createQuestions(final int numQuestions, String quizCategory) {
         createQuestionAnswer(numQuestions, quizCategory);
     }

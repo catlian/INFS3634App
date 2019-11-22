@@ -1,5 +1,7 @@
 package com.example.infs3634app.model;
-
+/*
+Adding ingredient details was a low-priority feature. Need this class for POJO -> Java to work.
+ */
 class Ingredient {
 
         private String idIngredient;

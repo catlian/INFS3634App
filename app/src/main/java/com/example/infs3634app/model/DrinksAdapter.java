@@ -12,6 +12,11 @@ import com.bumptech.glide.Glide;
 import com.example.infs3634app.R;
 
 import java.util.ArrayList;
+/*
+Probably the most commonly instantiated class in this app (lol)
+DrinksAdapter is used to populate DrinksViewHolder which is used in Browse Recipes,
+Favourites, and MyRecipes.
+ */
 
 public class DrinksAdapter extends RecyclerView.Adapter<DrinksViewHolder> {
     public ArrayList<Drinks> drinksArrayList;

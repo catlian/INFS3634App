@@ -20,7 +20,11 @@ import com.example.infs3634app.model.CategoryAdapter;
 import com.example.infs3634app.model.DrinksImport;
 import com.example.infs3634app.model.IngredientCategoryAdapter;
 import com.google.gson.Gson;
-
+/*
+This fragment contains all the code for controlling fragment_browse_recipe_category.xml
+Our API provided us the two separate queries to retrieve list of categories vs list of ingredients
+which allowed us to include this function. Thank you CocktailDB! :)
+ */
 public class BrowseRecipeCategoryFragment extends Fragment {
     public BrowseRecipeCategoryFragment() {
         // Required empty public constructor
@@ -37,7 +41,8 @@ public class BrowseRecipeCategoryFragment extends Fragment {
         setIngredients(view);
 
     }
-
+    //using Volley to retrieve list of ingredients and populate ingredients recycler view
+    //used the DrinksImport instead of creating separate imports for ingredients/categories to make code more reusable.
     private void setIngredients(final View view) {
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -62,6 +67,7 @@ public class BrowseRecipeCategoryFragment extends Fragment {
         requestQueue.add(stringRequest);
     }
 
+    //using Volley to retrieve list of categories and populate categories recycler view
     private void setCategories(final View view) {
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -71,7 +77,6 @@ public class BrowseRecipeCategoryFragment extends Fragment {
                 GridLayoutManager layoutManager = new GridLayoutManager(getContext(),3);
                 categoryRecycler.setLayoutManager(layoutManager);
                 DrinksImport drinksImport = new Gson().fromJson(response, DrinksImport.class);
-                //TODO: make category import
                 CategoryAdapter categoryAdapter = new CategoryAdapter(drinksImport.getDrinks());
                 categoryRecycler.setAdapter(categoryAdapter);
             }

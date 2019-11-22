@@ -7,8 +7,14 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-/*code from https://medium.com/@droidbyme/android-material-design-tabs-tab-layout-with-swipe-884085ae80ff */
-
+/*Thank you Droid By Me who wrote this excellent article on how to do TabLayouts.
+Source:
+https://medium.com/@droidbyme/android-material-design-tabs-tab-layout-with-swipe-884085ae80ff
+January 16, 2018
+*/
+/*
+Allows the swiping magic to happen in MyRecipes.
+ */
 public class TabAdapter extends FragmentStatePagerAdapter {
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();

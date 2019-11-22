@@ -25,7 +25,9 @@ import com.example.infs3634app.R;
 import com.example.infs3634app.model.DrinksAdapter;
 import com.example.infs3634app.model.DrinksImport;
 import com.google.gson.Gson;
-
+/*
+This controls fragment_recipe_recycler.xml, which is what you see after you click a category in Browse.
+ */
 public class RecipeRecyclerFragment extends Fragment {
     // parameters
     private String categoryName;
@@ -53,6 +55,8 @@ public class RecipeRecyclerFragment extends Fragment {
             type = getArguments().getString("CATEGORY_TYPE");
         }
     }
+
+    //checks if the category type is ingredient as ingredient uses a different url to query the API.
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState){
         RequestQueue requestQueue= Volley.newRequestQueue(getContext());
@@ -81,7 +85,7 @@ public class RecipeRecyclerFragment extends Fragment {
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET,url,responseListener,errorListener);
         requestQueue.add(stringRequest);
-
+//search configuration
         searchText = view.findViewById(R.id.searchText);
 
         btnSearch = view.findViewById(R.id.btnSearch);

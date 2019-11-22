@@ -15,7 +15,14 @@ import com.example.infs3634app.R;
 import com.example.infs3634app.activities.NewRecipeActivity;
 import com.example.infs3634app.model.TabAdapter;
 import com.google.android.material.tabs.TabLayout;
-
+/*Thank you Droid By Me who wrote this excellent article on how to do TabLayouts.
+        Source:
+        https://medium.com/@droidbyme/android-material-design-tabs-tab-layout-with-swipe-884085ae80ff
+        January 16, 2018
+        */
+/*
+Allows the swiping magic to happen in MyRecipes.
+ */
 public class MyRecipesFragment extends Fragment{
     private String mParam1;
     private String mParam2;

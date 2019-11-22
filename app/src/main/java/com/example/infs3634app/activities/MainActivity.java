@@ -33,9 +33,11 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //triggers initial data load
         AppDatabase database = AppDatabase.getInstance(this);
         final View activityView = getWindow().getDecorView().findViewById(android.R.id.content);
 
+        //setting faq and leaderboard/profile buttons
         ImageView faqButton = findViewById(R.id.faqButton);
         faqButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,10 +56,11 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        //setting initial fragment to browse categories fragment
         final BrowseRecipeCategoryFragment browseRecipeCategoryFragment = new BrowseRecipeCategoryFragment();
         fs.swapFragment(browseRecipeCategoryFragment, activityView);
 
-
+        //setting navigation items destination paths when clicked
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavBar);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -90,6 +93,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    //controls floating action button in MyRecipes
     public void onClickAddRecipe(View view) {
         Intent intent = new Intent(getApplicationContext(), NewRecipeActivity.class);
         startActivity(intent);

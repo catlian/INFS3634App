@@ -30,7 +30,7 @@ public class NewRecipeActivity extends AppCompatActivity implements
     private ArrayList<View> rows = new ArrayList<>();
     private int id;
     private AppDatabase database;
-
+//some data validation to make sure the drink name is inputted
     public void onClickSubmitAll(View view) {
         EditText name = findViewById(R.id.newDrinkName);
         if(name==null){

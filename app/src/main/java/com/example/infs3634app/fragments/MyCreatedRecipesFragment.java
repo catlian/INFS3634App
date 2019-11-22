@@ -20,7 +20,13 @@ import com.example.infs3634app.model.ID;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/*
+Uses DrinksAdapter to show the list of recipes that the user created.
+Was considering making a separate adapter for user created drinks as user created recipes
+don't have drinkIDs (oops).
+But reusing code better practice so we added a line of code to check for drinkIDs in the adapter
+to handle these situations.
+ */
 public class MyCreatedRecipesFragment extends Fragment
 implements GetFavouritesDelegate {
 
