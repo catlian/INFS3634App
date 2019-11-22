@@ -31,9 +31,9 @@ public class InsertInitialDataAsyncTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
-        User user = new User(1, "test", 2, 2);
-        User bob = new User(2, "bob", 3, 3);
-        User gavin = new User(3,"gavin",1,1);
+        User user = new User(1, "test", 0, 0);
+        User bob = new User(2, "bob", 0, 0);
+        User gavin = new User(3,"gavin",0,0);
         database.userDao().insertNew(user, bob, gavin);
         return null;
     }

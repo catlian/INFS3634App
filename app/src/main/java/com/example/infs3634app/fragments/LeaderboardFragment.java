@@ -108,7 +108,7 @@ public class LeaderboardFragment extends Fragment implements GetUserListDelegate
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_SEND);
 
-                intent.putExtra(Intent.EXTRA_TEXT, highScore);
+                intent.putExtra(Intent.EXTRA_TEXT, "Hi, check out my high score! "+highScore);
                 intent.setType("text/plain");
                 startActivity(intent);
             }
