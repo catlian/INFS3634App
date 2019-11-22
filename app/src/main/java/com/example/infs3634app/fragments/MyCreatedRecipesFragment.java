@@ -91,6 +91,7 @@ implements GetFavouritesDelegate {
         mListener = null;
     }
 
+
     @Override
     public void handleTaskResult(List<Drinks> myRecipes) {
         RecyclerView myRecipeRecycler = getView().findViewById(R.id.myRecipesRecycler);

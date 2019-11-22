@@ -36,6 +36,7 @@ public class MyRecipesFragment extends Fragment implements
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
+
     private OnFragmentInteractionListener mListener;
 
     public MyRecipesFragment() {
@@ -64,14 +65,41 @@ public class MyRecipesFragment extends Fragment implements
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+    }
+
+    public void onResume() {
+
+        super.onResume();
         viewPager = (ViewPager)getView().findViewById(R.id.viewPager);
         tabLayout = (TabLayout)getView().findViewById(R.id.tabLayout);
-        adapter = new TabAdapter(getFragmentManager());
+        adapter = new TabAdapter(getChildFragmentManager());
         adapter.addFragment(new FavouritesFragment(), "Favourites");
         adapter.addFragment(new MyCreatedRecipesFragment(), "My Recipes");
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+        adapter.notifyDataSetChanged();
     }
+
+    public void onPause() {
+        System.out.println("pause");
+        super.onPause();
+        int count = adapter.getCount();
+        for (int i = count - 1; i >= 0; --i) {
+            adapter.destroyItem(viewPager, i, adapter.getItem(i));
+            tabLayout.removeTabAt(i);
+        }
+        tabLayout.invalidate();
+        adapter.notifyDataSetChanged();
+        System.out.println("pause");
+    }
+
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);

@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity
         MyRecipesFragment.OnFragmentInteractionListener,
         FavouritesFragment.OnFragmentInteractionListener,
         MyCreatedRecipesFragment.OnFragmentInteractionListener,
-        FAQFragment.OnFragmentInteractionListener,
         QuizSettingFragment.OnFragmentInteractionListener {
 
 
