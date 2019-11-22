@@ -21,8 +21,11 @@ import com.example.infs3634app.R;
 import com.example.infs3634app.activities.QuizActivity;
 import com.example.infs3634app.database.AppDatabase;
 import com.example.infs3634app.database.GetUserAsyncTask;
+import com.example.infs3634app.database.GetUserDelegate;
 import com.example.infs3634app.database.GetUserListAsyncTask;
 import com.example.infs3634app.database.GetUserListDelegate;
+import com.example.infs3634app.database.GetUsernameAsyncTask;
+import com.example.infs3634app.model.ID;
 import com.example.infs3634app.model.User;
 
 import java.util.List;
@@ -30,10 +33,11 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LeaderboardFragment extends Fragment implements GetUserListDelegate {
+public class LeaderboardFragment extends Fragment implements GetUserListDelegate, GetUserDelegate {
     private AppDatabase database;
     private Context context;
     private TableLayout tableLayout;
+    private TextView username;
 
     public LeaderboardFragment() {
         // Required empty public constructor
@@ -41,15 +45,18 @@ public class LeaderboardFragment extends Fragment implements GetUserListDelegate
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_leaderboard, container, false);
 
         context = getContext();
         database = AppDatabase.getInstance(context);
+        username = view.findViewById(R.id.lblUsername);
 
         tableLayout = view.findViewById(R.id.tableLayout);
 
-
+        GetUsernameAsyncTask getUsernameAsyncTask = new GetUsernameAsyncTask();
+        getUsernameAsyncTask.setDatabase(database);
+        getUsernameAsyncTask.setDelegate(LeaderboardFragment.this);
+        getUsernameAsyncTask.execute(ID.user_id);
 
         GetUserListAsyncTask getUserListAsyncTask = new GetUserListAsyncTask();
         getUserListAsyncTask.setDatabase(database);
@@ -66,20 +73,34 @@ public class LeaderboardFragment extends Fragment implements GetUserListDelegate
         for (User user : userList) {
             TableRow tbrow = new TableRow(context);
             TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(0,TableRow.LayoutParams.WRAP_CONTENT,
-                    0.5f);
+                    1.0f);
             TextView username = new TextView(context);
             username.setText(user.getUsername());
             username.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
             username.setGravity(Gravity.CENTER);
             username.setLayoutParams(layoutParams);
             tbrow.addView(username);
+
+            TextView highScore = new TextView(context);
+            highScore.setText(String.valueOf(user.getHighScore()));
+            highScore.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+            highScore.setGravity(Gravity.CENTER);
+            highScore.setLayoutParams(layoutParams);
+            tbrow.addView(highScore);
+
             TextView points = new TextView(context);
             points.setText(String.valueOf(user.getTotalPoints()));
             points.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
             points.setGravity(Gravity.CENTER);
             points.setLayoutParams(layoutParams);
             tbrow.addView(points);
+
             tableLayout.addView(tbrow);
         }
+    }
+
+    @Override
+    public void handleUserResult(User user) {
+        username.setText("Hi " + user.getUsername() + "!");
     }
 }

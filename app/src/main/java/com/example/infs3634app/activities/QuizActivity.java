@@ -24,6 +24,7 @@ import com.example.infs3634app.database.GetUserDelegate;
 import com.example.infs3634app.database.QuizDelegate;
 import com.example.infs3634app.database.UpdateUserAsyncTask;
 import com.example.infs3634app.database.UpdateUserDataDelegate;
+import com.example.infs3634app.model.ID;
 import com.example.infs3634app.model.Question;
 import com.example.infs3634app.model.User;
 
@@ -116,7 +117,7 @@ public class QuizActivity extends AppCompatActivity implements QuizDelegate, Upd
             GetUserAsyncTask getUserAsyncTask = new GetUserAsyncTask();
             getUserAsyncTask.setDatabase(database);
             getUserAsyncTask.setDelegate(QuizActivity.this);
-            int id = getResources().getInteger(R.integer.user_id);
+            int id = ID.user_id;
             getUserAsyncTask.execute(id);
         }
     }

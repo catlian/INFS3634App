@@ -18,6 +18,7 @@ import com.example.infs3634app.database.GetFavouritesAsyncTask;
 import com.example.infs3634app.database.GetFavouritesDelegate;
 import com.example.infs3634app.model.Drinks;
 import com.example.infs3634app.model.DrinksAdapter;
+import com.example.infs3634app.model.ID;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +53,7 @@ public class FavouritesFragment extends Fragment implements GetFavouritesDelegat
         GetFavouritesAsyncTask getFavouritesAsyncTask = new GetFavouritesAsyncTask();
         getFavouritesAsyncTask.setDatabase(db);
         getFavouritesAsyncTask.setDelegate(this);
-        getFavouritesAsyncTask.execute(getResources().getInteger(R.integer.user_id));
+        getFavouritesAsyncTask.execute(ID.user_id);
         return inflater.inflate(R.layout.fragment_favourites, container, false);
     }
     @Override

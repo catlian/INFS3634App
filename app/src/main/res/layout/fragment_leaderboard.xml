@@ -20,6 +20,17 @@
             android:text="Hi!"
             android:textSize="30sp" />
 
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:gravity="center_horizontal"
+            android:text="Leaderboard"
+            android:textAppearance="@style/Subtitle"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="36sp" />
+
         <TableLayout
             android:id="@+id/tableLayout"
             android:layout_width="match_parent"
@@ -34,7 +45,16 @@
                     android:layout_width="wrap_content"
                     android:layout_weight="1"
                     android:padding="3dip"
-                    android:text="Username"
+                    android:text="User Name"
+                    android:textAlignment="center"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="3dip"
+                    android:text="High Score"
                     android:textAlignment="center"
                     android:textSize="30sp"
                     android:textStyle="bold" />

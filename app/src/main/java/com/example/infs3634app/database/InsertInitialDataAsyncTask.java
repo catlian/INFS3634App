@@ -36,7 +36,8 @@ public class InsertInitialDataAsyncTask extends AsyncTask<Void, Void, Void> {
         database.quizDAO().insertNew(quiz, quiz2);
 
         User user = new User(1, "test", 0, 0);
-        database.userDao().insertNew(user);
+        User bob = new User(2, "bob", 0, 0);
+        database.userDao().insertNew(user, bob);
         return null;
     }
 

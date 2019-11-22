@@ -19,6 +19,7 @@ import com.example.infs3634app.database.GetFavouritesDelegate;
 import com.example.infs3634app.database.GetMyRecipesAsyncTask;
 import com.example.infs3634app.model.Drinks;
 import com.example.infs3634app.model.DrinksAdapter;
+import com.example.infs3634app.model.ID;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +63,7 @@ implements GetFavouritesDelegate {
         GetMyRecipesAsyncTask getMyRecipesAsyncTask = new GetMyRecipesAsyncTask();
         getMyRecipesAsyncTask.setDatabase(db);
         getMyRecipesAsyncTask.setDelegate(this);
-        getMyRecipesAsyncTask.execute(getResources().getInteger(R.integer.user_id));
+        getMyRecipesAsyncTask.execute(ID.user_id);
         return inflater.inflate(R.layout.fragment_my_created_recipes, container, false);
     }
 

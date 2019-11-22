@@ -24,6 +24,7 @@ import com.example.infs3634app.fragments.FavouritesFragment;
 import com.example.infs3634app.fragments.MyCreatedRecipesFragment;
 import com.example.infs3634app.fragments.MyRecipesFragment;
 import com.example.infs3634app.model.Drinks;
+import com.example.infs3634app.model.ID;
 import com.example.infs3634app.model.User;
 
 import java.util.ArrayList;
@@ -64,7 +65,7 @@ public class NewRecipeActivity extends AppCompatActivity implements
         Intent intent = getIntent();
         countRows=1;
         database = AppDatabase.getInstance(getApplicationContext());
-        id = getResources().getInteger(R.integer.user_id);
+        id = ID.user_id;
     }
 
     @Override

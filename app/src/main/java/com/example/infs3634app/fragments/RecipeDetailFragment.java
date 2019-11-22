@@ -33,6 +33,7 @@ import com.example.infs3634app.database.UpdateUserAsyncTask;
 import com.example.infs3634app.database.UpdateUserDataDelegate;
 import com.example.infs3634app.model.Drinks;
 import com.example.infs3634app.model.DrinksImport;
+import com.example.infs3634app.model.ID;
 import com.example.infs3634app.model.User;
 import com.google.gson.Gson;
 
@@ -69,7 +70,7 @@ public class RecipeDetailFragment extends Fragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         database = AppDatabase.getInstance(getContext());
-        id = getContext().getResources().getInteger(R.integer.user_id);
+        id = ID.user_id;
         if (getArguments() != null) {
             drinkID = getArguments().getString("DRINK_ID");
             position = getArguments().getInt("USER_DRINK_INT");

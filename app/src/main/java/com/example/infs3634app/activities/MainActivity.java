@@ -16,6 +16,7 @@ import com.example.infs3634app.database.InsertQuestionAsyncTask;
 import com.example.infs3634app.database.InsertUserAsyncTask;
 import com.example.infs3634app.fragments.FAQFragment;
 import com.example.infs3634app.fragments.FavouritesFragment;
+import com.example.infs3634app.fragments.LeaderboardFragment;
 import com.example.infs3634app.fragments.MyCreatedRecipesFragment;
 import com.example.infs3634app.fragments.MyRecipesFragment;
 import com.example.infs3634app.fragments.QuizRecyclerFragment;
@@ -78,11 +79,36 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        ImageView leaderboardButton = findViewById(R.id.leaderboardButton);
+        leaderboardButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                LeaderboardFragment leaderboardFragment = new LeaderboardFragment();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_slot, leaderboardFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
         final BrowseRecipeCategoryFragment browseRecipeCategoryFragment = new BrowseRecipeCategoryFragment();
         final FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransactionInitial = fragmentManager.beginTransaction();
         fragmentTransactionInitial.replace(R.id.fragment_slot, browseRecipeCategoryFragment);
         fragmentTransactionInitial.commit();
+
+        TextView titleText = findViewById(R.id.titleText);
+        titleText.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_slot, browseRecipeCategoryFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavBar);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
