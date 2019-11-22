@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase;
 import com.example.infs3634app.model.*;
 
 @Database(entities = {Question.class, User.class}, version = 1)
-public abstract class AppDatabase extends RoomDatabase{
+public abstract class AppDatabase extends RoomDatabase implements GetUserCountDelegate{
     public abstract QuestionDAO questionDao();
     public abstract UserDao userDao();
 
@@ -18,27 +18,27 @@ public abstract class AppDatabase extends RoomDatabase{
 
         if(instance == null) {
             instance = Room.databaseBuilder(context, AppDatabase.class, "quizDB")
-                    .allowMainThreadQueries()
                     .build();
             instance.populateInitialData();
         }
         return instance;
     }
-    /*https://github.com/android/architecture-components-samples/blob/master/PersistenceContentProviderSample/app/src/main/java/com/example/android/contentprovidersample/data/SampleDatabase.java
-    code referenced from this link
-     */
     private void populateInitialData() {
-        if (userDao().count() == 0) {
-            runInTransaction(new Runnable() {
-                @Override
-                public void run() {
-                    InsertInitialDataAsyncTask insertInitialDataAsyncTask = new
-                            InsertInitialDataAsyncTask();
-                    insertInitialDataAsyncTask.setDatabase(instance);
-                    insertInitialDataAsyncTask.execute();
+        GetUserCountAsync getUserCountAsync = new
+                GetUserCountAsync();
+        getUserCountAsync.setDatabase(instance);
+        getUserCountAsync.setDelegate(AppDatabase.this);
+        getUserCountAsync.execute();
 
-                }
-            });
+    }
+    //if there are currently no users in the user table insert initial data
+    @Override
+    public void handleTaskResult(Integer i){
+        if (i == 0) {
+            InsertInitialDataAsyncTask insertInitialDataAsyncTask = new InsertInitialDataAsyncTask();
+            insertInitialDataAsyncTask.setDatabase(instance);
+            insertInitialDataAsyncTask.execute();
         }
+
     }
 }
