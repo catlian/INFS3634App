@@ -75,10 +75,11 @@
 
             <LinearLayout
                 android:id="@+id/listIngredients"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:orientation="horizontal"
+                android:weightSum="2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView3">
 
@@ -86,6 +87,7 @@
                     android:id="@+id/ingredientList"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:orientation="vertical"
                     android:paddingEnd="20dp">
 
@@ -95,103 +97,102 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:paddingBottom="8dp"
-                        android:text="Ingredient 1" />
+                        android:text="Sweet and Sour" />
 
                     <TextView
                         android:id="@+id/ing2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="0dp"
                         android:paddingBottom="8dp"
                         android:text="Ingredient 2" />
 
                     <TextView
                         android:id="@+id/ing3"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="8dp"
                         android:text="TextView" />
 
                     <TextView
                         android:id="@+id/ing4"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="8dp"
                         android:text="TextView" />
 
                     <TextView
                         android:id="@+id/ing5"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="8dp"
                         android:text="TextView" />
 
                     <TextView
                         android:id="@+id/ing6"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="8dp"
                         android:text="TextView" />
 
                     <TextView
                         android:id="@+id/ing7"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="8dp"
                         android:text="TextView" />
 
                     <TextView
                         android:id="@+id/ing8"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="8dp"
                         android:text="TextView" />
 
                     <TextView
                         android:id="@+id/ing9"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="8dp"
                         android:text="TextView" />
 
                     <TextView
                         android:id="@+id/ing10"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="8dp"
                         android:text="TextView" />
 
                     <TextView
                         android:id="@+id/ing11"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="8dp"
                         android:text="TextView" />
 
                     <TextView
                         android:id="@+id/ing12"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="8dp"
                         android:text="TextView" />
 
                     <TextView
                         android:id="@+id/ing13"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="8dp"
                         android:text="TextView" />
 
                     <TextView
                         android:id="@+id/ing14"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="8dp"
                         android:text="TextView" />
 
                     <TextView
                         android:id="@+id/ing15"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="45dp"
                         android:paddingBottom="8dp"
                         android:text="TextView" />
@@ -202,6 +203,7 @@
                     android:id="@+id/ingredientAmtList"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView

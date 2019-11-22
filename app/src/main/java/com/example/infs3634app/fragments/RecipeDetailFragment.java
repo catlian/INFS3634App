@@ -223,7 +223,12 @@ public class RecipeDetailFragment extends Fragment implements
     private void checkNull(String result, String amountResult, TextView ingredient, TextView amount){
         if(result!=null){
             ingredient.setText(result);
-            amount.setText(amountResult);
+            if(amountResult!=null){
+                amount.setText(amountResult);
+            }else{
+                amount.setText("N/A");
+            }
+
         }
         else{
             ingredient.setVisibility(View.GONE);
