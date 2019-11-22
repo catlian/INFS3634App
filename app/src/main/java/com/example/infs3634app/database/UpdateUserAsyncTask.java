@@ -26,8 +26,5 @@ public class UpdateUserAsyncTask extends AsyncTask<User,Integer,String> {
     @Override
     protected void onPostExecute (String string){
         delegate.handleTaskResult(string);
-//        System.out.println("received details about "+user.getUsername());
-//        List<Drinks> favDrinks = user.getFavourites();
-//        delegate.handleTaskResult(favDrinks);
     }
 }

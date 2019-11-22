@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.infs3634app.activities.MainActivity;
 
+//class to swap between fragments
 public class FragmentSwapper {
     public void swapFragment(Fragment fragment, View view) {
         AppCompatActivity activity = (AppCompatActivity) view.getContext();
@@ -18,6 +19,7 @@ public class FragmentSwapper {
         fragmentManager.popBackStack(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
         fragmentTransaction.commit();
     }
+    //used if adding to backstack is required
     public void swapFragmentBackstack(Fragment fragment, View view) {
         AppCompatActivity activity = (AppCompatActivity) view.getContext();
         FragmentManager fragmentManager = activity.getSupportFragmentManager();

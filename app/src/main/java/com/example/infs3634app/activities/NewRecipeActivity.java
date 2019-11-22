@@ -81,7 +81,6 @@ public class NewRecipeActivity extends AppCompatActivity implements
             @Override
             public void onClick(View v) {
                 countRows++;
-                System.out.println("number of rows now: " + countRows);
                 if (countRows < 5) {
                     rows.get(countRows - 1).setVisibility(View.VISIBLE);
                 } else {
@@ -120,7 +119,6 @@ public class NewRecipeActivity extends AppCompatActivity implements
             String ingInput = ingInputEdit.getText().toString();
             String qtyInput = ((EditText) rows.get(i).findViewById(R.id.qtyInput)).getText().toString();
             String measureInput = ((EditText) rows.get(i).findViewById(R.id.measurement)).getText().toString();
-            System.out.println(ingInput + " " + qtyInput + measureInput);
             ingredients[i] = ingInput;
             qty[i] = qtyInput;
             measurement[i] = measureInput;

@@ -25,6 +25,7 @@ public class LoginActivity extends AppCompatActivity  {
         final Spinner spinner = findViewById(R.id.spinner);
         Button button = findViewById(R.id.btnSelect);
 
+        //user list currently for demonstration purposes
         Integer[] ids = new Integer[]{1,2,3};
 
         ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>
@@ -32,11 +33,11 @@ public class LoginActivity extends AppCompatActivity  {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
+        //sets user id from spinner
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ID.user_id = (Integer.parseInt(String.valueOf(spinner.getSelectedItem())));
-                Toast.makeText(v.getContext(), "Selected: " + ID.user_id, Toast.LENGTH_LONG).show();
                 Intent intent= new Intent(v.getContext(), MainActivity.class);
                 startActivity(intent);
             }

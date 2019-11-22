@@ -27,7 +27,8 @@ public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlaye
     }
     @Override
     public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult result){
-        Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Sorry the video has failed to load. " +
+                "Please try again later.", Toast.LENGTH_SHORT).show();
     }
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer player, boolean wasRestored){

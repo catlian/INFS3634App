@@ -103,6 +103,5 @@ public class User {
     }
     public void addToMyRecipes(Drinks selectedDrink){
         myRecipes.add(selectedDrink);
-        System.out.println("added new drink to myrecipes");
     }
 }

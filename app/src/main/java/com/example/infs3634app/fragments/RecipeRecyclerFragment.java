@@ -52,8 +52,6 @@ public class RecipeRecyclerFragment extends Fragment {
             categoryName = getArguments().getString("CATEGORY_NAME");
             type = getArguments().getString("CATEGORY_TYPE");
         }
-        System.out.println(categoryName);
-
     }
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState){

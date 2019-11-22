@@ -96,7 +96,6 @@ public class QuizSettingFragment extends Fragment implements QuizDelegate {
             @Override
             public void onClick(View v) {
                 int numQuestions = (Integer.parseInt(String.valueOf(spinner.getSelectedItem())));
-                System.out.println("numQuestions wanted: "+numQuestions);
                 loadMsg.setVisibility(View.VISIBLE);
                 loadMsg.setText("Please wait while we load your questions.");
                 progressBar.setVisibility(View.VISIBLE);
@@ -125,7 +124,6 @@ public class QuizSettingFragment extends Fragment implements QuizDelegate {
                 Collections.shuffle(drinksList);
                 Drinks selectedDrink = drinksList.get(0);
                 question.setAnswer(selectedDrink.getStrDrink());
-                System.out.println("Answer at createQuestionAnswer: "+question.getAnswer());
                 String drinkImage = selectedDrink.getStrDrinkThumb();
                 question.setImageUrl(drinkImage);
                 createOptions(numQuestions);
@@ -149,37 +147,30 @@ public class QuizSettingFragment extends Fragment implements QuizDelegate {
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                System.out.println("response in options received");
                 DrinksImport drinksImport = new Gson().fromJson(response, DrinksImport.class);
                 ArrayList<Drinks> drinksList = drinksImport.getDrinks();
                 Collections.shuffle(drinksList);
                 Drinks selectedDrink = drinksList.get(0);
                 switch (numOptions) {
                     case 1:
-                        System.out.println("set option 2");
                         question.setOption2(selectedDrink.getStrDrink());
                         break;
                     case 2:
-                        System.out.println("set option 3");
                         question.setOption3(selectedDrink.getStrDrink());
                         break;
                     case 3:
-                        System.out.println("set option 4");
                         question.setOption4(selectedDrink.getStrDrink());
                         break;
                 }
 
                 if(numOptions>=4){
-                    System.out.println("Question complete!");
                     question.setQuizId(quizID);
                     question.setQuestion("What is this drink?");
                     question.setQuestionId(0);
-                    System.out.println("Answer: "+question.getAnswer());
                     questionArrayList.add(question);
                     question = new Question();
                     numOptions=1;
                     numQuestionsCreated++;
-                    System.out.println("numquestionscreated= "+numQuestionsCreated);
                     if(numQuestionsCreated>=numQuestions){
                         Question[] arrayQuestions = new Question[numQuestions];
                         for(int i=0;i<arrayQuestions.length;i++){
@@ -198,12 +189,8 @@ public class QuizSettingFragment extends Fragment implements QuizDelegate {
                 }
                 else{
                     numOptions++;
-                    System.out.println("updated numOptions: "+numOptions);
                     createOptions(numQuestions);
-                    System.out.println("calling to create options again");
-
                 }
-
             }
         };
 
@@ -216,12 +203,10 @@ public class QuizSettingFragment extends Fragment implements QuizDelegate {
         String url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=" + quizCategory;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, responseListener, errorListener);
         requestQueue.add(stringRequest);
-        System.out.println("added string request");
     }
 
     @Override
     public void handleQuestionResult(List<Question> questionList) {
-        System.out.println("received final question list");
         Button button = getView().findViewById(R.id.startQuizButton);
         TextView loadMsg = getView().findViewById(R.id.loadMsg);
         loadMsg.setText("Your quiz is now ready!");

@@ -65,21 +65,17 @@ public class MainActivity extends AppCompatActivity
 
                 switch (item.getItemId()) {
                     case R.id.browseButton:
-                        Toast.makeText(MainActivity.this, "Browse", Toast.LENGTH_SHORT).show();
                         fs.swapFragment(browseRecipeCategoryFragment, activityView);
                         break;
                     case R.id.quizButton:
-                        Toast.makeText(MainActivity.this, "Quiz", Toast.LENGTH_SHORT).show();
                         QuizRecyclerFragment quizFragment = new QuizRecyclerFragment();
                         fs.swapFragment(quizFragment, activityView);
                         break;
                     case R.id.myRecipes:
-                        Toast.makeText(MainActivity.this, "My Recipes", Toast.LENGTH_SHORT).show();
                         MyRecipesFragment myRecipesFragment = new MyRecipesFragment();
                         fs.swapFragment(myRecipesFragment, activityView);
                         break;
                     case R.id.youtubeButton:
-                        Toast.makeText(MainActivity.this, "Watch", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, YoutubeActivity.class);
                         startActivity(intent);
                         break;

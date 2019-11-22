@@ -25,9 +25,6 @@ import com.example.infs3634app.model.User;
 
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class LeaderboardFragment extends Fragment implements GetUserListDelegate, GetUserDelegate {
     private AppDatabase database;
     private Context context;
@@ -48,11 +45,13 @@ public class LeaderboardFragment extends Fragment implements GetUserListDelegate
 
         tableLayout = view.findViewById(R.id.tableLayout);
 
+        //get username to set greeting message
         GetUsernameAsyncTask getUsernameAsyncTask = new GetUsernameAsyncTask();
         getUsernameAsyncTask.setDatabase(database);
         getUsernameAsyncTask.setDelegate(LeaderboardFragment.this);
         getUsernameAsyncTask.execute(ID.user_id);
 
+        //get list of users to set leaderboard
         GetUserListAsyncTask getUserListAsyncTask = new GetUserListAsyncTask();
         getUserListAsyncTask.setDatabase(database);
         getUserListAsyncTask.setDelegate(LeaderboardFragment.this);
@@ -65,6 +64,7 @@ public class LeaderboardFragment extends Fragment implements GetUserListDelegate
     public void handleUserResult(List<User> userList) {
         //code ref for layout weight bless them tables are evil
         //https://stackoverflow.com/questions/4641072/how-to-set-layout-weight-attribute-dynamically-from-code
+        //for each user create table row with username, total points, highscore
         for (User user : userList) {
             TableRow tbrow = new TableRow(context);
             TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(0,TableRow.LayoutParams.WRAP_CONTENT,
