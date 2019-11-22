@@ -15,6 +15,7 @@ public class FragmentSwapper {
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_slot, fragment);
+        fragmentManager.popBackStack(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
         fragmentTransaction.commit();
     }
     public void swapFragmentBackstack(Fragment fragment, View view) {

@@ -59,7 +59,6 @@ public class MyRecipesFragment extends Fragment{
     }
 
     public void onResume() {
-
         super.onResume();
         viewPager = (ViewPager)getView().findViewById(R.id.viewPager);
         tabLayout = (TabLayout)getView().findViewById(R.id.tabLayout);
@@ -69,19 +68,18 @@ public class MyRecipesFragment extends Fragment{
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         adapter.notifyDataSetChanged();
+
     }
 
     public void onPause() {
-        System.out.println("pause");
         super.onPause();
         int count = adapter.getCount();
-        for (int i = count - 1; i >= 0; --i) {
+        for (int i =0;i<1;i++) {
             adapter.destroyItem(viewPager, i, adapter.getItem(i));
             tabLayout.removeTabAt(i);
         }
         tabLayout.invalidate();
         adapter.notifyDataSetChanged();
-        System.out.println("pause");
     }
 
     public void onClickAddRecipe(View view){
