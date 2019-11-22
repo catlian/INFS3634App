@@ -29,7 +29,7 @@ public interface UserDao {
     @Query("SELECT userId, username, totalPoints, highScore FROM users ORDER BY totalPoints DESC")
     List<User> getLeaderboard();
 
-    @Query("SELECT userId, username FROM users WHERE userId=:id")
+    @Query("SELECT userId, username, highScore FROM users WHERE userId=:id")
     User getUsername (int id);
 
     @Update

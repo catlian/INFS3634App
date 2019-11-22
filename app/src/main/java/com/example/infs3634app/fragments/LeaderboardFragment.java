@@ -2,12 +2,14 @@ package com.example.infs3634app.fragments;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -30,18 +32,19 @@ public class LeaderboardFragment extends Fragment implements GetUserListDelegate
     private Context context;
     private TableLayout tableLayout;
     private TextView username;
-
+    private Button btnShare;
     public LeaderboardFragment() {
         // Required empty public constructor
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_leaderboard, container, false);
+        final View view = inflater.inflate(R.layout.fragment_leaderboard, container, false);
 
         context = getContext();
         database = AppDatabase.getInstance(context);
         username = view.findViewById(R.id.lblUsername);
+        btnShare = view.findViewById(R.id.btnShare);
 
         tableLayout = view.findViewById(R.id.tableLayout);
 
@@ -56,6 +59,8 @@ public class LeaderboardFragment extends Fragment implements GetUserListDelegate
         getUserListAsyncTask.setDatabase(database);
         getUserListAsyncTask.setDelegate(LeaderboardFragment.this);
         getUserListAsyncTask.execute();
+
+
 
         return view;
     }
@@ -96,6 +101,17 @@ public class LeaderboardFragment extends Fragment implements GetUserListDelegate
 
     @Override
     public void handleUserResult(User user) {
+        final String highScore = user.getHighScore().toString();
         username.setText("Hi " + user.getUsername() + "!");
+        btnShare.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+
+                intent.putExtra(Intent.EXTRA_TEXT, highScore);
+                intent.setType("text/plain");
+                startActivity(intent);
+            }
+        });
     }
 }
